@@ -1,0 +1,16 @@
+REDUX-LOGGER : paquete que permite loguear todos los actions que se realizan en la webapp.
+REDUX-DEV-TOOLS: paquete que permite editar/debuggear en tiempo real en el navegador (necesita tener instalado la extension en el navegador)
+WEBPACK-DEV-SERVER: webpack permite servir la app con hotreloading (cada vez que hagamos un cambio webpack lo vuelca directamente)
+
+
+
+
+dependecies:
+
+react:
+react-dom:
+react-redux:
+react-router:
+react-router-redux:
+redux:
+babel-polyfill:
