@@ -3,7 +3,7 @@ import InitialState from './initialState.js'
 
 export default function formCredentialsReducer(state = InitialState.formCredentials , actions){
     switch(actions.type){
-        case CHANGE_FORM:
+        case CHANGE_CREDENTIALS_FORM:
             return {
                 ...state
             }
