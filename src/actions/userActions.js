@@ -187,21 +187,7 @@ function validateUser(user){
  */
 export function changeCredentialsForm(newState) {
 
-    console.log('changeform')
     return { type: CHANGE_CREDENTIALS_FORM, payload: newState };
-
 }
 
-
-
-/**
- * convert an array in string 
- * @param  {array} array The array data
- * @return {string} Formatted string
- */
-function toString(array){
-    let str = '';
-    array.map( (value)=>{str+=value+'<br>'} )
-    return str;
-}
 
