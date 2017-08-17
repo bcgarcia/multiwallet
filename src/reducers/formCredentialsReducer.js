@@ -5,12 +5,8 @@ export default function formCredentialsReducer(state = InitialState.formCredenti
     switch(actions.type){
         case CHANGE_CREDENTIALS_FORM:
             return {
-                ...state
-            }
-
-        case CHANGE_FORM:
-            return {
-                ...state
+                ...state,
+                state.username.value : 
             }
         default:
             //console.debug('notification reducer :: hit default', action.type);
