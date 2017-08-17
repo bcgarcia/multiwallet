@@ -16,7 +16,8 @@ const initialState = {
         password: {
             value : '',
             state : null
-        }
+        },
+        disableButton : true
     },
   
     user:{
