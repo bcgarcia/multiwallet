@@ -6,6 +6,8 @@ import {bindActionCreators} from 'redux'
 import LoadingButton from '../common/LoadingButton'
 import ErrorMessages from '../common/ErrorMessages'
 import * as formCredentialsActions from '../../actions/formCredentialsActions'
+import * as userActions from '../../actions/userActions'
+
 
 class CredentialsForm extends Component{
 
@@ -15,43 +17,50 @@ class CredentialsForm extends Component{
         this.handleChangeUsername = this.handleChangeUsername.bind(this)
         this.handleChangePassword = this.handleChangePassword.bind(this)
         
-        const updatedState = {
-            username:{
-                value: ''
-            },
-            password:{
-                value: ''
-            }
-        }
+        
     }
 
     handleChangeUsername(event){
         event.preventDefault
-
-        console.log(event.target.value)
-
-    }        
+        var form ={
+            username:{
+                value : event.target.value,
+                state : this.props.formCredentials.username.state
+            }
+        }
+        var updatedState = this.mergeWithCurrentState(form)
+        this.emitStateChange(updatedState)
+    }     
+    
+    
     handleChangePassword(event){
         event.preventDefault
+        var form ={
+            password:{
+                value : event.target.value,
+                state : this.props.formCredentials.username.state
+            }
+        }
+        var updatedState = this.mergeWithCurrentState(form)
+        this.emitStateChange(updatedState)
+    }     
+    
+    // Emits the change of the form state to the application state
+    emitStateChange(newState){
+        return this.props.userActions.changeCredentialsForm(newState);
+    }
 
-        //const {username, password} = this.refs;
-
-    }        
+    // Merges the current state with a change
+    mergeWithCurrentState(stateChange) {
+        return Object.assign(this.props.formCredentials, stateChange);
+    }
 
     // throw the action that change the form state to the application state
-    actionChange(newState) {
-        this.props.dispatch(changeForm(newState));
-    }
+    
 
     handleSubmit(event){
         event.preventDefault()
-        let user = {
-            email : '',
-            password : '',
-
-        }
-        this.props.onSubmit(user)
-
+        this.props.onSubmit({email : this.props.formCredentials.username.value, password : this.props.formCredentials.password.value})
     }
 
 
@@ -109,7 +118,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
 
     return{
-        formActions : bindActionCreators( formCredentialsActions , dispatch),
+        userActions : bindActionCreators( userActions , dispatch),
     }
 }
 

@@ -1,4 +1,3 @@
-
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyCedwGepyFoq_kk8n9nD898EqwRu-n6Cso",
@@ -8,5 +7,5 @@ var config = {
     storageBucket: "",
     messagingSenderId: "411035840956"
 };
-
+ 
 export default config

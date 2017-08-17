@@ -11,5 +11,7 @@ export const errorMessages = {
     WRONG_PASSWORD : 'Pass incorrecta.',
     USER_NOT_FOUND : 'El usuario introducido no existe.',
     USERNAME_TAKEN : 'El usuario introducido ya está en uso',
-    GENERAL_ERROR : 'Algo ha ido mal, pruebe más tarde'
+    GENERAL_ERROR : 'Algo ha ido mal, pruebe más tarde',
+    WRONG_EMAIL : 'El email es incorrecto',
+    
 }

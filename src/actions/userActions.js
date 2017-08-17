@@ -1,13 +1,14 @@
 import { 
     REGISTER_USER_OK , LOGIN_USER_OK , FORGOT_PASSWORD_OK, 
     REGISTER_USER_FAIL , LOGIN_USER_FAIL , FORGOT_PASSWORD_FAIL ,
-    ADD_NOTIFICATION,CHANGE_FORM,SENDING_REQUEST,SET_ERROR_MESSAGE,SET_AUTH
+    ADD_NOTIFICATION,CHANGE_CREDENTIALS_FORM,SENDING_REQUEST,SET_ERROR_MESSAGE,SET_AUTH
 } from '../constants/actions'
 
 import API from '../api'
 import {addNotification} from './notificationActions'
 import {errorMessages} from '../constants/errorMessages'
 import {anyElementsEmpty} from '../utils/utils'
+import validator from '../utils/validator'
 //import {} from './formCredentialsActions'
 
 /**
@@ -26,6 +27,12 @@ export function loginUser( user ){
                 dispatch(setErrorMessage(errorMessages.FIELD_MISSING));
                 dispatch(sendingRequest(false));
                 return dispatch(loginUserFail(errorMessages.FIELD_MISSING))
+            }
+
+            let errorList = validateUser(user)
+            if( errorList.length > 0 ){
+                dispatch( setErrorMessage(errorList.toString) ) 
+                dispatch( sendingRequest(false) )
             }
 
             const loggedUser = await API.user.login( user.email , user.password )
@@ -57,9 +64,9 @@ export function registerUser(user){
             dispatch(sendingRequest(true));
             // If no username or password was specified, throw a field-missing error
             if (anyElementsEmpty({ username, password })) {
-            dispatch(setErrorMessage(errorMessages.FIELD_MISSING));
-            dispatch(sendingRequest(false));
-            return;
+                dispatch(setErrorMessage(errorMessages.FIELD_MISSING));
+                dispatch(sendingRequest(false));
+                return;
             }
         })
 
@@ -152,5 +159,49 @@ function setErrorMessage(message) {
 function forwardTo(location) {
   console.log('forwardTo(' + location + ')');
   browserHistory.push(location);
+}
+
+
+
+/**
+ * validates the user before to send a api call and save the 
+ * @param  {object} user The user data introduced in the credentialsform
+ * @return {object}          Formatted action for the reducer to handle
+ */
+function validateUser(user){
+    let errors = [];
+    if(!validator.validEmail(user.email)){ $errors.push(errorMessages.WRONG_EMAIL) }
+    if( validator.isEmpty(user.password) ){ $errors.push(errorMessages.WRONG_PASSWORD) }
+    return errors
+}
+
+
+/**
+ * Sets the form state
+ * @param  {object} newState          The new state of the form
+ * @param  {string} newState.username.value The new text of the username input field of the form
+ * @param  {string} newState.password.value The new text of the password input field of the form
+ * @param  {string} newState.username.state The new text of the username input field of the form
+ * @param  {string} newState.password.state The new text of the password input field of the form
+ * @return {object}                   Formatted action for the reducer to handle
+ */
+export function changeCredentialsForm(newState) {
+
+    console.log('changeform')
+    return { type: CHANGE_CREDENTIALS_FORM, payload: newState };
+
+}
+
+
+
+/**
+ * convert an array in string 
+ * @param  {array} array The array data
+ * @return {string} Formatted string
+ */
+function toString(array){
+    let str = '';
+    array.map( (value)=>{str+=value+'<br>'} )
+    return str;
 }
 

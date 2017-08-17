@@ -3,14 +3,10 @@ import InitialState from './initialState.js'
 
 export default function formCredentialsReducer(state = InitialState.formCredentials , actions){
     switch(actions.type){
-        case CHANGE_FORM:
+        case CHANGE_CREDENTIALS_FORM:
             return {
-                ...state
-            }
-
-        case CHANGE_FORM:
-            return {
-                ...state
+                ...state,
+                state.username.value : 
             }
         default:
             //console.debug('notification reducer :: hit default', action.type);
