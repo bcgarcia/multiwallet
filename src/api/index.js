@@ -1,17 +1,21 @@
 import firebase from 'firebase'
 import fetch from 'isomorphic-fetch'
 import firebaseConfig from '../constants/configFirebase'
-import auth from '../utils/auth'
+//import auth from '../utils/auth'
 
 firebase.initializeApp(firebaseConfig);
 
 const API = {
     user:{
 
+        async currentUser(){
+
+            await firebase.auth().currentUser()
+        },
+
         async register( email , password ){
-            
-            if( auth.loggedIn() ) return ;
-            
+
+            //if( auth.loggedIn() ) return ;
             const response = await firebase.auth().createUserWithEmailAndPassword(email, password)
             const user = {
                 uid: response.uid,
@@ -28,7 +32,7 @@ const API = {
 
         async login(email, password){
 
-            if(auth.loggedIn) return 
+            //if(auth.loggedIn) return 
             const response = await firebase.auth().signInWithEmailAndPassword(email, password)
             const user = {
                 uid: response.uid,
@@ -39,10 +43,13 @@ const API = {
                 photoURL : response.photoURL,
                 token: response.refreshToken, 
             }
-            console.log(user)
-            //save user logged token in localstorage 
-            localStorage.token = user.token
             return await user
+        },
+
+
+        async logout(){
+
+            await firebase.auth().signOut()
         }
     },
 

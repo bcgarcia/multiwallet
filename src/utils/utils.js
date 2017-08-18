@@ -13,7 +13,6 @@ export function anyElementsEmpty(elements) {
 }
 
 
-
 /**
  * convert an array in string 
  * @param  {array} array The array data
@@ -24,5 +23,3 @@ function toString(array){
     array.map( (value)=>{str+=value+'<br>'} )
     return str;
 }
-
-

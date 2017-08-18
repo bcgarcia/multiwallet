@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {browserHistory} from 'react-router'
+//import {browserHistory} from 'react-router'
 import Dashboard from './Dashboard'
 import * as userActions from '../../actions/userActions'
 
@@ -17,13 +17,25 @@ class Dashboardcontainer extends Component{
     }
 
     render(){
-        return(<div className="container"> <Dashboard /> </div>)
+        return(<div className="container">  
+            <div className="row">
+                <div className="col-md-4">
+                    {console.log(this.props)}
+                    <p className="text">Email : {this.props.user.email} </p>
+                    <p className="text">Token : {this.props.user.token} </p>
+                </div>
+                <div className="col-md-8">
+                    <Dashboard  />    
+                </div>
+            </div>
+        </div>)
     }
 }
 
 function mapStateToProps( state ){
     return {
-        
+        user : state.user,
+        app : state.app
     }
 }
 

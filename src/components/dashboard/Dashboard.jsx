@@ -1,9 +1,8 @@
-
-
 import React from 'react'
 import PropTypes from 'prop-types'
+import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import userActions from '../../actions/userActions'
+import * as userActions from '../../actions/userActions'
 
 const Dashboard = () =>(
     <article>
@@ -21,18 +20,22 @@ const Dashboard = () =>(
       </article>
 )
 
+/*
 function mapDispatchToProps(dispatch){
     return{
-        data : state
+        userActions : bindActionCreators( userActions , dispatch)
     }
 }
 
 function mapStateToProps(state){
 
     return {
-        userActions : bindActionCreators( userActions , dispatch)
+        userState : state.user,
+        app : state.app
     }
 }
 
+export default connect( mapStateToProps , mapDispatchToProps )( Dashboard )
 
-export default connect(mapStateToProps,mapDispatchToProps)(Dashboard)
+*/
+export default Dashboard

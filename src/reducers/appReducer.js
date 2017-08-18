@@ -7,8 +7,8 @@ export default function appReducer(state = initialState.app, action) {
         
         case SET_AUTH:
             return {
-                ...state.formCredentials,
-                auth : action.payload
+                ...state,
+                loggedIn : action.payload
             }
         case SET_ERROR_MESSAGE:
             return {

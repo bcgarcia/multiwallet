@@ -77,8 +77,6 @@ class CredentialsForm extends Component{
     render(){
         return (
             <div className="container-fluid">
-                {console.log('formulario')}
-                {console.log(this.props.formCredentials.username.state)}
                 <div className="row">
                     <div className="col-md-6 offset-md-3">
                         <ErrorMessages />

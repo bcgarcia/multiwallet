@@ -1,3 +1,6 @@
+
+import {browserHistory} from 'react-router'
+
 import { 
     REGISTER_USER_OK , LOGIN_USER_OK , FORGOT_PASSWORD_OK, 
     REGISTER_USER_FAIL , LOGIN_USER_FAIL , FORGOT_PASSWORD_FAIL ,
@@ -7,7 +10,7 @@ import {
 import API from '../api'
 import {addNotification} from './notificationActions'
 import {errorMessages} from '../constants/errorMessages'
-import {anyElementsEmpty} from '../utils/utils'
+import {anyElementsEmpty, toString} from '../utils/utils'
 import validator from '../utils/validator'
 //import {} from './formCredentialsActions'
 
@@ -28,16 +31,24 @@ export function loginUser( user ){
                 dispatch(sendingRequest(false));
                 return dispatch(loginUserFail(errorMessages.FIELD_MISSING))
             }
-
             let errorList = validateUser(user)
             if( errorList.length > 0 ){
                 dispatch( setErrorMessage(errorList.toString) ) 
                 dispatch( sendingRequest(false) )
             }
-
             const loggedUser = await API.user.login( user.email , user.password )
-            //save user created token in localstorage 
-            //localStorage.setItem('multiwalletToken',user.token)  
+            console.log('get login user data')
+            console.log(loggedUser)
+            localStorage.token = loggedUser.token;
+            dispatch(setAuthState(true))
+ 
+            
+            dispatch(changeCredentialsForm({
+                username:{value:'',state:null},
+                password:{value:'',state:null}
+            }));
+            dispatch(sendingRequest(false) )
+            forwardTo('/dashboard');
             return dispatch( loginUserOk(loggedUser) )
         } 
         catch (error) {
@@ -48,6 +59,23 @@ export function loginUser( user ){
             }
             dispatch(addNotification(notif) )
             return dispatch( loginUserFail(error) )
+        }
+    }
+}
+
+
+export function logOut(){
+
+    return async ( dispatch )=>{
+
+        try {
+            await API.user.logout()
+            localStorage.removeItem('token');
+
+            forwardTo('/');
+
+        } catch (error) {
+            
         }
     }
 }
@@ -185,9 +213,10 @@ function validateUser(user){
  * @param  {string} newState.password.state The new text of the password input field of the form
  * @return {object}                   Formatted action for the reducer to handle
  */
-export function changeCredentialsForm(newState) {
+export function changeCredentialsForm(newState) {return { type: CHANGE_CREDENTIALS_FORM, payload: newState };}
 
-    return { type: CHANGE_CREDENTIALS_FORM, payload: newState };
-}
-
-
+/**
+ * Sets the authentication state of the application
+ * @param {boolean} newState True means a user is logged in, false means no user is logged in
+ */
+export function setAuthState(state){return {type: SET_AUTH , payload: state}}
