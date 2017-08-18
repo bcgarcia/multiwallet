@@ -6,7 +6,7 @@
   "author": "Brais Calvo",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server -w --colors --watch --progress"
+    "dev": " webpack-dev-server -w --colors --watch --progress"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
