@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import LoadingButton from '../common/LoadingButton'
 import ErrorMessages from '../common/ErrorMessages'
+import validator from '../../utils/validator'
 import * as formCredentialsActions from '../../actions/formCredentialsActions'
 import * as userActions from '../../actions/userActions'
 
@@ -16,29 +17,39 @@ class CredentialsForm extends Component{
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChangeUsername = this.handleChangeUsername.bind(this)
         this.handleChangePassword = this.handleChangePassword.bind(this)
-        
-        
     }
 
     handleChangeUsername(event){
         event.preventDefault
-        var form ={
+        let inputValue = event.target.value
+        let inputState = null
+        
+        if(validator.validEmail(inputValue) && !validator.isEmpty(inputValue) ){
+            inputState = 'success'
+        }
+        
+        let form ={
             username:{
-                value : event.target.value,
-                state : this.props.formCredentials.username.state
+                value : inputValue,
+                state : inputState
             }
         }
-        var updatedState = this.mergeWithCurrentState(form)
+        let updatedState = this.mergeWithCurrentState(form)
         this.emitStateChange(updatedState)
     }     
     
     
     handleChangePassword(event){
         event.preventDefault
+        let inputValue = event.target.value
+        let inputState = null
+        if(validator.validPassword(inputValue) ){
+            inputState = 'success'
+        }
         var form ={
             password:{
                 value : event.target.value,
-                state : this.props.formCredentials.username.state
+                state : inputState
             }
         }
         var updatedState = this.mergeWithCurrentState(form)
@@ -63,11 +74,11 @@ class CredentialsForm extends Component{
         this.props.onSubmit({email : this.props.formCredentials.username.value, password : this.props.formCredentials.password.value})
     }
 
-
     render(){
         return (
-            
             <div className="container-fluid">
+                {console.log('formulario')}
+                {console.log(this.props.formCredentials.username.state)}
                 <div className="row">
                     <div className="col-md-6 offset-md-3">
                         <ErrorMessages />

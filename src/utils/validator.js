@@ -2,10 +2,15 @@ var  Validator = {
 
     validEmail(email){ return /^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/.test(email) },
 
-    isEmpty(value){ return trim(value) == '' ? true : false }
+    isEmpty(value){ return (value) == '' ? true : false },
 
+    validPassword(value){
 
+        if ( value.length > 20 || value.length < 6 ) return false
+        else return true
+    }  
 }
+
 
 
 export default Validator
