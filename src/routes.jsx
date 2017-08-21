@@ -23,37 +23,23 @@ function checkAuth(nextState , replaceState){
     if( nextState.location.pathname !== '/dashboard'){
         if (state.app.loggedIn) {
             if (nextState.location.state && nextState.location.pathname) {
+                console.log('iff 1')
                 replaceState(null, nextState.location.pathname);
-            } else {
+            } 
+            else {
+                
+                console.log('else 1')
                 replaceState(null, '/');
             }
         }       
     }
-    else{
-        // If the user is already logged in, forward them to the homepage
-        if (!state.app.loggedIn) {
-            
-            if (  nextState.location.pathname) {
-                replaceState({nextPathname: nextState.location.pathname}, '/login');
-            } 
-            else {
-                replaceState(null, '/');
-            }
-        }
-
-    }
-
-    //if()
-
 }
 
 export default 
 (<Route path="/" component={App} >
     <IndexRoute component={MainContentContainer} />
-    
-        <Route path="/login" component={LoginContainer} />
-        <Route path="/register" component={RegisterContainer} />
-        <Route path="/dashboard" component={DashboardContainer} onEnter={checkAuth} />
-
+    <Route path="/login" component={LoginContainer} />
+    <Route path="/register" component={RegisterContainer} />
+    <Route path="/dashboard" component={DashboardContainer} onEnter={checkAuth} />
     <Route path="*" component={NotFound} />
 </Route>)

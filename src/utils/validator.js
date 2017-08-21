@@ -11,6 +11,4 @@ var  Validator = {
     }  
 }
 
-
-
 export default Validator

@@ -13,6 +13,20 @@ const API = {
             await firebase.auth().currentUser()
         },
 
+        async signInWithToken(){
+            /*
+            console.log('currentuser')
+            const response1 = await firebase.auth().currentUser
+            console.log(response1)
+            */
+
+            const response = await firebase.auth().signInWithCustomToken(localStorage.token)
+
+            console.log('signinwithtoken')
+            console.log(response)
+            return await response
+        },
+
         async register( email , password ){
 
             //if( auth.loggedIn() ) return ;
