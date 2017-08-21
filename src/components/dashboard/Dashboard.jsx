@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
-import * as userActions from '../../actions/userActions'
+//import {bindActionCreators} from 'redux'
+//import {connect} from 'react-redux'
+//import * as userActions from '../../actions/userActions'
 
 const Dashboard = () =>(
     <article>

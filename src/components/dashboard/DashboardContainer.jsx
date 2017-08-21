@@ -6,23 +6,22 @@ import {bindActionCreators} from 'redux'
 import Dashboard from './Dashboard'
 import * as userActions from '../../actions/userActions'
 
-class Dashboardcontainer extends Component{
+class DashboardContainer extends Component{
 
     constructor(props){
         super(props)
     }
-
+    
     componentWillMount(){
-       
+        
     }
 
     render(){
         return(<div className="container">  
             <div className="row">
                 <div className="col-md-4">
-                    {console.log(this.props)}
-                    <p className="text">Email : {this.props.user.email} </p>
-                    <p className="text">Token : {this.props.user.token} </p>
+                    <p className="text">Email : {this.props.email} </p>
+                    <p className="text">verified : {this.props.emailVerfied ? 'true' : 'false' } </p>
                 </div>
                 <div className="col-md-8">
                     <Dashboard  />    
@@ -34,8 +33,9 @@ class Dashboardcontainer extends Component{
 
 function mapStateToProps( state ){
     return {
-        user : state.user,
-        app : state.app
+        email       : state.user.email,
+        displayName : state.user.displayName,
+        emailVerfied: state.user.emailVerfied
     }
 }
 
@@ -45,5 +45,5 @@ function mapDispatchToProps(dispatch){
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboardcontainer)
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer)
 
