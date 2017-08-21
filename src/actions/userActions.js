@@ -1,6 +1,3 @@
-
-import {browserHistory} from 'react-router'
-
 import { 
     REGISTER_USER_OK , LOGIN_USER_OK , FORGOT_PASSWORD_OK, 
     REGISTER_USER_FAIL , LOGIN_USER_FAIL , FORGOT_PASSWORD_FAIL ,
@@ -8,11 +5,11 @@ import {
 } from '../constants/actions'
 
 import API from '../api'
+import {browserHistory} from 'react-router'
 import {addNotification} from './notificationActions'
 import {errorMessages} from '../constants/errorMessages'
 import {anyElementsEmpty, toString} from '../utils/utils'
 import validator from '../utils/validator'
-//import {} from './formCredentialsActions'
 
 /**
  * async function to log a registered user
@@ -36,20 +33,20 @@ export function loginUser( user ){
                 dispatch( setErrorMessage(errorList.toString) ) 
                 dispatch( sendingRequest(false) )
             }
-            const loggedUser = await API.user.login( user.email , user.password )
-            console.log('get login user data')
-            console.log(loggedUser)
+            const response = await API.user.login( user.email , user.password )
+            const loggedUser = await response
+
+
             localStorage.token = loggedUser.token;
             dispatch(setAuthState(true))
- 
-            
             dispatch(changeCredentialsForm({
                 username:{value:'',state:null},
                 password:{value:'',state:null}
             }));
             dispatch(sendingRequest(false) )
+            dispatch( loginUserOk(loggedUser) )
             forwardTo('/dashboard');
-            return dispatch( loginUserOk(loggedUser) )
+            return
         } 
         catch (error) {
             const notif = {
@@ -64,14 +61,12 @@ export function loginUser( user ){
 }
 
 
-export function logOut(){
-
+export function logout(){
     return async ( dispatch )=>{
-
         try {
             await API.user.logout()
             localStorage.removeItem('token');
-
+            dispatch(setAuthState(false))
             forwardTo('/');
 
         } catch (error) {
@@ -100,7 +95,6 @@ export function registerUser(user){
 
         try {
             await API.user.register(user.email , user.password)
-
             return dispatch(registerUserOk(user))
         } 
         catch (error) {
@@ -134,8 +128,13 @@ export function registerUserOk(user){return{ type: REGISTER_USER_OK , payload : 
  * @param {object} user 
  */
 export function loginUserOk(user){
-    
-    return {type:LOGIN_USER_OK , payload : user }
+    console.log('login user ok')
+    console.log(user)
+    console.log(user.email)
+    return {
+        type:LOGIN_USER_OK , 
+        payload : user 
+    }
 }
 
 /**

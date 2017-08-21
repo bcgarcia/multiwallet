@@ -1,13 +1,12 @@
 import auth from '../utils/auth'
-
+import API from '../api'
 const initialState = {
 
     app:{
         currentlySending: false,
         loggedIn: auth.loggedIn(),
-        errorMessage: '',
+        errorMessage: ''
     },
-
     formCredentials: {
         username: {
             value : '',
@@ -16,21 +15,23 @@ const initialState = {
         password: {
             value : '',
             state : null
-        },
-        disableButton : true
+        }
     },
-  
     user:{
-        user       : null,
-        error      : null
+        displayName     : '',
+        email           : '',
+        emailVerified   :false,
+        phone           :'',
+        photoURL        :'',
+        token           :'',
+        uid             : '',
+        error           : null
     },
-
     wallets: {
         list            :[],
         loading         :false,
         error           :false
     },
-
     walletActive:{
         loading         :false,
         error           : false,

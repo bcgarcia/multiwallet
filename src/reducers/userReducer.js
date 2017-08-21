@@ -19,8 +19,6 @@ import initialState from './initialState'
             
             return{
                 ...state,
-                loading : true,
-                register: true,
                 login: false
             }
         case REGISTER_USER_FAIL:
@@ -36,39 +34,33 @@ import initialState from './initialState'
             
             return{
                 ...state,
-                loading: false,
-                register: true,
                 error: null,
-                user: actions.payload
-            }
-        
-        case LOGIN_USER_INIT:
-            return{
-                ...state,
-                loading : true,
-                login: true,
-                register: false
+                user: [...state.user, actions.payload ]
             }
 
         case LOGIN_USER_FAIL:
             
             return{
                 ...state,
-                loading : false,
-                register: false,
-                login: false,
-                error: actions.payload
+                error: actions.payload,
+                user: null,
             }
     
         case LOGIN_USER_OK:
             
+        console.log('actioooons')
+        console.log(actions.payload.email)
+
             return{
                 ...state,
-                loading: false,
-                register: false,
-                login: true,
-                error: null,
-                user: actions.payload
+                error           : null,
+                displayName     : actions.payload.displayName,
+                email           : actions.payload.email,
+                emailVerified   : actions.payload.emailVerified,
+                phone           : actions.payload.phone,
+                photoURL        : actions.payload.photoURL,
+                token           : actions.payload.token,
+                uid             : actions.payload.uid,
             }
     
         default:
