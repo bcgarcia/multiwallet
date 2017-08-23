@@ -9,9 +9,9 @@ class NavbarContainer extends Component{
 
     render(){
 
-        <div className="">
+        return(<div className="">
             <p className="data">asdf</p>
-        </div>
+        </div>)
     }
 
 
