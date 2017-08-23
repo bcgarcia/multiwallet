@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 //import {browserHistory} from 'react-router'
 import Dashboard from './Dashboard'
+import NavbarContainer from './navbar/NavbarContainer'
 import * as userActions from '../../actions/userActions'
 
 class DashboardContainer extends Component{
@@ -17,11 +18,10 @@ class DashboardContainer extends Component{
     }
 
     render(){
-        return(<div className="container">  
+        return(<div className="container-fluid">  
             <div className="row">
-                <div className="col-md-4">
-                    <p className="text">Email : {this.props.email} </p>
-                    <p className="text">verified : {this.props.emailVerfied ? 'true' : 'false' } </p>
+                <div className="col-md-2">
+                    <NavbarContainer />
                 </div>
                 <div className="col-md-8">
                     <Dashboard  />    

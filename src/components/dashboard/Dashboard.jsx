@@ -7,15 +7,11 @@ import PropTypes from 'prop-types'
 const Dashboard = () =>(
     <article>
         <section className="text-section">
-          <h1>Dashboard</h1>
-          <p>Welcome, you are logged in! To have a look at the code behind this application, go to <a href="https://github.com/mxstbr/login-flow">Github</a>. To run it locally:</p>
-          <ol>
-            <li><p>Clone the repo using <code>git clone git@github.com:mxstbr/login-flow</code></p></li>
-            <li><p>Run <code>npm install</code> to install the dependencies.</p></li>
-            <li><p>Run <code>npm start</code> to start the local web server</p></li>
-            <li><p>Go to <a href="http://localhost:8080"><code>http://localhost:8080</code></a> and you should see it running!</p></li>
-          </ol>
-          <p>If you registered a new user, the credentials are now securely saved to localStorage. The next time you visit the website with this browser, you will be able to login with that username/password combination.</p>
+          <div className="jumbotron">
+        <h1>Marketing stuff!</h1>
+        <p className="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, 
+            tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
+        <p><a className="btn btn-lg btn-success" href="#" role="button">Get started today</a></p></div>
         </section>
       </article>
 )

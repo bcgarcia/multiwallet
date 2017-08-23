@@ -23,11 +23,7 @@ class CredentialsForm extends Component{
         event.preventDefault
         let inputValue = event.target.value
         let inputState = null
-        
-        if(validator.validEmail(inputValue) && !validator.isEmpty(inputValue) ){
-            inputState = 'success'
-        }
-        
+        if(validator.validEmail(inputValue) && !validator.isEmpty(inputValue) ){inputState = 'success'}
         let form ={
             username:{
                 value : inputValue,
@@ -67,8 +63,6 @@ class CredentialsForm extends Component{
     }
 
     // throw the action that change the form state to the application state
-    
-
     handleSubmit(event){
         event.preventDefault()
         this.props.onSubmit({email : this.props.formCredentials.username.value, password : this.props.formCredentials.password.value})

@@ -26,12 +26,12 @@ class Header extends Component{
             <Link className="navbar-text" to="/login"> <button className="btn btn-outline-primary marginleft10" type="button">Login</button></Link> 
         </div>):(<div className="col-md-9 text-right">
                 <Link className="navbar-text" to="/dashboard"> <button className="btn btn-outline-primary marginleft10" type="button">Dashboard</button> </Link> 
-                <a href="#" className="btn btn-outline-success btn-login marginleft10" onClick={this.handleLogout}>Logout</a>
+                <button onClick={this.handleLogout} className="btn btn-outline-danger btn-login marginleft10" type="button"><span className="fa fa-sign-out"></span></button>
                 </div>)
 
         return( <div>
             <NotificationContainer />
-            <nav className="navbar navbar-light bg-faded navbar-toggleable-md">
+            <nav className="navbar navbar-light bg-faded navbar-toggleable-md margin-bottom20">
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerD" aria-controls="navbarTogglerD" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -62,7 +62,6 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-
     return{
         userActions : bindActionCreators(userActions , dispatch)
     }

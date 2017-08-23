@@ -4,6 +4,8 @@ import Header from './components/common/Header'
 import {connect} from 'react-redux'
 
 
+import 'bootstrap'
+
 // Import the CSS file, which webpack transfers to the build folder
 import 'bootstrap/dist/css/bootstrap.css'
 import './css/main.css'
