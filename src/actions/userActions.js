@@ -36,7 +36,6 @@ export function loginUser( user ){
             const response = await API.user.login( user.email , user.password )
             const loggedUser = await response
 
-
             localStorage.token = loggedUser.token;
             dispatch(setAuthState(true))
             dispatch(changeCredentialsForm({
@@ -187,8 +186,6 @@ function forwardTo(location) {
   console.log('forwardTo(' + location + ')');
   browserHistory.push(location);
 }
-
-
 
 /**
  * validates the user before to send a api call and save the 
