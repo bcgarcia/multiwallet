@@ -5,9 +5,13 @@ import uuid from 'uuid'
 
 
 const Navbar = (nav)=>(<div>
-    {console.log('list')}
-    {console.log(nav)}
-    {nav.map((item)=>{})}
+    {
+        nav.map( (item)=>{
+            
+        }
+
+        )
+    }
 </div>)
 
 export default Navbar
