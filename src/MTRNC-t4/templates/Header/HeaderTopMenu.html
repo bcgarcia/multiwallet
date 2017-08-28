@@ -1,0 +1,24 @@
+<div className="top-menu">
+    <ul className="nav navbar-nav pull-right">
+        <li className="separator hide"> </li>
+        {/* BEGIN NOTIFICATION DROPDOWN */}
+        <HeaderNotificationList />
+        {/* END NOTIFICATION DROPDOWN */}
+        <li className="separator hide"> </li>
+        {/* BEGIN INBOX DROPDOWN */}
+        <HeaderInboxList />
+        {/* END INBOX DROPDOWN */}
+        <li className="separator hide"> </li>
+        {/* BEGIN TODO DROPDOWN */}
+        <HeaderToDoList />
+        {/* END TODO DROPDOWN */}
+        <HeaderUserOptionsList />
+        {/* END USER LOGIN DROPDOWN */}
+        {/* BEGIN QUICK SIDEBAR TOGGLER */}
+        <li className="dropdown dropdown-extended quick-sidebar-toggler">
+            <span className="sr-only">Toggle Quick Sidebar</span>
+            <i className="icon-logout"></i>
+        </li>
+        {/* END QUICK SIDEBAR TOGGLER */}
+    </ul>
+</div>
