@@ -4,13 +4,11 @@ import NavbarItem from './Navbar'
 import uuid from 'uuid'
 
 
-const Navbar = (nav)=>(<div>
+const Navbar = ( {nav , onDisplayedItem } )=>(<div>
     {
-        nav.map( (item)=>{
+        nav.map( item =>{
                 <NavbarItem key={uuid.v4()} {...item} onDisplayedItem={onDisplayedItem} />
-        }
-
-        )
+        })
     }
 </div>)
 

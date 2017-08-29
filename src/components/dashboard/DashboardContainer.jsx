@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 //import {browserHistory} from 'react-router'
 import Dashboard from './Dashboard'
-import NavbarContainer from './navbar/NavbarContainer'
+import NavHeaderContainer from './navHeader/NavHeaderContainer'
 import * as userActions from '../../actions/userActions'
 
 class DashboardContainer extends Component{
@@ -17,17 +17,54 @@ class DashboardContainer extends Component{
         
     }
 
+
     render(){
-        return(<div className="container-fluid">  
-            <div className="row">
-                <div className="col-md-2">
-                    <NavbarContainer />
+
+        let navThree = [
+            {
+                'icon': 'fa fa-users',
+                'name': 'Grupos',
+                'tooltip': 'Gestiona tus grupos',
+                'url': 'groups'
+            },
+            {
+                'icon': 'fa fa-plus',
+                'name': 'Eventos',
+                'tooltip': 'Gestiona tus eventos',
+                'url': 'events'
+            },
+            {
+                'icon': 'fa fa-thumbs-up',
+                'name': 'Recintos',
+                'tooltip': 'Gestiona lugares',
+                'url': 'places'
+            },
+         ]
+
+
+         return(<div className="page-header navbar navbar-fixed-top">
+            <div className="page-header-inner ">
+               
+                <div className="page-logo">
+                    <a href="index.html">
+                        <img src="" alt="logo" class="logo-default" /> 
+                    </a>
+                    <div className="menu-toggler sidebar-toggler">
+                       
+                    </div>
+
                 </div>
-                <div className="col-md-8">
-                    <Dashboard  />    
-                </div>
+                <a href="javascript:;" className="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+                TODO:
+                1 - SEGUIR AQUI CON LA MAQUETACION CREACT COMPONENTES POR CADA ACCION.
+                2- CARGAR CSS Y JS
+
+
+
             </div>
-        </div>)
+         
+         </div>)
+
     }
 }
 
