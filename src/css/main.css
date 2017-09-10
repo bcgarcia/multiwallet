@@ -2,18 +2,21 @@
 
 @charset 'UTF-8';
 
-/* 1. Vendors */
-
+/* 1. base */
+@import './base/vendors.bundle.css';
 
 /* 2. Configuration and helpers */
 
-/* 3. Base stuff */
-
+/* 3. Theme */
+/*@import './themes/light.css'; */
 
 /* 4. Layout-related sections */
 @import './layout/_header.css';
 @import './layout/_footer.css';
-
+/*
+@import './layout/custom.css';
+@import './layout/layout.css';
+*/
 /* 5. Components */
 @import './components/_loading-indicator.css';
 

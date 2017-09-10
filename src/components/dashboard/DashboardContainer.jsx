@@ -42,27 +42,8 @@ class DashboardContainer extends Component{
          ]
 
 
-         return(<div className="page-header navbar navbar-fixed-top">
-            <div className="page-header-inner ">
-               
-                <div className="page-logo">
-                    <a href="index.html">
-                        <img src="" alt="logo" class="logo-default" /> 
-                    </a>
-                    <div className="menu-toggler sidebar-toggler">
-                       
-                    </div>
-
-                </div>
-                <a href="javascript:;" className="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
-                TODO:
-                1 - SEGUIR AQUI CON LA MAQUETACION CREACT COMPONENTES POR CADA ACCION.
-                2- CARGAR CSS Y JS
-
-
-
-            </div>
-         
+         return(<div>
+             
          </div>)
 
     }

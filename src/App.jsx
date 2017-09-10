@@ -17,11 +17,19 @@ import './css/main.css'
 class App extends Component{
 
     render(){
-        return(<div>
-            <Header loggedIn={this.props.data.app.loggedIn} currentlySending={this.props.data.app.currentlySending} />
-            {this.props.children}
-            <footer> Multiwallet &copy;  2017 </footer>
-        </div>)
+
+        if(!this.props.data.app.loggedIn){
+            return(<div>
+                <Header loggedIn={this.props.data.app.loggedIn} currentlySending={this.props.data.app.currentlySending} />
+                {this.props.children}
+                <footer> Multiwallet &copy;  2017 </footer>
+            </div>)
+        }
+        else{
+            return(<div>
+                {this.props.children}
+            </div>)
+        }
     }
 }
 
