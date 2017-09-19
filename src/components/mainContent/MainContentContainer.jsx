@@ -11,11 +11,11 @@ class MainContentContainer extends Component{
         return(<div className="container-fluid">
                 <div className="row">
                     <div className="col-md-12  text-center">
-                        <h1 className="bd-title">MULTIWALLET</h1>
+                        <h1 className="bd-title">public site</h1>
                     </div>
                 </div>
                     <div className="col-md-12 text-justify">
-                        <p>Multiwallet es un monedero multiusuario en el que varios usuario pueden tener uno o mas monederos</p>
+                        <p>pruebas react</p>
                     </div>
         </div>)
     }

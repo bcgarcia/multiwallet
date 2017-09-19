@@ -1,32 +1,39 @@
 import React , {Component , PropTypes, } from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-
 import Register from './Register'
 import * as userActions from '../../actions/userActions'
-//import * as notificationActions from '../actions/notificationActions'
 
-class LoginRegisterContainer extends Component{
+class RegisterContainer extends Component{
     
     constructor(props){
         super(props)
+        this.handleSubmit = this.handleSubmit.bind(this)
+
+
+    }
+
+    handleSubmit(user){
+        //this.props.userActions.loginUser(user)
+    }
+
+    handleOnChangeUsename(event){
+
+        
+        /*
+
+        */
     }
 
     render(){
-
-        return(<div>
-            <Register />
-        </div>)
+        return(<div><Register onSubmit={this.handleSubmit} /></div>)
     }
 }
 
 
 function mapStateToProps(state){
     return {
-        login: state.user.login,
-        register: state.user.register,
-        loading: state.user.loading,
-        error: state.user.error
+        
     }
 }
 
@@ -36,4 +43,4 @@ function mapDispatchToProps(dispatch){
         userActions : bindActionCreators( userActions , dispatch),
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(LoginRegisterContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterContainer)

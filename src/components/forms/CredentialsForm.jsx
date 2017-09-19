@@ -9,7 +9,6 @@ import validator from '../../utils/validator'
 import * as formCredentialsActions from '../../actions/formCredentialsActions'
 import * as userActions from '../../actions/userActions'
 
-
 class CredentialsForm extends Component{
 
     constructor(props){
