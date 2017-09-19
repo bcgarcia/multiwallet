@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const extractTextWebpackPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
 
@@ -32,6 +33,7 @@ module.exports = {
     module: {
 
         rules: [
+            
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
@@ -61,6 +63,18 @@ module.exports = {
             {
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
                 use: 'url-loader?limit=10000&mimetype=image/svg+xml'
+            },
+            {
+                test: /\.png(\?v=\d+\.\d+\.\d+)?$/,
+                use: 'url-loader?limit=10000&mimetype=image/png'
+            },
+            {
+                test: /\.jpg(\?v=\d+\.\d+\.\d+)?$/,
+                use: 'url-loader?limit=10000&mimetype=image/jpg'
+            },
+            {
+                test: /\.jpeg(\?v=\d+\.\d+\.\d+)?$/,
+                use: 'url-loader?limit=10000&mimetype=image/jpg'
             }
         ]
     },
@@ -76,8 +90,13 @@ module.exports = {
             //Util: "exports-loader?Util!bootstrap/js/dist/util",
             //Dropdown: "exports-loader?Dropdown!bootstrap/js/dist/dropdown",
         }),
+
+
+        new webpack.optimize.OccurrenceOrderPlugin(true),
+        //new extractTextWebpackPlugin(path.join(__dirname, 'build', 'styles.css')),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
+
         new HtmlWebpackPlugin({
             title: "multiwallet",
             template: path.join(__dirname, 'src', 'index.html'),

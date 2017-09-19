@@ -4,7 +4,6 @@
  * @type {Object}
  */
 
-
 const auth = {
     /**
      * Checks if anybody is logged in
