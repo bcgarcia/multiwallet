@@ -8,7 +8,7 @@ import 'bootstrap'
 
 // Import the CSS file, which webpack transfers to the build folder
 import 'bootstrap/dist/css/bootstrap.css'
-import './css/main.css'
+//https://bootsnipp.com/snippets/featured/portlets-like-panels
 
 // Import the JS file, which webpack transfers to the build folder
 //import 'bootstrap/dist/js/bootstrap.js'
@@ -17,19 +17,11 @@ import './css/main.css'
 class App extends Component{
 
     render(){
-
-        if(!this.props.data.app.loggedIn){
-            return(<div>
-                <Header loggedIn={this.props.data.app.loggedIn} currentlySending={this.props.data.app.currentlySending} />
-                {this.props.children}
-                <footer> Multiwallet &copy;  2017 </footer>
-            </div>)
-        }
-        else{
-            return(<div>
-                {this.props.children}
-            </div>)
-        }
+        return(<div>
+            <Header loggedIn={this.props.data.app.loggedIn} currentlySending={this.props.data.app.currentlySending} />
+            {this.props.children}
+            
+        </div>)
     }
 }
 

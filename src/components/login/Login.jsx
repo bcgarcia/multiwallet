@@ -10,6 +10,7 @@ class Login extends Component {
 
     constructor(props){
         super(props)
+        document.title = 'Login page';
     }
 
     render(){
