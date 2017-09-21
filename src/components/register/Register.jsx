@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import { Input, Button,FormControl, Checkbox,ControlLabel } from 'react-bootstrap';
-import * as userActions from '../../actions/userActions'
+import { Form, FormGroup, Label, Input, FormFeedback, FormText,Button } from 'reactstrap'
 import LoadingButton from '../common/LoadingButton'
 //CSS FILES
 import './Register.css';
@@ -36,97 +35,65 @@ class Register extends Component{
 						
 					</div>
 					<div className="portlet-body">
-            <form role="form" onSubmit={this.props.onSubmit}>
+            <Form onSubmit={this.props.onSubmit}>
               <div className="row">
                 <div className="col-12">
                   <div className="form-group">
-                    <ControlLabel>Nombre</ControlLabel>
-                    <FormControl
-                      type="text"
-                      className="form-control"
-                      placeholder="Nombre"
-                      name="name"
-                    />
+                    <FormGroup color={this.props.name.state}>
+                      <Label for="username">Nombre</Label>
+                      <Input onChange={this.props.onChangeName} type="text"  id="name" state={this.props.name.state} name="name" placeholder="Cual es el nombre del nuevo Messi" />
+                      {this.props.name.error ? (<FormFeedback>{this.props.name.errorMessage}</FormFeedback>) : (<div></div>)}
+                    </FormGroup>
                   </div>
                 </div>
-                <div className="col-4">
+                <div className="col-5">
                   <div className="form-group">
-                      <ControlLabel>F.Nacimiento</ControlLabel>
-                      <FormControl
-                        type="text"
-                        className="form-control"
-                        placeholder="F.Nacimiento"
-                        name="birthDate"
-                      />
+                  <FormGroup color={this.props.birthdate.state}>
+                      <Label for="username">F.Nacimiento</Label>
+                      <Input type="text"  id="birthdate" state={this.props.birthdate.state} name="birthdate" placeholder="Cuantas temporadas?" />
+                      {this.props.birthdate.error ? (<FormFeedback>{this.props.birthdate.errorMessage}</FormFeedback>) : (<div></div>)}
+                    </FormGroup>
                   </div>
                 </div>
-                <div className="col-8">
+                <div className="col-7">
                 <div className="form-group">
-                    <ControlLabel>Email</ControlLabel>
-                    <FormControl
-                      type="text"
-                      className="form-control"
-                      placeholder="Email"
-                      name="email"
-                    />
+                  <FormGroup color={this.props.email.state}>
+                      <Label for="username">Email</Label>
+                      <Input type="text"  id="email" state={this.props.email.state} name="email" placeholder="Tu email" />
+                      {this.props.email.error ? (<FormFeedback>{this.props.birthdate.errorMessage}</FormFeedback>) : (<div></div>)}
+                  </FormGroup>
                   </div>
                 </div>
 
               </div>
   
               <div className="form-group">
-              <ControlLabel>Contraseña</ControlLabel>
-                <FormControl
-                  className="form-control"
-                  placeholder="Password"
-                  type="password"
-                  name="password"
-                />
               </div>
               <div className="form-group">
-              <ControlLabel>Repite Contraseña</ControlLabel>
-                <FormControl
-                  className="form-control"
-                  placeholder="Password"
-                  type="password"
-                  name="rpassword"
-                />
               </div>
-              {/*<Checkbox label="Remember Me" > Remember Me </Checkbox>*/}
               {
-                this.props.app.currentlySending 
-                ? ( <LoadingButton buttonStyle = {'primary'} /> ) 
-                : (<Button type="submit" bsStyle="primary" block>Register</Button>)
+                  this.props.app.currentlySending 
+                  ? ( <LoadingButton buttonStyle = {'primary'} /> ) 
+                  : (<Button type="submit" color="primary" block > Login </Button>)
               }
-
-
-              
-          </form>
-  
-          
+              </Form>
           </div>
 				</div>  
       </div>
       </div>
-  
     );
   }
 }
 
-
 function mapStateToProps(state){
-  
+  console.log(state)
       return{
           app : state.app,
-          form : state.formRegister
-      }
-  }
-  
-  function mapDispatchToProps(dispatch){
-  
-      return{
-          userActions : bindActionCreators(userActions , dispatch)
+          form : state.formRegister,
+          name : state.formRegister.name,
+          birthdate : state.formRegister.birthdate,
+          email : state.formRegister.email,
       }
   }
 
-export default connect( mapStateToProps , mapDispatchToProps )(Register)
+export default connect( mapStateToProps , null )(Register)

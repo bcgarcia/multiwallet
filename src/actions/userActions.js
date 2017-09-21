@@ -1,7 +1,7 @@
 import { 
     REGISTER_USER_OK , LOGIN_USER_OK , FORGOT_PASSWORD_OK, 
     REGISTER_USER_FAIL , LOGIN_USER_FAIL , FORGOT_PASSWORD_FAIL ,
-    ADD_NOTIFICATION,CHANGE_CREDENTIALS_FORM,SENDING_REQUEST,SET_ERROR_MESSAGE,SET_AUTH
+    ADD_NOTIFICATION,CHANGE_CREDENTIALS_FORM,SENDING_REQUEST,SET_ERROR_MESSAGE,SET_AUTH,CHANGE_REGISTER_FORM
 } from '../constants/actions'
 
 import API from '../api'
@@ -203,13 +203,21 @@ function validateUser(user){
 /**
  * Sets the form state
  * @param  {object} newState          The new state of the form
- * @param  {string} newState.username.value The new text of the username input field of the form
- * @param  {string} newState.password.value The new text of the password input field of the form
- * @param  {string} newState.username.state The new text of the username input field of the form
- * @param  {string} newState.password.state The new text of the password input field of the form
  * @return {object}                   Formatted action for the reducer to handle
  */
 export function changeCredentialsForm(newState) {return { type: CHANGE_CREDENTIALS_FORM, payload: newState };}
+
+
+/**
+ * Sets the form register state
+ * @param  {object} newState          The new state of the register form 
+ * @return {object}                   Formatted action for the reducer to handle
+ */
+export function changeRegisterForm(newState) {return { type: CHANGE_REGISTER_FORM, payload: newState };}
+
+
+
+
 
 /**
  * Sets the authentication state of the application

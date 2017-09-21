@@ -16,6 +16,7 @@ class CredentialsForm extends Component{
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChangeUsername = this.handleChangeUsername.bind(this)
         this.handleChangePassword = this.handleChangePassword.bind(this)
+        document.title = 'Login page';
     }
 
     handleChangeUsername(event){
@@ -117,12 +118,14 @@ function mapStateToProps(state){
     }
 }
 
+/*
 function mapDispatchToProps(dispatch){
 
     return{
         userActions : bindActionCreators( userActions , dispatch),
     }
 }
+*/
 
-export default connect( mapStateToProps , mapDispatchToProps )(CredentialsForm)
+export default connect( mapStateToProps , null )(CredentialsForm)
 

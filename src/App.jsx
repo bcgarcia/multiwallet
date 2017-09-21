@@ -4,7 +4,6 @@ import Header from './components/common/Header'
 import {connect} from 'react-redux'
 
 
-import 'bootstrap'
 
 // Import the CSS file, which webpack transfers to the build folder
 import 'bootstrap/dist/css/bootstrap.css'
@@ -24,7 +23,6 @@ class App extends Component{
         </div>)
     }
 }
-
 
 App.PropTypes = {
     children : PropTypes.object.isRequired,

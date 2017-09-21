@@ -10,32 +10,57 @@ const initialState = {
     formCredentials: {
         username: {
             value : '',
-            state : null
+            state : null,
+            error : false,
+            errorMessage: null
         },
         password: {
             value : '',
-            state : null
+            state : null,
+            error : false,
+            errorMessage: null
+        }
+    },
+    formRegister: {
+        email: {
+            value : '',
+            state : null,
+            error : false,
+            errorMessage: null
+        },
+        name: {
+            value : '',
+            state : null,
+            error : false,
+            errorMessage: null
+        },
+        birthdate: {
+            value : '',
+            state : null,
+            error : false,
+            errorMessage: null
+        },
+        password: {
+            value : '',
+            state : null,
+            error : false,
+            errorMessage: null
+        },
+        rpassword: {
+            value : '',
+            state : null,
+            error : false,
+            errorMessage: null
         }
     },
     user:{
         displayName     : '',
         email           : '',
         emailVerified   :false,
-        phone           :'',
         photoURL        :'',
         token           :'',
         uid             : '',
         error           : null
-    },
-    wallets: {
-        list            :[],
-        loading         :false,
-        error           :false
-    },
-    walletActive:{
-        loading         :false,
-        error           : false,
-        owner           :false
     }
 }
 
