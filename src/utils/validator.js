@@ -8,7 +8,10 @@ var  Validator = {
 
         if ( value.length > 20 || value.length < 6 ) return false
         else return true
-    }  
+    },
+
+    isSamePassword(pass , rpass){ return (pass == rpass) ? true : false }
+
 }
 
 export default Validator

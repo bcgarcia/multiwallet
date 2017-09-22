@@ -1,7 +1,7 @@
 import { 
     REGISTER_USER_OK , LOGIN_USER_OK , FORGOT_PASSWORD_OK, 
     REGISTER_USER_FAIL , LOGIN_USER_FAIL , FORGOT_PASSWORD_FAIL ,
-    ADD_NOTIFICATION,CHANGE_CREDENTIALS_FORM,SENDING_REQUEST,SET_ERROR_MESSAGE,SET_AUTH,CHANGE_REGISTER_FORM
+    ADD_NOTIFICATION,CHANGE_CREDENTIALS_FORM,SENDING_REQUEST,SET_ERROR_MESSAGE,SET_AUTH,CHANGE_REGISTER_FORM,USER_ALREADY_REGISTERED
 } from '../constants/actions'
 
 import API from '../api'
@@ -10,6 +10,51 @@ import {addNotification} from './notificationActions'
 import {errorMessages} from '../constants/errorMessages'
 import {anyElementsEmpty, toString} from '../utils/utils'
 import validator from '../utils/validator'
+
+/**
+ * async function to log a registered user
+ * @param {*object} user 
+ */
+
+export function checkAvailableEmail(email){
+    return async(dispatch) =>{
+        dispatch(sendingRequest(true))
+        try {
+            //const response = await API.user.checkAvailableEmail(email)
+            const response ={
+                valid: true
+            }
+            if(!response.valid){
+                email.state = 'danger'
+                email.error = true,
+                email.errorMessage = "Email ya en uso. Elige otro"
+            } 
+            else{
+                email.state = 'success'
+                email.error = false,
+                email.errorMessage = null
+            }
+            dispatch(sendingRequest(false))
+            dispatch(availableEmail(email))
+        } 
+        catch (error) {
+            dispatch(sendingRequest(false))
+            dispatch(addNotification({
+                title: error.code,
+                message : error.message,
+                level : 'error'
+            }))
+        }
+    }
+}
+
+
+/**
+ * Sets the register form email state
+ * @param  {object} newState          The new state of the form input email
+ * @return {object}                   Formatted action for the reducer to handle
+ */
+function availableEmail(state){return {type: USER_ALREADY_REGISTERED , payload: state}}
 
 /**
  * async function to log a registered user

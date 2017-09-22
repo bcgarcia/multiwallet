@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import { Form, FormGroup, Label, Input, FormFeedback, FormText,Button } from 'reactstrap'
+import { Form, FormGroup, Label, Input, FormFeedback, FormText,Button,InputGroupAddon,InputGroup } from 'reactstrap'
 import LoadingButton from '../common/LoadingButton'
 //CSS FILES
 import './Register.css';
@@ -59,17 +59,38 @@ class Register extends Component{
                 <div className="form-group">
                   <FormGroup color={this.props.email.state}>
                       <Label for="username">Email</Label>
-                      <Input type="text"  id="email" state={this.props.email.state} name="email" placeholder="Tu email" />
-                      {this.props.email.error ? (<FormFeedback>{this.props.birthdate.errorMessage}</FormFeedback>) : (<div></div>)}
+                      <InputGroup>
+                      <Input onChange={this.props.onChangeEmail} type="text"  id="email" state={this.props.email.state} name="email" placeholder="Tu email" />
+                      { this.props.app.currentlySending && <InputGroupAddon><span className="fa fa-spinner fa-spin"></span></InputGroupAddon>}
+                      </InputGroup>
+                      {this.props.email.error ? (<FormFeedback>{this.props.email.errorMessage}</FormFeedback>) : (<div></div>)}
                   </FormGroup>
                   </div>
                 </div>
-
-              </div>
-  
-              <div className="form-group">
-              </div>
-              <div className="form-group">
+                <div className="col-12">
+                <div className="form-group">
+                  <FormGroup color={this.props.password.state}>
+                      <Label for="password">Contraseña</Label>
+                      <InputGroup>
+                      <Input onChange={this.props.onChangePassword} type="password"  id="password" state={this.props.password.state} name="password" placeholder="Tu clave de acceso" />
+                      {/* this.props.password.error && <InputGroupAddon><span className="fa fa-spinner fa-spin"></span></InputGroupAddon>*/}
+                      </InputGroup>
+                      {this.props.password.error ? (<FormFeedback>{this.props.password.errorMessage}</FormFeedback>) : (<div></div>)}
+                  </FormGroup>
+                  </div>
+                </div>
+                  {
+                     !this.props.password.error && this.props.password.value != '' && 
+                      (<div className="col-12">
+                      <div className="form-group">
+                        <FormGroup color={this.props.rpassword.state}>
+                            <Label for="rpassword">Repite contraseña</Label>
+                            <Input type="password"  id="rpassword" state={this.props.rpassword.state} name="email" placeholder="Vuelve a introducirla" />
+                            {this.props.rpassword.error ? (<FormFeedback>{this.props.rpassword.errorMessage}</FormFeedback>) : (<div></div>)}
+                        </FormGroup>
+                      </div>
+                      </div>)
+                    }
               </div>
               {
                   this.props.app.currentlySending 
@@ -88,11 +109,13 @@ class Register extends Component{
 function mapStateToProps(state){
   console.log(state)
       return{
-          app : state.app,
-          form : state.formRegister,
-          name : state.formRegister.name,
+          app       : state.app,
+          form      : state.formRegister,
+          name      : state.formRegister.name,
           birthdate : state.formRegister.birthdate,
-          email : state.formRegister.email,
+          email     : state.formRegister.email,
+          password  : state.formRegister.password,
+          rpassword : state.formRegister.rpassword,
       }
   }
 

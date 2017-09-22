@@ -1,7 +1,7 @@
 import {
     REGISTER_USER_FAIL , REGISTER_USER_OK , 
     LOGIN_USER_FAIL , LOGIN_USER_OK,
-    REGISTER_USER_INIT , LOGIN_USER_INIT,
+    REGISTER_USER_INIT , LOGIN_USER_INIT
 } from '../constants/actions'
 
 import initialState from './initialState'
@@ -48,9 +48,6 @@ import initialState from './initialState'
     
         case LOGIN_USER_OK:
             
-        console.log('actioooons')
-        console.log(actions.payload.email)
-
             return{
                 ...state,
                 error           : null,

@@ -2,6 +2,7 @@ import React , {Component , PropTypes, } from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import Register from './Register'
+import validator from '../../utils/validator'
 import * as userActions from '../../actions/userActions'
 
 class RegisterContainer extends Component{
@@ -22,53 +23,85 @@ class RegisterContainer extends Component{
         let inputState = null
         let error = false
         let errorMsg = null
-        if(validator.validEmail(inputValue) && !validator.isEmpty(inputValue) ){
-            inputState = 'success'
-            error = false
-            errorMsg = null
-        }
-        else{
-            inputState = 'danger'
-            error = true
-            errorMsg = "No es un formato válido de email o está vacío"
-        }
+        
         let form ={
-            name:{
+            email:{
                 value : inputValue,
                 state : inputState,
                 error: error,
                 errorMessage : errorMsg
             }
         }
+
+
+        if(validator.validEmail(inputValue) && !validator.isEmpty(inputValue) ){
+            this.props.userActions.checkAvailableEmail(form.email)
+        }
+        else{
+            form.email.inputState = 'danger'
+            form.email.error = true
+            form.email.errorMsg = "No es un formato válido de email o está vacío"
+        }
+       
+        
+        
+
         let updatedState = this.mergeWithCurrentState(form)
         this.emitStateChange(updatedState)
     }     
     
     
     handleChangePassword(event){
-       /* event.preventDefault
+        event.preventDefault
         let error = false
         let errorMsg = null
         let inputValue = event.target.value
         let inputState = null
-        if(validator.validPassword(inputValue) ){
-            inputState = 'success'
-        }
-        else{
-            inputState = 'danger'
-            error = true
-            errorMsg = "No cumple el formato válido para contraseña"
-        }
-        var form ={
-            password:{
-                value : event.target.value,
-                state : inputState,
-                error: error,
-                errorMessage : errorMsg
+        console.log(event.target.id)
+        
+        if(event.target.id == 'password'){
+            if(validator.validPassword(inputValue) ){
+                inputState = 'success'
+            }
+            else{
+                inputState = 'danger'
+                error = true
+                errorMsg = "No cumple el formato válido para contraseña"
+            }
+
+            let form ={
+                password:{
+                    value : event.target.value,
+                    state : inputState,
+                    error: error,
+                    errorMessage : errorMsg
+                }
             }
         }
+        else if(event.target.id == 'rpassword'){
+
+            if(validator.isSamePassword(inputValue) ){
+                inputState = 'success'
+            }
+            else{
+                inputState = 'danger'
+                error = true
+                errorMsg = "Las contraseñas no son iguales"
+            }
+
+            let form ={
+                rpassword:{
+                    value : event.target.value,
+                    state : inputState,
+                    error: error,
+                    errorMessage : errorMsg
+                }
+            }
+
+        }
+        
         var updatedState = this.mergeWithCurrentState(form)
-        this.emitStateChange(updatedState)*/
+        this.emitStateChange(updatedState)
     }     
 
     // Emits the change of the form state to the application state
@@ -88,7 +121,7 @@ class RegisterContainer extends Component{
 
 
     render(){
-        return(<div><Register onSubmit={this.handleSubmit} /></div>)
+        return(<div><Register onChangePassword={this.handleChangePassword} onChangeEmail={this.handleChangeUsername} onSubmit={this.handleSubmit} /></div>)
     }
 }
 

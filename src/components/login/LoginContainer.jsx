@@ -5,9 +5,8 @@ import {connect} from 'react-redux'
 import Login from './Login'
 import * as userActions from '../../actions/userActions'
 
-
 import validator from '../../utils/validator'
-import * as formCredentialsActions from '../../actions/formCredentialsActions'
+
 class LoginContainer extends Component{
     
     constructor(props){
