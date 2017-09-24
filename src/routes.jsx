@@ -5,7 +5,7 @@ import App from './App'
 import RegisterContainer from './components/register/RegisterContainer'
 import LoginContainer from './components/login/LoginContainer'
 import MainContentContainer from './components/mainContent/MainContentContainer'
-//import DashboardContainer from './components/Dashboard/DashboardContainer'
+import DashboardContainer from './components/private/Dashboard/DashboardContainer'
 import NotFound from './components/notFound/NotFound'
 import auth from './utils/auth'
 import configureStore from './store/configureStore'
@@ -40,6 +40,9 @@ export default
     <IndexRoute component={MainContentContainer} />
     <Route path="/login" component={LoginContainer} />
     <Route path="/register" component={RegisterContainer} />
-    {/*<Route path="/dashboard" component={} onEnter={checkAuth} /> */}
+    {/* TODO: HAY QUE AÑADIR CHECKAUTH ES RUTA PRIVADA! */}
+    {/*<Route path="/dashboard" component={DashboardContainer} onEnter={checkAuth} /> */}
+    <Route path="/dashboard" component={DashboardContainer} /> 
+    
     <Route path="*" component={NotFound} />
 </Route>)
