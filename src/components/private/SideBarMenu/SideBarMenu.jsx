@@ -9,7 +9,6 @@ class SideBarMenu extends Component{
 
     constructor(props){
         super(props)
-
     }
 
     render(){
@@ -34,18 +33,19 @@ class SideBarMenu extends Component{
                       </Link>
                   </li>
       
-                  <li className={classNames({ active: !this.state.chartsElementsCollapsed })}>
-                    <a
+                  <li className={classNames({ active: !this.props.sidebar.groupOptionsCollapsed })}>
+                    <Link
                       href=""
+                      to="/options"
                       onClick={(e) => {
                         e.preventDefault();
                         this.setState({ chartsElementsCollapsed: !this.state.chartsElementsCollapsed });
                         return false;
                       }}
                     >
-                      <i className="fa fa-bar-chart-o fa-fw" /> &nbsp;Charts
+                      <i className="fa fa-bar-chart-o fa-fw" /> &nbsp;Options
                       <span className="fa arrow" />
-                    </a>
+                    </Link>
                     <ul
                       className={
                         classNames({
