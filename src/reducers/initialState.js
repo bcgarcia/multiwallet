@@ -7,6 +7,12 @@ const initialState = {
         loggedIn: auth.loggedIn(),
         errorMessage: ''
     },
+    sidebar:{
+        usersCollapsed: true,
+        eventsCollapsed: true,
+        groupOptionsCollapsed: true,
+
+    },
     formCredentials: {
         username: {
             value : '',
