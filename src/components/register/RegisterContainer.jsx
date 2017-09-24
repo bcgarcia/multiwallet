@@ -23,7 +23,6 @@ class RegisterContainer extends Component{
         let inputState = null
         let error = false
         let errorMsg = null
-        
         let form ={
             email:{
                 value : inputValue,
@@ -32,8 +31,6 @@ class RegisterContainer extends Component{
                 errorMessage : errorMsg
             }
         }
-
-
         if(validator.validEmail(inputValue) && !validator.isEmpty(inputValue) ){
             this.props.userActions.checkAvailableEmail(form.email)
         }
@@ -42,17 +39,27 @@ class RegisterContainer extends Component{
             form.email.error = true
             form.email.errorMsg = "No es un formato válido de email o está vacío"
         }
-       
-        
-        
-
         let updatedState = this.mergeWithCurrentState(form)
         this.emitStateChange(updatedState)
     }     
     
-    
     handleChangePassword(event){
         event.preventDefault
+        
+        let form = { 
+            password:{
+                value : '',
+                state : null,
+                error: null,
+                errorMessage : ""
+            },
+            rpassword:{
+                value : '',
+                state : null,
+                error: null,
+                errorMessage : ''
+            }
+        }
         let error = false
         let errorMsg = null
         let inputValue = event.target.value
@@ -69,18 +76,14 @@ class RegisterContainer extends Component{
                 errorMsg = "No cumple el formato válido para contraseña"
             }
 
-            let form ={
-                password:{
-                    value : event.target.value,
-                    state : inputState,
-                    error: error,
-                    errorMessage : errorMsg
-                }
-            }
+            form.password.value = event.target.value,
+            form.password.state = inputState,
+            form.password.error =  error,
+            form.password.errorMessage = errorMsg
         }
         else if(event.target.id == 'rpassword'){
 
-            if(validator.isSamePassword(inputValue) ){
+            if(validator.isSamePassword(this.props.formRegister.password.value, this.props.rpassword.value) ){
                 inputState = 'success'
             }
             else{
@@ -88,18 +91,11 @@ class RegisterContainer extends Component{
                 error = true
                 errorMsg = "Las contraseñas no son iguales"
             }
-
-            let form ={
-                rpassword:{
-                    value : event.target.value,
-                    state : inputState,
-                    error: error,
-                    errorMessage : errorMsg
-                }
-            }
-
+            form.rpassword.value = event.target.value,
+            form.rpassword.state = inputState,
+            form.rpassword.error = error,
+            form.rpassword.errorMessage = errorMsg
         }
-        
         var updatedState = this.mergeWithCurrentState(form)
         this.emitStateChange(updatedState)
     }     

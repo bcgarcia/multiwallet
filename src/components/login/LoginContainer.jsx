@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import Login from './Login'
+import ForgetPassword from './ForgetPassword'
 import * as userActions from '../../actions/userActions'
 
 import validator from '../../utils/validator'
@@ -11,12 +12,21 @@ class LoginContainer extends Component{
     
     constructor(props){
         super(props)
+        const forgotPassword = false // variable que controla si quiere recuperar la contraseña
         document.title = 'Login page';
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChangeUsername = this.handleChangeUsername.bind(this)
         this.handleChangePassword = this.handleChangePassword.bind(this)
+        this.handleClickForgetPass = this.handleClickForgetPass.bind(this)
+        this.handleSubmitForgetPassword = this.handleSubmitForgetPassword.bind(this)
     }
 
+    handleClickForgetPass(event){
+        event.preventDefault()
+        console.log('aaa')
+        this.forgotPassword = true
+        this.emitStateChange(this.props.formCredentials)
+    }
    
     handleChangeUsername(event){
         event.preventDefault
@@ -80,25 +90,42 @@ class LoginContainer extends Component{
 
     // Merges the current state with a change
     mergeWithCurrentState(stateChange) {
-        
         return Object.assign(this.props.formCredentials, stateChange);
     }
 
     // throw the action that change the form state to the application state
     handleSubmit(event){
         event.preventDefault()
+        console.log('subiiiiiit logiiiin')
 
         //TODO: validar form
         
         this.props.userActions.loginUser({email : this.props.formCredentials.username.value, password : this.props.formCredentials.password.value})
     }
 
+    handleSubmitForgetPassword(event){
+        event.preventDefault()
+        console.log('subiiiiiit')
+        //this.props.userActions.forgetPassword({email : this.props.formCredentials.username.value})
+        //TODO:send email with new credentials 
+        //TODO: picar action y reducer
+    }
+
 
     render(){
-        return(<div><Login 
-        onChangePassword={this.handleChangePassword}
-        onChangeUsername={this.handleChangeUsername}
-        onSubmit={this.handleSubmit} /></div>)
+        return(<div>
+                {
+                    this.forgotPassword 
+                    ? <ForgetPassword 
+                        onSubmit={this.handleSubmitForgetPassword} /> 
+                    : <Login 
+                        onClickForget={this.handleClickForgetPass}
+                        forgotPassword = {this.forgotPassword}
+                        onChangePassword={this.handleChangePassword}
+                        onChangeUsername={this.handleChangeUsername}
+                        onSubmit={this.handleSubmit} />
+                }
+            </div>)
     }
 }
 

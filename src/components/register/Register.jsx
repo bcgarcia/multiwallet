@@ -80,7 +80,7 @@ class Register extends Component{
                   </div>
                 </div>
                   {
-                     !this.props.password.error && this.props.password.value != '' && 
+                     (!this.props.password.error && this.props.password.value != '') ?
                       (<div className="col-12">
                       <div className="form-group">
                         <FormGroup color={this.props.rpassword.state}>
@@ -89,13 +89,13 @@ class Register extends Component{
                             {this.props.rpassword.error ? (<FormFeedback>{this.props.rpassword.errorMessage}</FormFeedback>) : (<div></div>)}
                         </FormGroup>
                       </div>
-                      </div>)
+                      </div>) : <div></div>
                     }
               </div>
               {
                   this.props.app.currentlySending 
                   ? ( <LoadingButton buttonStyle = {'primary'} /> ) 
-                  : (<Button type="submit" color="primary" block > Login </Button>)
+                  : (<Button type="submit" color="primary" block > Register </Button>)
               }
               </Form>
           </div>
