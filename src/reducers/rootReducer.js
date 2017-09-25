@@ -5,6 +5,7 @@ import notification from './notificationReducer'
 import appReducer from './appReducer'
 import formCredentialsReducer from './formCredentialsReducer'
 import formRegisterReducer from './formRegisterReducer'
+import sidebarReducer from './sidebarReducer'
 
 //import {reducer as formReducer} from 'redux-form'
 
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
      user : userReducer,
      app:appReducer,
      formCredentials : formCredentialsReducer,
-     formRegister: formCredentialsReducer
+     formRegister: formRegisterReducer,
+     sidebar : sidebarReducer
 })
 
 export default rootReducer

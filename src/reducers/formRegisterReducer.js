@@ -3,7 +3,6 @@ import InitialState from './initialState.js'
 
 export default function formRegisterReducer(state = InitialState.formRegister , actions){
     switch(actions.type){
-        
         case USER_ALREADY_REGISTERED:
             Object.assign(state, actions.payload);
             return {
@@ -14,9 +13,8 @@ export default function formRegisterReducer(state = InitialState.formRegister , 
             Object.assign(state, actions.payload);
             return {
                 ...state,
-                registerForm: [...state.email, actions.payload ]    
+                //registerForm: [...state.email, actions.payload ]    
             }
-
         default:
             //console.debug('notification reducer :: hit default', action.type);
         return state;

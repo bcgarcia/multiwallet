@@ -89,7 +89,7 @@ class Register extends Component{
                             {this.props.rpassword.error ? (<FormFeedback>{this.props.rpassword.errorMessage}</FormFeedback>) : (<div></div>)}
                         </FormGroup>
                       </div>
-                      </div>) : <div></div>
+                      </div>) : (<div></div>)
                     }
               </div>
               {

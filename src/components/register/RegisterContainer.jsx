@@ -64,7 +64,7 @@ class RegisterContainer extends Component{
         let errorMsg = null
         let inputValue = event.target.value
         let inputState = null
-        console.log(event.target.id)
+        
         
         if(event.target.id == 'password'){
             if(validator.validPassword(inputValue) ){
@@ -76,7 +76,7 @@ class RegisterContainer extends Component{
                 errorMsg = "No cumple el formato válido para contraseña"
             }
 
-            form.password.value = event.target.value,
+            form.password.value = inputValue,
             form.password.state = inputState,
             form.password.error =  error,
             form.password.errorMessage = errorMsg
@@ -114,7 +114,6 @@ class RegisterContainer extends Component{
     handleSubmit(user){
         //this.props.userActions.loginUser(user)
     }
-
 
     render(){
         return(<div><Register onChangePassword={this.handleChangePassword} onChangeEmail={this.handleChangeUsername} onSubmit={this.handleSubmit} /></div>)

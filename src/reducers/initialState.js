@@ -8,10 +8,10 @@ const initialState = {
         errorMessage: ''
     },
     sidebar:{
-        usersCollapsed: true,
+        userOptionsCollapsed: true,
         eventsCollapsed: true,
+        groupCollapsed: true,
         groupOptionsCollapsed: true,
-
     },
     formCredentials: {
         username: {

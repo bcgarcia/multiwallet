@@ -2,6 +2,9 @@ import React,{Component} from 'react'
 import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
+import Dashboard from './Dashboard'
+import Header from '../Header/Header'
+
 import * as userActions from '../../../actions/userActions'
 
 class DashboardContainer extends Component{
@@ -15,6 +18,10 @@ class DashboardContainer extends Component{
 
     render(){
 
+        return(<div> 
+            <Header />
+            <Dashboard /> 
+            </div>)
 
     }
 }

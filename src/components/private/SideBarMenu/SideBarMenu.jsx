@@ -3,12 +3,15 @@ import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
+import classNames from 'classnames'
 //import * as userActions from '../../../actions/userActions'
 
 class SideBarMenu extends Component{
 
     constructor(props){
         super(props)
+        console.log('sidebar menu')
+        console.log(this.props)
     }
 
     render(){
@@ -33,13 +36,13 @@ class SideBarMenu extends Component{
                       </Link>
                   </li>
       
-                  <li className={classNames({ active: !this.props.sidebar.groupOptionsCollapsed })}>
+                  <li className={classNames({ active: !this.props.sidebar.userOptionsCollapsed })}>
                     <Link
                       href=""
                       to="/options"
                       onClick={(e) => {
                         e.preventDefault();
-                        this.setState({ chartsElementsCollapsed: !this.state.chartsElementsCollapsed });
+                        this.setState({ chartsElementsCollapsed: !this.props.sidebar.userOptionsCollapsed });
                         return false;
                       }}
                     >
@@ -50,7 +53,7 @@ class SideBarMenu extends Component{
                       className={
                         classNames({
                           'nav nav-second-level': true,
-                          collapse: this.state.chartsElementsCollapsed,
+                          collapse: this.props.sidebar.userOptionsCollapsed,
                         })
                     }
                     >
@@ -83,158 +86,8 @@ class SideBarMenu extends Component{
                     </a>
                   </li>
       
-                  <li className={classNames({ active: !this.state.uiElementsCollapsed })}>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        this.setState({ uiElementsCollapsed: !this.state.uiElementsCollapsed,
-                      }); return false;
-                      }}
-                    >
-                      <i className="fa fa-edit fa-fw" /> UI Elements<span className="fa arrow" />
-                    </a>
-      
-                    <ul
-                      className={classNames({
-                        'nav nav-second-level': true,
-                        collapse: this.state.uiElementsCollapsed,
-                      })}
-                    >
-                      <li>
-                        <a href="" onClick={(e) => { e.preventDefault(); history.push('/panelwells'); }} >
-                          Panels And Wells
-                        </a>
-                      </li>
-                      <li>
-                        <a href="" onClick={(e) => { e.preventDefault(); history.push('/button'); }} >
-                          Buttons
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=""
-                          onClick={(e) => { e.preventDefault(); history.push('/notification'); }}
-                        >
-                          Notification
-                        </a>
-                      </li>
-                      <li>
-                        <a href="" onClick={(e) => { e.preventDefault(); history.push('/typography'); }} >
-                          Typography
-                        </a>
-                      </li>
-                      <li>
-                        <a href="" onClick={(e) => { e.preventDefault(); history.push('/icons'); }} >
-                          Icons
-                        </a>
-                      </li>
-                      <li>
-                        <a href="" onClick={(e) => { e.preventDefault(); history.push('/grid'); }} >
-                          Grid
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-      
-                  <li className={classNames({ active: !this.state.multiLevelDropdownCollapsed })}>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        this.setState({
-                          multiLevelDropdownCollapsed: !this.state.multiLevelDropdownCollapsed,
-                        });
-                        return false;
-                      }}
-                    >
-                      <i className="fa fa-sitemap fa-fw" />
-                      &nbsp;Multi-Level Dropdown
-                      <span className="fa arrow" />
-                    </a>
-                    <ul
-                      className={
-                        classNames({
-                          'nav nav-second-level': true, collapse: this.state.multiLevelDropdownCollapsed,
-                        })}
-                    >
-                      <li>
-                        <a href="" onClick={(e) => { e.preventDefault(); }}>Second Level Item</a>
-                      </li>
-                      <li>
-                        <a href="" onClick={(e) => { e.preventDefault(); }}>Second Level Item</a>
-                      </li>
-                      <li className={classNames({ active: !this.state.thirdLevelDropdownCollapsed })}>
-                        <a
-                          href=""
-                          onClick={(e) => {
-                            e.preventDefault();
-                            this.setState({
-                              thirdLevelDropdownCollapsed: !this.state.thirdLevelDropdownCollapsed,
-                            });
-                            return false;
-                          }}
-                        >
-                          Third Level<span className="fa arrow" />
-                        </a>
-                        <ul
-                          className={
-                            classNames({
-                              'nav nav-second-level': true,
-                              collapse: this.state.thirdLevelDropdownCollapsed,
-                            })}
-                        >
-                          <li>
-                            <a href="" onClick={(e) => { e.preventDefault(); }}>Third Level Item</a>
-                          </li>
-                          <li>
-                            <a href="" onClick={(e) => { e.preventDefault(); }}>Third Level Item</a>
-                          </li>
-                          <li>
-                            <a href="" onClick={(e) => { e.preventDefault(); }}>Third Level Item</a>
-                          </li>
-                          <li>
-                            <a href="" onClick={(e) => { e.preventDefault(); }}>Third Level Item</a>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-      
-                  <li className={classNames({ active: !this.state.samplePagesCollapsed })}>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        this.setState({
-                          samplePagesCollapsed: !this.state.samplePagesCollapsed,
-                        });
-                        return false;
-                      }}
-                    >
-                      <i className="fa fa-files-o fa-fw" />
-                      &nbsp;Sample Pages
-                      <span className="fa arrow" />
-                    </a>
-                    <ul
-                      className={
-                        classNames({
-                          'nav nav-second-level': true,
-                          collapse: this.state.samplePagesCollapsed,
-                        })}
-                    >
-                      <li>
-                        <a href="" onClick={(e) => { e.preventDefault(); history.push('/blank'); }} >
-                          Blank
-                        </a>
-                      </li>
-                      <li>
-                        <a href="" onClick={(e) => { e.preventDefault(); history.push('/login'); }} >
-                          Login
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
+                 
+                  
       
                   <li>
                     <a href="http://www.strapui.com/">Premium React Themes</a>
