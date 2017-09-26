@@ -1,79 +1,76 @@
-import React,{Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
-import {Link} from 'react-router'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { Link } from 'react-router'
 import classNames from 'classnames'
-import {Navbar, NavDropdown, DropdownMenu, DropdownItem   } from 'reactstrap'
-//import * as userActions from '../../../actions/userActions'
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import {browserHistory} from 'react-router'
+import Sidebar from '../SideBarMenu/SideBarMenu'
 
-class Header extends Component{
+import './Header.css'
 
-    constructor(props){
+
+
+const logo = require('./logo.png');
+
+class Header extends Component {
+
+    constructor(props) {
         super(props)
         console.log('sidebar menu')
-        console.log(this.props)
-
-        this.isOpen = false
-
+        console.log(this.props.app)
     }
+    render() {
 
-    toggle() {
-        this.setState({
-        isOpen: true
-        });
-    }
-
-    render(){
-       
         return (
-            <div id="wrapper" className="content">
-              <Navbar className="container-fluid"  style={ {margin: 0} }>
-                  {/*<Brand>
-                    <span>
-                      <img src={logo} alt="Start React" title="Start React" />
-                      <span>&nbsp;SB Admin React - </span>
-                        <a href="http://startreact.com/" title="Start React" rel="home">StartReact.com</a>
-                        <button type="button" className="navbar-toggle" onClick={() => {toggleMenu();}} style={{position: 'absolute', right: 0, top: 0}}>
-                          <span className="sr-only">Toggle navigation</span>
-                          <span className="icon-bar"></span>
-                          <span className="icon-bar"></span>
-                          <span className="icon-bar"></span>
-                        </button>
-                    </span>
-                  </Brand> */}
-                  <ul className="nav navbar-top-links navbar-right">
-        
-                      <NavDropdown isOpen={this.isOpen} toggle={this.toggle}  title={<span><i className="fa fa-envelope fa-fw"></i></span>} id="navDropdown1">
-                      <DropdownMenu>
-                        <DropdownItem header>Header</DropdownItem>
-                        <DropdownItem disabled>Action</DropdownItem>
-                        <DropdownItem>Another Action</DropdownItem>
-                        <DropdownItem divider />
-                        <DropdownItem>Another Action</DropdownItem>
-                        </DropdownMenu>
-                      </NavDropdown>
-        
-                 
-        
-                    
-        
-             
-        
-                  </ul>
-                 
-            </Navbar>
+            <div id="wrapper" className="">
+                <Navbar color="primary" light toggleable>
+                    <NavbarToggler right onClick={this.props.toggle} />
+                    <NavbarBrand href="/">reactstrap</NavbarBrand>
+                    <Collapse isOpen={this.props.app.headerOpen} navbar>
+                        <Nav className="ml-auto" navbar>
+                            <NavDropdown isOpen={this.props.app.userNotificationsOpen} toggle={this.props.toggleUserNotifications} >
+                                <DropdownToggle nav caret>
+                                    <span className="fa fa-bell"></span>
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <DropdownItem style={ {width: 300} } eventKey="1">
+                                    <div> <i className="fa fa-comment fa-fw"></i> New Comment <span className="pull-right text-muted small">4 minutes ago</span> </div>
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </NavDropdown>
+                            {/*<NavItem>
+                                <NavLink>Profile</NavLink>
+                            </NavItem> */}
+                            <NavDropdown isOpen={this.props.app.userOptionsOpen} toggle={this.props.toggleUserOptions} >
+                                <DropdownToggle nav>
+                                    <span className="fa fa-user"> </span>
+                                    <span> Profile</span>
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <DropdownItem onClick={ () => { browserHistory.push('/my-profile') } }>  <span className="fa fa-user"> </span> My profile </DropdownItem>
+                                    <DropdownItem divider />
+                                    <DropdownItem onClick={ () => {browserHistory.push('/settings') } } > <span className="fa fa-cog"></span> Settings </DropdownItem>
+                                    <DropdownItem divider />
+                                    <DropdownItem onClick={ () => {browserHistory.push('/logout')} } > <span className="fa fa-sign-out"></span> Logout </DropdownItem>
+                                </DropdownMenu>
+                            </NavDropdown>
+                        </Nav>
+                    </Collapse>
+                </Navbar>
             </div>
-          );
+        );
 
     }
 }
 
-function mapStateToProps(state){
-    return{
-        sidebar : state.sidebar
+function mapStateToProps(state) {
+    return {
+        sidebar: state.sidebar,
+        app: state.app
     }
 }
 
 
-export default connect(mapStateToProps , null)(Header)
+export default connect(mapStateToProps, null)(Header)
