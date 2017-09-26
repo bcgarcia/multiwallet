@@ -5,7 +5,10 @@ const initialState = {
     app:{
         currentlySending: false,
         loggedIn: auth.loggedIn(),
-        errorMessage: ''
+        errorMessage: '',
+        headerOpen: false,
+        userNotificationsOpen: false,
+        userOptionsOpen: false
     },
     sidebar:{
         userOptionsCollapsed: true,
