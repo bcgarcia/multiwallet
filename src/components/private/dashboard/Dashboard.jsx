@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {bindActionCreators} from 'redux'
+
 import {connect} from 'react-redux'
-import SideBarMenu from '../SideBarMenu/SideBarMenu'
+import Sidebar from '../Sidebar/Sidebar'
 
 class Dashboard extends Component{
 
@@ -12,14 +12,14 @@ class Dashboard extends Component{
     }
 
     render(){
-        return(<div> <SideBarMenu /> </div>)
+        return(<Sidebar />)
     }
 }
 
 function mapStateToProps(state){
     
     return{
-
+        app : state.app
 
     }
 }

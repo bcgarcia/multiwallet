@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import classNames from 'classnames'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import {browserHistory} from 'react-router'
-import Sidebar from '../SideBarMenu/SideBarMenu'
+//import SideBarMenu from '../SideBarMenu/SideBarMenu'
 
 import './Header.css'
 
@@ -18,8 +17,7 @@ class Header extends Component {
 
     constructor(props) {
         super(props)
-        console.log('sidebar menu')
-        console.log(this.props.app)
+       
     }
     render() {
 
@@ -59,9 +57,9 @@ class Header extends Component {
                         </Nav>
                     </Collapse>
                 </Navbar>
+                
             </div>
         );
-
     }
 }
 

@@ -6,7 +6,7 @@ import { Form, FormGroup, Label, Input, FormFeedback, FormText,Button,InputGroup
 import LoadingButton from '../common/LoadingButton'
 //CSS FILES
 import './Register.css';
-import '../../css/adminer.css'
+//import '../../css/adminer.css'
 import '../../css/portlet.css'
 
 
@@ -107,7 +107,6 @@ class Register extends Component{
 }
 
 function mapStateToProps(state){
-  console.log(state)
       return{
           app       : state.app,
           form      : state.formRegister,

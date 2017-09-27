@@ -41,7 +41,7 @@ class DashboardContainer extends Component{
             <Header 
             toggle={this.toogleHeader} 
             toggleUserNotifications={this.toggleUserNotifications} 
-            toggleUserOptions = {this.toggleUserOptions} />
+            toggleUserOptions={this.toggleUserOptions} />
             <Dashboard /> 
             </div>)
 
