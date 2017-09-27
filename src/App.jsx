@@ -8,7 +8,8 @@ import {connect} from 'react-redux'
 // Import the CSS file, which webpack transfers to the build folder
 import 'bootstrap/dist/css/bootstrap.css'
 //https://bootsnipp.com/snippets/featured/portlets-like-panels
-
+//import '../src/css/app.css'
+//import '../src/css/adminer.css'
 // Import the JS file, which webpack transfers to the build folder
 //import 'bootstrap/dist/js/bootstrap.js'
 
