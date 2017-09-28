@@ -5,9 +5,7 @@ const BreadcrumbElto = (breadcrumbItems) => {
   return (
     <div>
       <Breadcrumb tag="nav">
-        {breadcrumbItems.map(item =>{} )
-
-        }
+        {breadcrumbItems.map(item =>{ <BreadcrumbItem tag="a" href="#">Home</BreadcrumbItem>} )}
       </Breadcrumb>
     </div>
   );
