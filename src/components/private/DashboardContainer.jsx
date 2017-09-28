@@ -40,15 +40,18 @@ class DashboardContainer extends Component{
         this.props.appActions.toggleSidebar(!this.props.sidebar.sidebarOpen)
     }
 
+    //TODO: ordenar bien cols 
+
     render(){
 
-        return(<div> 
+        return(<div className=""> 
             <Header 
             toggle={this.toogleHeader} 
             toggleUserNotifications={this.toggleUserNotifications} 
             toggleUserOptions={this.toggleUserOptions}
             toggleSidebar={this.toggleSidebar} />
             <Sidebar  /> 
+            <Dashboard />
             </div>)
 
     }
