@@ -17,15 +17,16 @@ class Header extends Component {
 
     constructor(props) {
         super(props)
-       
     }
     render() {
-
         return (
             <div id="wrapper" className="">
                 <Navbar color="primary" light toggleable>
                     <NavbarToggler right onClick={this.props.toggle} />
-                    <NavbarBrand href="/">reactstrap</NavbarBrand>
+                    <NavbarBrand href="/">
+                        reactstrap
+                           <span onClick={this.props.toggleSidebar} className="fa fa-bars margin-left-20"></span>
+                    </NavbarBrand>
                     <Collapse isOpen={this.props.app.headerOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavDropdown isOpen={this.props.app.userNotificationsOpen} toggle={this.props.toggleUserNotifications} >

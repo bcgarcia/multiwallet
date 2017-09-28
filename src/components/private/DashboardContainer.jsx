@@ -4,12 +4,13 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import Dashboard from './dashboard/Dashboard'
 import Header from './Header/Header'
+import Sidebar from './Sidebar/Sidebar'
 
 import * as userActions from '../../actions/userActions'
 import * as appActions from '../../actions/appActions'
 
-import '../../css/adminer.css'
 import '../../css/app.css'
+import '../../css/adminer.css'
 
 class DashboardContainer extends Component{
 
@@ -18,6 +19,7 @@ class DashboardContainer extends Component{
         this.toogleHeader = this.toogleHeader.bind(this)
         this.toggleUserNotifications = this.toggleUserNotifications.bind(this)
         this.toggleUserOptions = this.toggleUserOptions.bind(this)
+        this.toggleSidebar = this.toggleSidebar.bind(this)
     }
 
 
@@ -33,7 +35,10 @@ class DashboardContainer extends Component{
         this.props.appActions.toggleUserOptions(!this.props.app.userOptionsOpen)
     }
 
-
+    toggleSidebar(event){
+        event.preventDefault()
+        this.props.appActions.toggleSidebar(!this.props.sidebar.sidebarOpen)
+    }
 
     render(){
 
@@ -41,8 +46,9 @@ class DashboardContainer extends Component{
             <Header 
             toggle={this.toogleHeader} 
             toggleUserNotifications={this.toggleUserNotifications} 
-            toggleUserOptions={this.toggleUserOptions} />
-            <Dashboard /> 
+            toggleUserOptions={this.toggleUserOptions}
+            toggleSidebar={this.toggleSidebar} />
+            <Sidebar  /> 
             </div>)
 
     }
@@ -50,7 +56,8 @@ class DashboardContainer extends Component{
 
 function mapStateToProps(state){
     return{
-        app : state.app
+        app : state.app,
+        sidebar : state.sidebar
     }
 }
 
