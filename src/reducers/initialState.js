@@ -11,6 +11,7 @@ const initialState = {
         userOptionsOpen: false
     },
     sidebar:{
+        sidebarOpen : true,
         userOptionsCollapsed: true,
         eventsCollapsed: true,
         groupCollapsed: true,
