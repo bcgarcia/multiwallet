@@ -17,10 +17,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 class App extends Component{
 
     render(){
-        return(<div>
+        return(<div className="">
             <Header loggedIn={this.props.data.app.loggedIn} currentlySending={this.props.data.app.currentlySending} />
             {this.props.children}
-            
         </div>)
     }
 }

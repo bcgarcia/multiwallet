@@ -20,7 +20,7 @@ class Header extends Component {
     }
     render() {
         return (
-            <div id="wrapper" className="">
+            
                 <Navbar color="primary" light toggleable>
                     <NavbarToggler right onClick={this.props.toggle} />
                     <NavbarBrand href="/">
@@ -59,7 +59,7 @@ class Header extends Component {
                     </Collapse>
                 </Navbar>
                 
-            </div>
+            
         );
     }
 }

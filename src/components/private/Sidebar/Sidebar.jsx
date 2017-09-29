@@ -23,29 +23,50 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <div className={classNames({ wrapper: true, active: !this.props.sidebar.sidebarOpen })}>
-        <div className="side-bar">
-          <ul>
-            <div className="menu">
-              <li>
-                <a href="/dashboard">Dashboard <span className="fa fa-dashboard pull-right"></span></a>
-              </li>
-              <li>
-                <a href="/groups" className="active">Groups<span className="fa fa-star pull-right"></span></a>
-              </li>
-              <li>
-                <a href="/events">Events <span className="fa fa-bookmark pull-right"></span></a>
-              </li>
-              <li>
-                <a href="/places">Inst. Deportivas <span className="fa fa-bookmark pull-right"></span></a>
-              </li>
-              <li>
-                <a href="/settings">Settings <span className="fa fa-cog pull-right"></span></a>
-              </li>
+      <div className="">
+        <div className="">
+          <div className={classNames({ wrapper: true, active: !this.props.sidebar.sidebarOpen })}>
+            <div className="side-bar">
+              <ul>
+                <div className="menu">
+                  <li>
+                    <a href="/dashboard">Dashboard <span className="fa fa-dashboard pull-right"></span></a>
+                  </li>
+                  <li>
+                    <a href="/groups" className="active">Groups<span className="fa fa-star pull-right"></span></a>
+                  </li>
+                  <li>
+                    <a href="/events">Events <span className="fa fa-bookmark pull-right"></span></a>
+                  </li>
+                  <li>
+                    <a href="/places">Inst. Deportivas <span className="fa fa-bookmark pull-right"></span></a>
+                  </li>
+                  <li>
+                    <a href="/settings">Settings <span className="fa fa-cog pull-right"></span></a>
+                  </li>
+                </div>
+              </ul>
             </div>
-          </ul>
-        </div>
-      </div>
+            <div className="content">
+              <div className="col-md-12">
+                <div className="panel panel-default">
+                  <div className="panel-heading">Panel heading without title</div>
+                  <div className="panel-body">
+                    Panel content
+                        </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-4">dsfgdsfg</div>
+                  <div className="col-4">ggggggg</div>
+                  <div className="col-4">sdfgsd fgdsfg dffsdg </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div> //en row
+      </div> //end container
     );
 
   }

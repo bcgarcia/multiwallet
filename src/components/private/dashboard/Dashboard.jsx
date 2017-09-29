@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import Breadcrumb from '../Breadcrumb/Breadcrumb'
+import Sidebar from '../Sidebar/Sidebar'
 
 class Dashboard extends Component{
 
@@ -15,15 +16,9 @@ class Dashboard extends Component{
         
         Breadcrumbs.push = {href: 'dashboard1', name: 'Dashboaaaard'}
 
-        return(
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-12">
-                <Breadcrumb breadcrumbItems={Breadcrumbs} />
-                    </div>
-                </div>
-            </div>
-    )
+        return(<div>
+                <Sidebar  /> 
+                </div>)
     }
 }
 

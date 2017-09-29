@@ -5,7 +5,7 @@ import App from './App'
 import RegisterContainer from './components/register/RegisterContainer'
 import LoginContainer from './components/login/LoginContainer'
 import MainContentContainer from './components/mainContent/MainContentContainer'
-import DashboardContainer from './components/private/DashboardContainer'
+import PrivateContainer from './components/private/PrivateContainer'
 import NotFound from './components/notFound/NotFound'
 import auth from './utils/auth'
 import configureStore from './store/configureStore'
@@ -17,8 +17,6 @@ function checkAuth(nextState , replaceState){
 
     let store = configureStore( initialState )
     let state = store.getState();
-
-    
     
     if( nextState.location.pathname !== '/dashboard'){
         if (state.app.loggedIn) {
@@ -42,7 +40,7 @@ export default
     <Route path="/register" component={RegisterContainer} />
     {/* TODO: HAY QUE AÑADIR CHECKAUTH ES RUTA PRIVADA! */}
     {/*<Route path="/dashboard" component={DashboardContainer} onEnter={checkAuth} /> */}
-    <Route path="/dashboard" component={DashboardContainer} /> 
+    <Route path="/dashboard" component={PrivateContainer} /> 
     
     <Route path="*" component={NotFound} />
 </Route>)
