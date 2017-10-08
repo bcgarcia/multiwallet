@@ -4,7 +4,7 @@ import uuid from 'uuid'
 
 const BreadcrumbElto = ({breadcrumbItems}) => {
   return (
-    <div>
+      <div className="col-md-12">
       <Breadcrumb tag="nav">
         <BreadcrumbItem><a href="#">Home</a></BreadcrumbItem>
         <BreadcrumbItem active>Library</BreadcrumbItem>
@@ -12,7 +12,7 @@ const BreadcrumbElto = ({breadcrumbItems}) => {
         <BreadcrumbItem key={ uuid.v4() } tag="a" href="#">dashboard</BreadcrumbItem>)) 
        */}
        </Breadcrumb>
-    </div>
+      </div>
   )
 }
 

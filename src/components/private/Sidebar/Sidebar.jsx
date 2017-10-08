@@ -1,82 +1,37 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 import classNames from 'classnames'
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { browserHistory } from 'react-router'
-
-//import 
-
-//import * as userActions from '../../../actions/userActions'
-
 import './Sidebar.css'
 
-class Sidebar extends Component {
+//TODO: crear menu lateral derecho con tienes dudas. Reportar errores. proximos eventos, eventos pasados,eventos jugando..
 
-  constructor(props) {
-    super(props)
-  }
+const Sidebar = ({itemActive}) => {
 
-  //TODO: crear menu lateral derecho con tienes dudas. Reportar errores. proximos eventos, eventos pasados,eventos jugando..
-  //
+  console.log('sidebarrr')
+  console.log(itemActive)
+  return(
+  <div className="side-bar">
+    <ul>
+      <div className="menu">
+        <li>
+          <a href="/dashboard" className={classNames({ active: itemActive=="dashboard" ? true : false })} > Dashboard <span className="fa fa-dashboard pull-right"></span></a>
+        </li>
+        <li>
+          <a href="/groups" className={classNames({ active: itemActive=="groups" ? true : false })} >Groups<span className="fa fa-users pull-right"></span></a>
+        </li>
+        <li>
+          <a href="/events" className={classNames({ active: itemActive=="events" ? true : false })} >Events <span className="fa fa-bookmark pull-right"></span></a>
+        </li>
+        <li>
+          <a href="/places" className={classNames({ active: itemActive=="places" ? true : false })} >Inst. Deportivas <span className="fa fa-map-marker pull-right"></span></a>
+        </li>
+        <li>
+          <a href="/settings" className={classNames({ active: itemActive=="settings" ? true : false })} >Settings <span className="fa fa-cog pull-right"></span></a>
+        </li>
+      </div>
+    </ul>
+  </div>
+)}
 
-  render() {
-    return (
-      <div className="">
-        <div className="">
-          <div className={classNames({ wrapper: true, active: !this.props.sidebar.sidebarOpen })}>
-            <div className="side-bar">
-              <ul>
-                <div className="menu">
-                  <li>
-                    <a href="/dashboard">Dashboard <span className="fa fa-dashboard pull-right"></span></a>
-                  </li>
-                  <li>
-                    <a href="/groups" className="active">Groups<span className="fa fa-star pull-right"></span></a>
-                  </li>
-                  <li>
-                    <a href="/events">Events <span className="fa fa-bookmark pull-right"></span></a>
-                  </li>
-                  <li>
-                    <a href="/places">Inst. Deportivas <span className="fa fa-bookmark pull-right"></span></a>
-                  </li>
-                  <li>
-                    <a href="/settings">Settings <span className="fa fa-cog pull-right"></span></a>
-                  </li>
-                </div>
-              </ul>
-            </div>
-            <div className="content">
-              <div className="col-md-12">
-                <div className="panel panel-default">
-                  <div className="panel-heading">Panel heading without title</div>
-                  <div className="panel-body">
-                    Panel content
-                        </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-4">dsfgdsfg</div>
-                  <div className="col-4">ggggggg</div>
-                  <div className="col-4">sdfgsd fgdsfg dffsdg </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div> //en row
-      </div> //end container
-    );
-
-  }
-}
-
-function mapStateToProps(state) {
-  return {
-    sidebar: state.sidebar
-  }
-}
-
-
-export default connect(mapStateToProps, null)(Sidebar)
+export default Sidebar

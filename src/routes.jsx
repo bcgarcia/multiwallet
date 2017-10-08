@@ -5,7 +5,9 @@ import App from './App'
 import RegisterContainer from './components/register/RegisterContainer'
 import LoginContainer from './components/login/LoginContainer'
 import MainContentContainer from './components/mainContent/MainContentContainer'
-import PrivateContainer from './components/private/PrivateContainer'
+import DashboardContainer from './components/private/Dashboard/DashboardContainer'
+import GroupContainer from './components/private/Group/GroupContainer'
+import GroupItemContainer from './components/private/Group/GroupItemContainer'
 import NotFound from './components/notFound/NotFound'
 import auth from './utils/auth'
 import configureStore from './store/configureStore'
@@ -40,7 +42,10 @@ export default
     <Route path="/register" component={RegisterContainer} />
     {/* TODO: HAY QUE AÑADIR CHECKAUTH ES RUTA PRIVADA! */}
     {/*<Route path="/dashboard" component={DashboardContainer} onEnter={checkAuth} /> */}
-    <Route path="/dashboard" component={PrivateContainer} /> 
+    <Route path="/dashboard" component={DashboardContainer} /> 
+    <Route path="/groups" component={GroupContainer} /> 
+    <Route path="/groups/:option" component={GroupContainer} /> 
+    <Route path="/group/:id" component={GroupItemContainer} /> 
     
     <Route path="*" component={NotFound} />
 </Route>)
