@@ -1,17 +1,19 @@
 import auth from '../utils/auth'
+import localStorage from '../utils/localStorage'
 import API from '../api'
+
 const initialState = {
 
     app:{
         currentlySending: false,
         loggedIn: auth.loggedIn(),
         errorMessage: '',
-        headerOpen: false,
+        headerOpen: localStorage.toggleHeaderState(),
         userNotificationsOpen: false,
         userOptionsOpen: false
     },
     sidebar:{
-        sidebarOpen : true,
+        sidebarOpen : localStorage.toggleSidebarState() ,
         userOptionsCollapsed: true,
         eventsCollapsed: true,
         groupCollapsed: true,
