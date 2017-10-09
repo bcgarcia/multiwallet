@@ -28,7 +28,6 @@ class Dashboard extends Component {
                  <div className="col-md-12"><h1>DASHBOARD</h1><small></small></div>
                 </div>
             </div>
-
           </div>
         </div> 
       </div> 

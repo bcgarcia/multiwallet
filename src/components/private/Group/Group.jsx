@@ -21,7 +21,7 @@ class Group extends Component {
     return (
       <div className="">
         <div className="">
-          <div className={classNames({ wrapper: true, active: !this.props.sidebar.sidebarOpen })}>
+          <div className={classNames({ wrapper: true, active: this.props.sidebar.sidebarOpen })}>
             <Sidebar itemActive={this.props.itemActive} />
             <div className="content">
                 <div className="row justify-content-between">

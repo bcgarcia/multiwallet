@@ -18,16 +18,10 @@ class GroupContainer extends Component{
     }
 
     handleNewGroup(){
-
         browserHistory.push('groups/new')
-
     }
 
     render(){
-
-        {console.log('proooops')}
-        {console.log(this.props)}
-        
         return(<div> 
             <HeaderContainer />
             <Group 

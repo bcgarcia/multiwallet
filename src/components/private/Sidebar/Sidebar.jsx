@@ -8,8 +8,6 @@ import './Sidebar.css'
 
 const Sidebar = ({itemActive}) => {
 
-  console.log('sidebarrr')
-  console.log(itemActive)
   return(
   <div className="side-bar">
     <ul>
