@@ -21,9 +21,7 @@ export function checkAvailableEmail(email){
         dispatch(sendingRequest(true))
         try {
             //const response = await API.user.checkAvailableEmail(email)
-            const response ={
-                valid: true
-            }
+            const response ={valid: true}
             if(!response.valid){
                 email.state = 'danger'
                 email.error = true,
