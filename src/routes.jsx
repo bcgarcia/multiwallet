@@ -14,7 +14,6 @@ import configureStore from './store/configureStore'
 import initialState from './reducers/initialState'
 
 
-
 function checkAuth(nextState , replaceState){
 
     let store = configureStore( initialState )

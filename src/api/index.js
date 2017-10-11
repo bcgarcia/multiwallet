@@ -1,73 +1,65 @@
-import firebase from 'firebase'
 import fetch from 'isomorphic-fetch'
-import firebaseConfig from '../constants/configFirebase'
-//import auth from '../utils/auth'
+import auth from '../utils/localStorage'
+
+const baseURL = "localhost:8088/api"
+
+const TOKEN = auth.loggedIn()
 
 firebase.initializeApp(firebaseConfig);
 
 const API = {
-    user:{
+    user: {
 
-        async currentUser(){
-
-            await firebase.auth().currentUser()
+        async get(id) {
+            const response = await fetch(baseURL + '/user/' + id, {
+                method: 'get',
+                headers: new Headers( {'Authorization': 'bearer:'+TOKEN } ),
+            })
+            return await response.json()
         },
 
-        async signInWithToken(){
-            /*
-            console.log('currentuser')
-            const response1 = await firebase.auth().currentUser
-            console.log(response1)
-            */
+        async login(data) {
 
-            const response = await firebase.auth().signInWithCustomToken(localStorage.token)
-
-            console.log('signinwithtoken')
-            console.log(response)
-            return await response
+            const response = await fetch(baseURL + '/login', {
+                method: 'post',
+                headers: new Headers({
+                    'Authorization': 'bearer:'+TOKEN ,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    //'Accept': 'application/json',
+                }),
+                body: new FormData(data)
+            })
+            return await response.json()
         },
 
-        async register( email , password ){
+        async register(user) {
 
-            //if( auth.loggedIn() ) return ;
-            const response = await firebase.auth().createUserWithEmailAndPassword(email, password)
-            const user = {
-                uid: response.uid,
-                displayName : response.displayName,
-                emailVerified: response.emailVerified,
-                email : response.email,
-                phone : response.phoneNumber,
-                photoURL : response.photoURL,
-                token: response.refreshToken, 
-            }
-            return await user
+           const response = await fetch(baseURL+'/register', {
+               method: 'post',
+               headers: new Headers({
+                'Authorization': 'bearer:'+TOKEN ,
+                'Content-Type': 'application/x-www-form-urlencoded',
+                //    'Accept': 'application'
+               }),
+               body: new FormData(user)
+           })
+           return await response.json();
         },
 
+        async update(user){
 
-        async login(email, password){
-
-            //if(auth.loggedIn) return 
-            const response = await firebase.auth().signInWithEmailAndPassword(email, password)
-            const user = {
-                uid: response.uid,
-                displayName : response.displayName,
-                emailVerified: response.emailVerified,
-                email : response.email,
-                phone : response.phoneNumber,
-                photoURL : response.photoURL,
-                token: response.refreshToken, 
-            }
-            return await user
+            const response = await fetch(baseURL+'/user/'+user.id , {
+                method : 'put',
+                headers: new Headers({
+                    'Authorization': 'bearer:'+TOKEN ,
+                'Content-Type': 'application/x-www-form-urlencoded',
+                }),
+                body: new FormData(user)
+            })
         },
-
-
-        async logout(){
-
-            await firebase.auth().signOut()
-        }
     },
 
-    wallet:{
+    group: {
 
     }
 

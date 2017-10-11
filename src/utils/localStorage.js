@@ -22,7 +22,13 @@ const storagedState = {
     toggleSidebarState() { 
         if(localStorage.getItem('toggleSidebar') == undefined ) return true 
         return localStorage.toggleSidebar == 'true' ?  true : false
-    }
+    },
+
+     /**
+     * Checks if anybody is logged in
+     * @return {boolean} True if there is a logged in user, false if there isn't
+     */
+    loggedIn() { return !!localStorage.token}
 }
 
 export default storagedState
