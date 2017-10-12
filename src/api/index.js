@@ -5,8 +5,6 @@ const baseURL = "localhost:8088/api"
 
 const TOKEN = auth.loggedIn()
 
-firebase.initializeApp(firebaseConfig);
-
 const API = {
     user: {
 
