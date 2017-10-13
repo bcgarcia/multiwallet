@@ -1,15 +1,17 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Dashboard from './Dashboard'
 import HeaderContainer from '../Header/HeaderContainer'
 
+import Authorized from '../Authorized/Authorized'
+
 import * as userActions from '../../../actions/userActions'
 import * as appActions from '../../../actions/appActions'
 
 
-class PrivateContainer extends Component {
+class DashboardContainer extends Authorized {
 
     constructor(props) {
         super(props)
@@ -39,4 +41,4 @@ function mapDispatchToProps(dispatch) {
         appActions: bindActionCreators(appActions, dispatch)
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(PrivateContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer)

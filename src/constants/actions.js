@@ -26,7 +26,10 @@ export const FORGOT_PASSWORD_OK   = 'FORGOT_PASSWORD_OK'
 export const ADD_NOTIFICATION     = 'ADD_NOTIFICATION'
 export const TOGGLE_HEADER        = 'TOGGLE_HEADER'
 export const TOGGLE_USER_NOTIFICATIONS = 'TOGGLE_USER_NOTIFICATIONS'
-export const TOGGLE_USER_OPTIONS = 'TOGGLE_USER_OPTIONS'
-export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR'
+export const TOGGLE_USER_OPTIONS    = 'TOGGLE_USER_OPTIONS'
+export const TOGGLE_SIDEBAR         = 'TOGGLE_SIDEBAR'
+export const GET_USER               = 'GET_USER'
+export const GET_USER_FAIL          = 'GET_USER_FAIL'
+export const GET_USER_OK            = 'GET_USER_OK'
 
  

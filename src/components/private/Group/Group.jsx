@@ -33,7 +33,6 @@ class Group extends Component {
                     ? (<Button onClick={this.props.onNewGroup} outline color="info">New</Button>)
                     : (<Button onClick={ ()=>{browserHistory.goBack} } outline color="info">Go back</Button>)
                 }
-                
                 </div>
                 </div>
                 <div className="row">

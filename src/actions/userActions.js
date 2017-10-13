@@ -1,5 +1,5 @@
 import { 
-    REGISTER_USER_OK , LOGIN_USER_OK , FORGOT_PASSWORD_OK, 
+    REGISTER_USER_OK , LOGIN_USER_OK , FORGOT_PASSWORD_OK,GET_USER, GET_USER_OK,GET_USER_FAIL,
     REGISTER_USER_FAIL , LOGIN_USER_FAIL , FORGOT_PASSWORD_FAIL ,
     ADD_NOTIFICATION,CHANGE_CREDENTIALS_FORM,SENDING_REQUEST,SET_ERROR_MESSAGE,SET_AUTH,CHANGE_REGISTER_FORM,USER_ALREADY_REGISTERED
 } from '../constants/actions'
@@ -54,6 +54,38 @@ export function checkAvailableEmail(email){
  */
 function availableEmail(state){return {type: USER_ALREADY_REGISTERED , payload: state}}
 
+
+/**
+ * get user by token proporcionaterdd
+ * @param  {string} token          The new state of the form input email
+ * @return {object}                returns user
+ */
+export function getUserByToken(token){
+   
+    return async (dispatch) =>{
+
+        dispatch(sendingRequest(true))
+        
+        try {
+            
+            const responsePet = await API.user.getByToken(token)
+            
+            const response = await responsePet
+            console.log('response')
+            console.log(response)
+
+        } catch (error) {
+            dispatch( getUserFail(error) )
+            dispatch( sendingRequest(false) )
+        }
+
+    }
+
+    // return {type: GET_USER , payload: token}
+
+
+}
+
 /**
  * async function to log a registered user
  * @param {*object} user 
@@ -76,27 +108,25 @@ export function loginUser( user ){
                 dispatch( setErrorMessage(errorList.toString) ) 
                 dispatch( sendingRequest(false) )
             }
-            const response = await API.user.login( user.email , user.password )
-            const loggedUser = await response
+            const responseD = await API.user.login( user )
+            
+            const response = await responseD
 
-            localStorage.token = loggedUser.token;
+            localStorage.token = response.token;
             dispatch(setAuthState(true))
             dispatch(changeCredentialsForm({
                 username:{value:'',state:null},
                 password:{value:'',state:null}
             }));
             dispatch(sendingRequest(false) )
-            dispatch( loginUserOk(loggedUser) )
+            //dispatch( loginUserOk(loggedUser) )
             forwardTo('/dashboard');
             return
         } 
         catch (error) {
-            const notif = {
-                title: error.code,
-                message : error.message,
-                level : 'error'
-            }
+            const notif = {title: error.code, message : error.message, level : 'error'}
             dispatch(addNotification(notif) )
+            dispatch(sendingRequest(false) )
             return dispatch( loginUserFail(error) )
         }
     }
@@ -154,6 +184,22 @@ export function registerUser(user){
 }
 
 /**
+ * action throwed when a get user  fails.
+ * 
+ * @param {object} error 
+ */
+export function getUserFail(error){ return { type:GET_USER_FAIL ,payload: error }  }
+
+/**
+ * action throwed when a get user  SUCCESS.
+ * 
+ * @param {object} user 
+ */
+export function getUserOk(error){ return { type:GET_USER_OK ,payload: user }  }
+
+
+
+/**
  * action throwed when a new user register fails.
  * 
  * @param {object} error 
@@ -172,7 +218,6 @@ export function registerUserOk(user){return{ type: REGISTER_USER_OK , payload : 
 export function loginUserOk(user){
     console.log('login user ok')
     console.log(user)
-    console.log(user.email)
     return {
         type:LOGIN_USER_OK , 
         payload : user 

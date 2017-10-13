@@ -1,8 +1,9 @@
-import React , {Component} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import HeaderContainer from '../Header/HeaderContainer'
+import Authorized from '../Authorized/Authorized'
 import Group from './Group'
 import {browserHistory} from 'react-router'
 
@@ -10,12 +11,13 @@ import {browserHistory} from 'react-router'
 import * as userActions from '../../../actions/userActions'
 import * as appActions from '../../../actions/appActions'
 
-class GroupContainer extends Component{
+class GroupContainer extends Authorized{
 
     constructor(props){
         super(props)
         this.handleNewGroup = this.handleNewGroup.bind(this)
     }
+
 
     handleNewGroup(){
         browserHistory.push('groups/new')
