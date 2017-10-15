@@ -15,8 +15,8 @@ const API = {
             })
             return await response.json()
         },
-        async getByToken(token) {
-            const response = await fetch(baseURL + '/user/tknkey=1' , {
+        async getByToken() {
+            const response = await fetch(baseURL + '/user/tkn' , {
                 method: 'get',
                 headers: new Headers( {'Authorization': 'bearer:'+TOKEN } ),
             })
@@ -24,14 +24,10 @@ const API = {
         },
 
         async login(data) {
-
-            console.log(data)
-            console.log( new FormData(data) )
-
+            //TODO:pasar a utils 
             const searchParams = Object.keys(data).map((key) => {
                 return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
             }).join('&');
-
 
             const response = await fetch(baseURL + '/login', {
                 method: 'POST',

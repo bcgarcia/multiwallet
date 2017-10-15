@@ -1,4 +1,3 @@
-import auth from '../utils/auth'
 import localStorage from '../utils/localStorage'
 import API from '../api'
 
@@ -6,7 +5,7 @@ const initialState = {
 
     app:{
         currentlySending: false,
-        loggedIn: auth.loggedIn(),
+        loggedIn: localStorage.loggedIn(),
         errorMessage: '',
         headerOpen: localStorage.toggleHeaderState(),
         userNotificationsOpen: false,

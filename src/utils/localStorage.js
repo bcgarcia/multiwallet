@@ -28,13 +28,13 @@ const storagedState = {
      * Checks if anybody is logged in
      * @return {boolean} string token if there is a logged in user
      */
-    userToken() { return localStorage.token},
+    userToken() { return localStorage.getItem('pachangatron-tkn')},
      
     /**
      * get the token if loged in
      * @return {boolean} True if there is a logged in user, false if there isn't
      */
-    loggedIn() { return !!localStorage.token}
+    loggedIn() { return localStorage.getItem('pachangatron-tkn') === null ? false : true }
 }
 
 export default storagedState

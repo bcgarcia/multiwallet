@@ -13,5 +13,7 @@ export const errorMessages = {
     USERNAME_TAKEN : 'El usuario introducido ya está en uso',
     GENERAL_ERROR : 'Algo ha ido mal, pruebe más tarde',
     WRONG_EMAIL : 'El email es incorrecto',
-    
+    STATUS_500 : 'EL servidor está tardando demasiado en responder...',
+    NOTIFICATION_FAIL: 'Acción fallida',
+    NOTIFICATION_OK: 'Acción realizada',
 }

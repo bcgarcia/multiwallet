@@ -4,6 +4,7 @@ import {
     ADD_NOTIFICATION,CHANGE_CREDENTIALS_FORM,SENDING_REQUEST,SET_ERROR_MESSAGE,SET_AUTH,CHANGE_REGISTER_FORM,USER_ALREADY_REGISTERED
 } from '../constants/actions'
 
+import lodash from 'lodash'
 import API from '../api'
 import {browserHistory} from 'react-router'
 import {addNotification} from './notificationActions'
@@ -60,19 +61,28 @@ function availableEmail(state){return {type: USER_ALREADY_REGISTERED , payload: 
  * @param  {string} token          The new state of the form input email
  * @return {object}                returns user
  */
-export function getUserByToken(token){
+export function getUserByToken(){
    
     return async (dispatch) =>{
-
         dispatch(sendingRequest(true))
-        
         try {
-            
-            const responsePet = await API.user.getByToken(token)
-            
+            const responsePet = await API.user.getByToken( localStorage.getItem('pachangatron-tkn') )
             const response = await responsePet
-            console.log('response')
-            console.log(response)
+
+            if( lodash.isEmpty(response) ){
+                dispatch(sendingRequest(false))
+                dispatch( getUserFail({error: errorMessages.STATUS_500}) )
+                const notif = {title: 'error', message : errorMessages.STATUS_500, level : 'error'}
+                dispatch( addNotification(notif) )
+                forwardTo('/login');
+            }
+            
+            if(response.status == 'unauthorized'){
+                dispatch(sendingRequest(false))
+                forwardTo('/login');
+            }
+            dispatch( getUserOk(response.user) )
+            dispatch(sendingRequest(false))
 
         } catch (error) {
             dispatch( getUserFail(error) )
@@ -109,22 +119,29 @@ export function loginUser( user ){
                 dispatch( sendingRequest(false) )
             }
             const responseD = await API.user.login( user )
-            
             const response = await responseD
-
-            localStorage.token = response.token;
-            dispatch(setAuthState(true))
-            dispatch(changeCredentialsForm({
-                username:{value:'',state:null},
-                password:{value:'',state:null}
-            }));
-            dispatch(sendingRequest(false) )
-            //dispatch( loginUserOk(loggedUser) )
-            forwardTo('/dashboard');
-            return
+            
+            if(response.token == null ){
+                dispatch(sendingRequest(false) )
+                const notif = {title: errorMessages.NOTIFICATION_FAIL, message : response.message, level : 'error'}
+                dispatch(addNotification(notif) )
+            }
+            else{
+                
+                localStorage.setItem('pachangatron-tkn', response.token)
+                dispatch(setAuthState(true))
+                dispatch(changeCredentialsForm({
+                    username:{value:'',state:null},
+                    password:{value:'',state:null}
+                }));
+                dispatch(sendingRequest(false) )
+                //dispatch( loginUserOk(loggedUser) )
+                forwardTo('/dashboard');
+                return
+            }
         } 
         catch (error) {
-            const notif = {title: error.code, message : error.message, level : 'error'}
+            const notif = {title: errorMessages.NOTIFICATION_FAIL, message : error.message, level : 'error'}
             dispatch(addNotification(notif) )
             dispatch(sendingRequest(false) )
             return dispatch( loginUserFail(error) )
@@ -195,7 +212,7 @@ export function getUserFail(error){ return { type:GET_USER_FAIL ,payload: error 
  * 
  * @param {object} user 
  */
-export function getUserOk(error){ return { type:GET_USER_OK ,payload: user }  }
+export function getUserOk(user){ return { type:GET_USER_OK ,payload: user }  }
 
 
 

@@ -1,6 +1,6 @@
 import {
     REGISTER_USER_FAIL , REGISTER_USER_OK , 
-    LOGIN_USER_FAIL , LOGIN_USER_OK,
+    LOGIN_USER_FAIL , LOGIN_USER_OK,GET_USER,
     REGISTER_USER_INIT , LOGIN_USER_INIT
 } from '../constants/actions'
 
@@ -37,6 +37,13 @@ import initialState from './initialState'
                 error: null,
                 user: [...state.user, actions.payload ]
             }
+        case GET_USER:
+            
+            return{
+                ...state,
+                error: null,
+                user: [...state.user, actions.payload ]
+            }
 
         case LOGIN_USER_FAIL:
             
@@ -51,13 +58,7 @@ import initialState from './initialState'
             return{
                 ...state,
                 error           : null,
-                displayName     : actions.payload.displayName,
-                email           : actions.payload.email,
-                emailVerified   : actions.payload.emailVerified,
-                phone           : actions.payload.phone,
-                photoURL        : actions.payload.photoURL,
-                token           : actions.payload.token,
-                uid             : actions.payload.uid,
+                
             }
     
         default:
