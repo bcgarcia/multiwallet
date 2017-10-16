@@ -69,20 +69,26 @@ export function getUserByToken(){
             const responsePet = await API.user.getByToken( localStorage.getItem('pachangatron-tkn') )
             const response = await responsePet
 
-            if( lodash.isEmpty(response) ){
+            if( lodash.isEmpty(response) || response.status == 500 ){ // si la respuesta es vacía o el servidor devuelve un error 500...
+
                 dispatch(sendingRequest(false))
-                dispatch( getUserFail({error: errorMessages.STATUS_500}) )
-                const notif = {title: 'error', message : errorMessages.STATUS_500, level : 'error'}
+                dispatch( getUserFail({error: errorMessages.SERVER_NO_RESPONSE}) )
+                const notif = {title: 'error', message : errorMessages.SERVER_NO_RESPONSE, level : 'error'}
                 dispatch( addNotification(notif) )
                 forwardTo('/login');
             }
-            
-            if(response.status == 'unauthorized'){
+            else if( response.status == 400 ){ // si la respuiesta es un error 400 ..
                 dispatch(sendingRequest(false))
+                const notif = {title: 'error', message : response.message, level : 'error'}
+                dispatch( addNotification(notif) )
                 forwardTo('/login');
             }
-            dispatch( getUserOk(response.user) )
-            dispatch(sendingRequest(false))
+            else if(response.status == 200 ){
+
+                dispatch( getUserOk(response.user) )
+                dispatch( sendingRequest(false) )
+            }
+
 
         } catch (error) {
             dispatch( getUserFail(error) )

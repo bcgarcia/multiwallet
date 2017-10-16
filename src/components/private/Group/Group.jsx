@@ -31,7 +31,7 @@ class Group extends Component {
                 {
                     !this.props.renderNewGroup 
                     ? (<Button onClick={this.props.onNewGroup} outline color="info">New</Button>)
-                    : (<Button onClick={ ()=>{browserHistory.goBack} } outline color="info">Go back</Button>)
+                    : (<Button onClick={ () => {browserHistory.goBack} } outline color="info">Go back</Button>)
                 }
                 </div>
                 </div>
@@ -39,7 +39,7 @@ class Group extends Component {
                 {
                     !this.props.renderNewGroup 
                     ? (<GroupAdd />)
-                    : (<GroupList />)
+                    : (<GroupList items={this.props.userGroupList} />)
                 }
                 </div>
             </div>
@@ -50,12 +50,12 @@ class Group extends Component {
   }
 }
 
-
 function mapStateToProps( state  ) {
       
     return {
-    sidebar: state.sidebar
-  }
+      sidebar: state.sidebar,
+      userGroupList: state.userGroup.list
+    }
 }
 
 

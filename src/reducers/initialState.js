@@ -67,12 +67,38 @@ const initialState = {
     user:{
         displayName     : '',
         email           : '',
-        emailVerified   :false,
-        photoURL        :'',
-        token           :'',
+        emailVerified   : '',
+        photoURL        : '',
+        token           : '',
         uid             : '',
-        error           : null
+        error           : null,
+        loaded          : false,
+    },
+    userGroups:{
+        list        : [],
+        loaded      : false,
+        groupActive : null,
+        error       : null
+    },
+    userEvents:{
+        list        : [],
+        loaded      : false,
+        groupActive : null,
+        error       : null
+    },
+    groups:{
+        list        : [],
+        loaded      : false,
+        groupActive : null,
+        error       : null
+    },
+    events:{
+        list        : [],
+        loaded      : false,
+        groupActive : null,
+        error       : null
     }
+    
 }
 
 export default initialState

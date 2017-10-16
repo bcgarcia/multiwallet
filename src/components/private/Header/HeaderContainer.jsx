@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import {browserHistory} from 'react-router'
 import Header from './Header'
+import UserData from '../User/UserData'
 
 import * as userActions from '../../../actions/userActions'
 import * as appActions from '../../../actions/appActions'
@@ -14,12 +15,17 @@ class HeaderContainer extends Component {
 
     constructor(props) {
         super(props)
-        this.handleToggleHeader = this.handleToggleHeader.bind(this)
-        this.handleToggleUserNotifications = this.handleToggleUserNotifications.bind(this)
-        this.handleToggleUserOptions = this.handleToggleUserOptions.bind(this)
-        this.handleToggleSidebar = this.handleToggleSidebar.bind(this)
+        this.state = {modal: false}
+        this.handleToggleUserDataModal      = this.handleToggleUserDataModal.bind(this)
+        this.handleToggleHeader             = this.handleToggleHeader.bind(this)
+        this.handleToggleUserNotifications  = this.handleToggleUserNotifications.bind(this)
+        this.handleToggleUserOptions        = this.handleToggleUserOptions.bind(this)
+        this.handleToggleSidebar            = this.handleToggleSidebar.bind(this)
     }
 
+    handleToggleUserDataModal(){
+        this.setState({modal : !this.state.modal})
+    }
 
     handleToggleHeader() { this.props.appActions.toggleHeader(!this.props.app.headerOpen) }
     
@@ -34,12 +40,15 @@ class HeaderContainer extends Component {
 
     render() {
         return (
+            <div>
                <Header
+                onLauchModal={this.handleToggleUserDataModal}
                 toggle={this.handleToogleHeader} 
                 toggleUserNotifications={this.handleToggleUserNotifications} 
                 toggleUserOptions={this.handleToggleUserOptions}
                 toggleSidebar={this.handleToggleSidebar} /> 
-            
+                <UserData user={ this.props.user} />
+            </div>
         );
     }
 }
@@ -47,7 +56,8 @@ class HeaderContainer extends Component {
 function mapStateToProps(state) {
     return {
         sidebar: state.sidebar,
-        app: state.app
+        app: state.app,
+        user : state.user
     }
 }
 

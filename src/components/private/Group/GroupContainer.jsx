@@ -18,24 +18,16 @@ class GroupContainer extends Component{
     }
 
     async componentDidMount(){
-        const { routes } = this.props; // array of routes
-        const { router } = this.props;
-
-        //check if user is logged
-        console.log(this.props.logged)
         if (!this.props.logged ) browserHistory.push('/login')
-
-        if(this.props.user == null ){
-            //get user
-            const response = await this.props.userActions.getUserByToken()
-            //get all roles available for this route
-
-            const user = await response
-            console.log('authorized')
-            console.log(user)
-            console.log('----------')
-        }
+        if ( ! this.props.user.loaded ) await this.props.userActions.getUserByToken()
     }
+
+    async componentWillMount(){
+    
+        
+    
+    }
+
 
     handleNewGroup(){
         browserHistory.push('groups/new')
@@ -55,9 +47,11 @@ class GroupContainer extends Component{
 
 function mapStateToProps(state, ownProps){
     
-    console.log(ownProps.params.hasOwnProperty('option'))
+    console.log(ownProps.params.hasOwnProperty('option') )
     
     return{
+        user : state.user,
+        logged : state.app.loggedIn,
         newGroup  : ownProps.params.hasOwnProperty('option') ? true : false , 
         listGroup : !ownProps.params.hasOwnProperty('option') ? true : false
     }

@@ -2,12 +2,10 @@ import fetch from 'isomorphic-fetch'
 import auth from '../utils/localStorage'
 
 const baseURL = "http://localhost:8088/api"
-
 const TOKEN = auth.userToken()
 
 const API = {
     user: {
-
         async get(id) {
             const response = await fetch(baseURL + '/user/' + id, {
                 method: 'get',

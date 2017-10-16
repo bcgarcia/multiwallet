@@ -17,22 +17,8 @@ class DashboardContainer extends Component {
     }
 
     async componentDidMount(){
-        const { routes } = this.props; // array of routes
-        const { router } = this.props;
-
-        //check if user is logged
         if (!this.props.logged ) browserHistory.push('/login')
-
-        if(this.props.user == null ){
-            //get user
-            const response = await this.props.userActions.getUserByToken()
-            //get all roles available for this route
-
-            const user = await response
-            console.log('authorized')
-            console.log(user)
-            console.log('----------')
-        }
+        if ( ! this.props.user.loaded ) await this.props.userActions.getUserByToken()
     }
 
     render() {

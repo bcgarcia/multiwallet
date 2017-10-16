@@ -46,7 +46,7 @@ class Header extends Component {
                             <span> Profile</span>
                         </DropdownToggle>
                         <DropdownMenu right>
-                            <DropdownItem onClick={ () => { browserHistory.push('/my-profile') } }>  <span className="fa fa-user"> </span> My profile </DropdownItem>
+                            <DropdownItem onClick={ this.props.onLauchModal }>  <span className="fa fa-user"> </span> My profile </DropdownItem>
                             <DropdownItem divider />
                             <DropdownItem onClick={ () => {browserHistory.push('/settings') } } > <span className="fa fa-cog"></span> Settings </DropdownItem>
                             <DropdownItem divider />

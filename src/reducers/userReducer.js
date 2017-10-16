@@ -1,6 +1,7 @@
+import moment from 'moment'
 import {
     REGISTER_USER_FAIL , REGISTER_USER_OK , 
-    LOGIN_USER_FAIL , LOGIN_USER_OK,GET_USER,
+    LOGIN_USER_FAIL , LOGIN_USER_OK,GET_USER_FAIL,GET_USER_OK,
     REGISTER_USER_INIT , LOGIN_USER_INIT
 } from '../constants/actions'
 
@@ -15,49 +16,60 @@ import initialState from './initialState'
 
     switch ( actions.type ) {
         
-        case REGISTER_USER_INIT:
-            
-            return{
-                ...state,
-                login: false
-            }
         case REGISTER_USER_FAIL:
             
             return{
                 ...state,
-                loading : false,
-                register: false,
-                error: actions.payload
+                error           : true,
+                loaded          : true
             }
         
         case REGISTER_USER_OK:
             
             return{
                 ...state,
-                error: null,
-                user: [...state.user, actions.payload ]
+                error: false,
+                loaded: true
             }
-        case GET_USER:
+
+        case GET_USER_OK:
             
             return{
                 ...state,
-                error: null,
-                user: [...state.user, actions.payload ]
+                displayName     : actions.payload.name +' '+actions.payload.ape,
+                name            : actions.payload.name,
+                ape             : actions.payload.ape,
+                email           : actions.payload.email,
+                emailVerified   : actions.payload.emailVerified,
+                image           : actions.payload.image,
+                id              : actions.payload._id,
+                lastLogin       : moment.unix(actions.payload.lastLogin).format('DD-MM-YYYY'),
+                registeredDate  : moment.unix(actions.payload.registeredDate).format('DD-MM-YYYY'),
+                error           : false,
+                loaded          : true
+            }
+        case GET_USER_FAIL:
+            
+            return{
+                ...state,
+                error           : true,
+                loaded          : true
             }
 
         case LOGIN_USER_FAIL:
             
             return{
                 ...state,
-                error: actions.payload,
-                user: null,
+                error           : true,
+                loaded          : true
             }
     
         case LOGIN_USER_OK:
             
             return{
                 ...state,
-                error           : null,
+                error           : false,
+                loaded          : true
                 
             }
     
