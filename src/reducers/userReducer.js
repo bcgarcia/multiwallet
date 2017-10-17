@@ -45,6 +45,7 @@ import initialState from './initialState'
                 id              : actions.payload._id,
                 lastLogin       : moment.unix(actions.payload.lastLogin).format('DD-MM-YYYY'),
                 registeredDate  : moment.unix(actions.payload.registeredDate).format('DD-MM-YYYY'),
+                birthDate       : moment.unix(actions.payload.birthDate).format('DD-MM-YYYY'),
                 error           : false,
                 loaded          : true
             }

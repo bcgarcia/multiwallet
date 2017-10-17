@@ -3,9 +3,8 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 import {browserHistory} from 'react-router'
-
 
 import './Header.css'
 
@@ -19,7 +18,7 @@ class Header extends Component {
 
     render() {
         return (
-            <Navbar color="primary" light toggleable>
+            <Navbar color="primary" light toggleable >
             <NavbarToggler right onClick={this.props.toggleSidebar} />
             <NavbarBrand href="/">
                 reactstrap
@@ -48,9 +47,11 @@ class Header extends Component {
                         <DropdownMenu right>
                             <DropdownItem onClick={ this.props.onLauchModal }>  <span className="fa fa-user"> </span> My profile </DropdownItem>
                             <DropdownItem divider />
-                            <DropdownItem onClick={ () => {browserHistory.push('/settings') } } > <span className="fa fa-cog"></span> Settings </DropdownItem>
+                            <DropdownItem onClick={ this.props.onLauchModalError } > <span className="fa fa-info"></span> Report error </DropdownItem>
                             <DropdownItem divider />
-                            <DropdownItem onClick={ () => {browserHistory.push('/logout')} } > <span className="fa fa-sign-out"></span> Logout </DropdownItem>
+                            <DropdownItem onClick={ this.props.onLauchModalSuggest } > <span className="fa fa-lightbulb-o"></span> Sugerencia </DropdownItem>
+                            <DropdownItem divider />
+                            <DropdownItem onClick={ this.props.onLogout } > <span className="fa fa-sign-out"></span> Logout </DropdownItem>
                         </DropdownMenu>
                     </NavDropdown>
                 </Nav>
