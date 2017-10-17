@@ -69,6 +69,7 @@ const initialState = {
         email           : '',
         emailVerified   : '',
         photoURL        : '',
+        birthdate       : '',
         token           : '',
         uid             : '',
         error           : null,

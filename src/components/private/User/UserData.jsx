@@ -1,18 +1,100 @@
-import React from 'react'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import React, { Component } from 'react'
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, FormFeedback, FormText, InputGroupAddon, InputGroup } from 'reactstrap'
+import LoadingButton from '../../common/LoadingButton'
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
+import 'react-datepicker/dist/react-datepicker.css'
 
-const UserData = ({isOpen,toggle,data})=>(
-    <div>
-        <Modal isOpen={isOpen} toggle={toggle} >
-          <ModalHeader toggle={toggle}>Modal title</ModalHeader>
-          <ModalBody>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-            <Button color="secondary" onClick={toggle}>Cancel</Button>
-          </ModalFooter>
-        </Modal>
+class UserData extends Component {
+
+  constructor(props) {
+    super(props)
+
+  }
+
+  render() {
+    return (<div>
+      <Modal size={"500"} isOpen={this.props.modal} toggle={this.props.onModal} >
+        <ModalHeader toggle={this.props.onModal}>Modify {this.props.user.displayName}</ModalHeader>
+          <Form onSubmit={this.props.onSubmit}>
+        <ModalBody>
+            <div className="row">
+              <div className="col-12">
+                <div className="form-group">
+                  <FormGroup color={this.props.formState.name.state}>
+                    <Label for="name">Nombre completo</Label>
+                    <Input getRef={node => this.nameInput = node} type="text" id="name" defaultValue={this.props.user.displayName} name="name" />
+                    {this.props.formState.name.error ? (<FormFeedback>{this.props.formState.name.errorMessage}</FormFeedback>) : (<div></div>)}
+                  </FormGroup>
+                </div>
+              </div>
+              <div className="col-5">
+                <div className="form-group">
+                  <FormGroup color={this.props.formState.birthdate.state}>
+                    <Label for="username">F.Nacimiento</Label>
+                    <DatePicker
+                      popoverAttachment='bottom left'
+                      popoverTargetAttachment='top left'
+                      dateFormat="DD-MM-YYYY"
+                      className={'form-control'}
+                      selected={moment(this.props.user.birthDate)}
+                      onChange={this.onChangeBirthdate} />
+                    {this.props.formState.birthdate.error ? (<FormFeedback>{this.props.formState.birthdate.errorMessage}</FormFeedback>) : (<div></div>)}
+                  </FormGroup>
+                </div>
+              </div>
+              <div className="col-7">
+                <div className="form-group">
+                  <FormGroup color={this.props.formState.email.state}>
+                    <Label for="username">Email</Label>
+                    <InputGroup>
+                      <Input  onChange={this.props.onChangePassword} getRef={node => this.emailInput = node} defaultValue={this.props.user.email} type="text" id="email"  name="email" />
+                      {this.props.sendingData && <InputGroupAddon><span className="fa fa-spinner fa-spin"></span></InputGroupAddon>}
+                    </InputGroup>
+                    {this.props.formState.email.error ? (<FormFeedback>{this.props.formState.email.errorMessage}</FormFeedback>) : (<div></div>)}
+                  </FormGroup>
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="form-group">
+                  <FormGroup color={this.props.formState.password.state}>
+                    <Label for="password">Contraseña</Label>
+                    <InputGroup>
+                      <Input getRef={node => this.passwordInput = node} onChange={this.props.onChangePassword} type="password" id="password" state={this.props.formState.password.state} name="password" />
+                      {/* this.props.password.error && <InputGroupAddon><span className="fa fa-spinner fa-spin"></span></InputGroupAddon>*/}
+                    </InputGroup>
+                    {this.props.formState.password.error ? (<FormFeedback>{this.props.formState.password.errorMessage}</FormFeedback>) : (<div><FormText color="muted">{'Si no quieres cambiar la contraseña deja el campo el blanco'}</FormText></div>)}
+                  </FormGroup>
+                </div>
+              </div>
+              {
+                (!this.props.formState.password.error && this.props.formState.password.value != '') ?
+                  (<div className="col-12">
+                    <div className="form-group">
+                      <FormGroup color={this.props.formState.rpassword.state}>
+                        <Label for="rpassword">Repite contraseña</Label>
+                        <Input  getRef={node => this.rpasswordInput = node} type="password" id="rpassword" state={this.props.formState.rpassword.state} name="email" />
+                        {this.props.formState.rpassword.error ? (<FormFeedback>{this.props.formState.rpassword.errorMessage}</FormFeedback>) : (<div></div>)}
+                      </FormGroup>
+                    </div>
+                  </div>) : (<div></div>)
+              }
+            </div>
+
+        </ModalBody>
+          </Form>
+        <ModalFooter>
+          {
+              this.props.currentlySending
+                ? (<LoadingButton buttonStyle={'primary'} block={false} />)
+                : (<Button type="submit" color="primary" > Update </Button>)
+          }
+          <Button color="secondary" onClick={this.props.onModal}>Cancel</Button>
+        </ModalFooter>
+      </Modal>
     </div>)
+  }
+
+}
 
 export default UserData
