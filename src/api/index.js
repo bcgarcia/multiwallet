@@ -54,16 +54,23 @@ const API = {
            return await response.json();
         },
 
-        async update(user){
+        async update(data){
 
-            const response = await fetch(baseURL+'/user/'+user.id , {
+            const searchParams = Object.keys(data).map((key) => {
+                return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
+            }).join('&');
+
+            const response = await fetch(baseURL+'/user/'+data.id , {
                 method : 'put',
                 headers: new Headers({
                     'Authorization': 'bearer:'+TOKEN ,
-                'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
                 }),
-                body: new FormData(user)
+                body: searchParams
             })
+
+            return await response.json()
         },
     },
 

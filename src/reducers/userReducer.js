@@ -1,7 +1,7 @@
 import moment from 'moment'
 import {
     REGISTER_USER_FAIL , REGISTER_USER_OK , 
-    LOGIN_USER_FAIL , LOGIN_USER_OK,GET_USER_FAIL,GET_USER_OK,
+    LOGIN_USER_FAIL , LOGIN_USER_OK,GET_USER_FAIL,GET_USER_OK,UPDATE_USER_FAIL,UPDATE_USER_OK,
     REGISTER_USER_INIT , LOGIN_USER_INIT
 } from '../constants/actions'
 
@@ -36,9 +36,7 @@ import initialState from './initialState'
             
             return{
                 ...state,
-                displayName     : actions.payload.name +' '+actions.payload.ape,
-                name            : actions.payload.name,
-                ape             : actions.payload.ape,
+                displayName     : actions.payload.name,
                 email           : actions.payload.email,
                 emailVerified   : actions.payload.emailVerified,
                 image           : actions.payload.image,
@@ -56,9 +54,27 @@ import initialState from './initialState'
                 error           : true,
                 loaded          : true
             }
+        case UPDATE_USER_OK:
+            
+            return{
+                ...state,
+                displayName     : actions.payload.name,
+                email           : actions.payload.email,
+                emailVerified   : actions.payload.emailVerified,
+                image           : actions.payload.image,
+                birthDate       : actions.payload.birthDate,
+                error           : false,
+                loaded          : true
+            }
+        case UPDATE_USER_FAIL:
+            
+            return{
+                ...state,
+                error           : true,
+                loaded          : true
+            }
 
         case LOGIN_USER_FAIL:
-            
             return{
                 ...state,
                 error           : true,

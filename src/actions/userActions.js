@@ -1,6 +1,6 @@
 import { 
     REGISTER_USER_OK , LOGIN_USER_OK , FORGOT_PASSWORD_OK,GET_USER, GET_USER_OK,GET_USER_FAIL,
-    REGISTER_USER_FAIL , LOGIN_USER_FAIL , FORGOT_PASSWORD_FAIL ,
+    REGISTER_USER_FAIL , LOGIN_USER_FAIL , FORGOT_PASSWORD_FAIL , UPDATE_USER_FAIL , UPDATE_USER_OK,
     ADD_NOTIFICATION,CHANGE_CREDENTIALS_FORM,SENDING_REQUEST,SET_ERROR_MESSAGE,SET_AUTH,CHANGE_REGISTER_FORM,USER_ALREADY_REGISTERED
 } from '../constants/actions'
 
@@ -45,6 +45,31 @@ export function checkAvailableEmail(email){
             }))
         }
     }
+}
+
+
+/**
+ * async function to update a registered user
+ * @param {*object} user 
+ */
+
+export function update(user){
+
+    console.log('update actions',user)
+
+    return( async (dispatch) =>{
+        dispatch(sendingRequest(true))
+        try {
+            const responseData = await API.update(user)
+            response = await responseData
+            
+            console.log('responseee action', response)
+
+        } catch (error) {
+            dispatch( updateUserFail(error) )
+        }
+
+    })
 }
 
 
@@ -157,16 +182,16 @@ export function loginUser( user ){
 
 
 export function logout(){
-    return async ( dispatch )=>{
-        try {
-            await API.user.logout()
-            localStorage.removeItem('token');
-            dispatch(setAuthState(false))
+    return ( dispatch )=>{
+        // try {
+            // await API.user.logout()
+            localStorage.removeItem('pachangatron-tkn')
+            dispatch( setAuthState(false) )
             forwardTo('/');
 
-        } catch (error) {
+        // } catch (error) {
             
-        }
+        // }
     }
 }
 
@@ -255,6 +280,22 @@ export function loginUserFail(error){
     
     return { type:LOGIN_USER_FAIL , payload : error }
 }
+
+
+/**
+ * action throwed when a update user  fails.
+ * 
+ * @param {object} error 
+ */
+export function updateUserFail(error){ return { type:UPDATE_USER_FAIL ,payload: error }  }
+
+/**
+ * action throwed when a UPDATE user  SUCCESS.
+ * 
+ * @param {object} user 
+ */
+export function updateUserOk(user){ return { type:UPDATE_USER_OK ,payload: user }  }
+
 
 /**
  * Sets the requestSending state, which displays a loading indicator during requests
