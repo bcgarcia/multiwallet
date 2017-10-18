@@ -1,0 +1,5 @@
+
+/** fix to datepicker in modal bootstrap **/
+.react-datepicker-popper{
+    z-index: 9999;
+}

@@ -2,21 +2,34 @@ import React, { Component } from 'react'
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, FormFeedback, FormText, InputGroupAddon, InputGroup } from 'reactstrap'
 import LoadingButton from '../../common/LoadingButton'
 import DatePicker from 'react-datepicker'
-import moment from 'moment'
+// import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
+import './userdata.css'
 
 class UserData extends Component {
 
   constructor(props) {
     super(props)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
 
+  handleSubmit(e){
+    e.preventDefault()
+    const formData = {
+        name        : this.nameInput,
+        email       : this.emailInput,
+        password    : this.passwordInput,
+        rpassword   : this.rpasswordInput,
+        birthDate   : this.props.selectedBirthdate
+    };
+    this.props.onSubmitModal(formData)
   }
 
   render() {
     return (<div>
       <Modal size={"500"} isOpen={this.props.modal} toggle={this.props.onModal} >
+        <Form onSubmit={this.handleSubmit}>
         <ModalHeader toggle={this.props.onModal}>Modify {this.props.user.displayName}</ModalHeader>
-          <Form onSubmit={this.props.onSubmit}>
         <ModalBody>
             <div className="row">
               <div className="col-12">
@@ -32,13 +45,13 @@ class UserData extends Component {
                 <div className="form-group">
                   <FormGroup color={this.props.formState.birthdate.state}>
                     <Label for="username">F.Nacimiento</Label>
-                    <DatePicker
+                   <DatePicker
                       popoverAttachment='bottom left'
                       popoverTargetAttachment='top left'
                       dateFormat="DD-MM-YYYY"
                       className={'form-control'}
-                      selected={moment(this.props.user.birthDate)}
-                      onChange={this.onChangeBirthdate} />
+                      selected={this.props.selectedBirthdate}
+                      onChange={this.props.onChangeBirthdate} />
                     {this.props.formState.birthdate.error ? (<FormFeedback>{this.props.formState.birthdate.errorMessage}</FormFeedback>) : (<div></div>)}
                   </FormGroup>
                 </div>
@@ -48,7 +61,7 @@ class UserData extends Component {
                   <FormGroup color={this.props.formState.email.state}>
                     <Label for="username">Email</Label>
                     <InputGroup>
-                      <Input  onChange={this.props.onChangePassword} getRef={node => this.emailInput = node} defaultValue={this.props.user.email} type="text" id="email"  name="email" />
+                      <Input  onChange={this.props.onChangeUsername} getRef={node => this.emailInput = node} defaultValue={this.props.user.email} type="text" id="email"  name="email" />
                       {this.props.sendingData && <InputGroupAddon><span className="fa fa-spinner fa-spin"></span></InputGroupAddon>}
                     </InputGroup>
                     {this.props.formState.email.error ? (<FormFeedback>{this.props.formState.email.errorMessage}</FormFeedback>) : (<div></div>)}
@@ -73,7 +86,7 @@ class UserData extends Component {
                     <div className="form-group">
                       <FormGroup color={this.props.formState.rpassword.state}>
                         <Label for="rpassword">Repite contraseña</Label>
-                        <Input  getRef={node => this.rpasswordInput = node} type="password" id="rpassword" state={this.props.formState.rpassword.state} name="email" />
+                        <Input onChange={this.props.onChangePassword}  getRef={node => this.rpasswordInput = node} type="password" id="rpassword" state={this.props.formState.rpassword.state} name="email" />
                         {this.props.formState.rpassword.error ? (<FormFeedback>{this.props.formState.rpassword.errorMessage}</FormFeedback>) : (<div></div>)}
                       </FormGroup>
                     </div>
@@ -82,15 +95,15 @@ class UserData extends Component {
             </div>
 
         </ModalBody>
-          </Form>
         <ModalFooter>
           {
-              this.props.currentlySending
-                ? (<LoadingButton buttonStyle={'primary'} block={false} />)
-                : (<Button type="submit" color="primary" > Update </Button>)
+            this.props.currentlySending
+            ? (<LoadingButton buttonStyle={'primary'} block={false} />)
+            : (<Button type="submit" color="primary" > Update </Button>)
           }
           <Button color="secondary" onClick={this.props.onModal}>Cancel</Button>
         </ModalFooter>
+        </Form>
       </Modal>
     </div>)
   }
