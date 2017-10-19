@@ -60,13 +60,16 @@ export function update(user){
     return( async (dispatch) =>{
         dispatch(sendingRequest(true))
         try {
-            const responseData = await API.update(user)
+            const responseData = await API.user.update(user)
             response = await responseData
-            
+            response = await response
+            console.log('responseeeDattaaaaaa action', responseData)
             console.log('responseee action', response)
 
         } catch (error) {
             dispatch( updateUserFail(error) )
+            dispatch(sendingRequest(false))
+            dispatch( addNotification({title: 'error', message : error.message, level : 'error'}) )
         }
 
     })

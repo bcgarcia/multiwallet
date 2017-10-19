@@ -16,12 +16,15 @@ class UserData extends Component {
   handleSubmit(e){
     e.preventDefault()
     const formData = {
-        name        : this.nameInput,
-        email       : this.emailInput,
-        password    : this.passwordInput,
-        rpassword   : this.rpasswordInput,
-        birthDate   : this.props.selectedBirthdate
+        id          : this.props.user.id,
+        name        : this.nameInput.value,
+        email       : this.emailInput.value,
+        password    : null,
+        rpassword   : null,
+        birthDate   : this.props.selectedBirthdate._i
     };
+    formData.password = this.passwordInput.value !== '' ? this.passwordInput.value : null
+    formData.rpassword = this.rpasswordInput !== undefined ? this.rpasswordInput.value : null
     this.props.onSubmitModal(formData)
   }
 

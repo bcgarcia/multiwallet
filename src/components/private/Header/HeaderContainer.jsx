@@ -46,11 +46,8 @@ class HeaderContainer extends Component {
 
     handleSubmitUserModal(formData){
         
-
         console.log('submit update user', formData)
-        
-
-        //this.props.userActions.update()
+        this.props.userActions.update(formData)
     }
 
     toggleUserModal() {
