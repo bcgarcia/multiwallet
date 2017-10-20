@@ -55,22 +55,21 @@ const API = {
         },
 
         async update(data){
-
             const searchParams = Object.keys(data).map((key) => {
                 return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
             }).join('&');
-
-            const response = await fetch(baseURL+'/user/'+data.id , {
-                method : 'put',
+            
+            const responseD = await fetch(baseURL+'/user/'+data.id , {
+                method : 'PUT',
                 headers: new Headers({
                     'Authorization': 'bearer:'+TOKEN ,
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+                    'Accept': 'application/json, application/xml, text/plain, text/html, *.*'
                 }),
                 body: searchParams
             })
-
-            return await response.json()
+            const response = await responseD.json()
+            return await response
         },
     },
 

@@ -57,19 +57,32 @@ export function update(user){
 
     console.log('update actions',user)
 
-    return( async (dispatch) =>{
+    return async (dispatch) =>{
         dispatch(sendingRequest(true))
         try {
-            const responseData = await API.update(user)
-            response = await responseData
-            
+            const responseData = await API.user.update(user)
+            const response = await responseData
             console.log('responseee action', response)
+            if(response.status == 200 ){
+
+                dispatch( updateUserOk(response.user) )
+                dispatch( addNotification({title: 'Acción realizada', message : response.message, level : 'success'}) )
+            }
+            else{
+                dispatch( updateUserFail({response}) )
+                dispatch( addNotification({title: 'Error en acción', message : error.message, level : 'error'}) )
+            }
+            
+            dispatch( sendingRequest(false) )
 
         } catch (error) {
+            console.log('error-->' , error )
             dispatch( updateUserFail(error) )
+            dispatch( sendingRequest(false) )
+            dispatch( addNotification({title: 'Error en acción', message : error.message, level : 'error'}) )
         }
 
-    })
+    }
 }
 
 

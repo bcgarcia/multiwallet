@@ -36,7 +36,7 @@ import initialState from './initialState'
             
             return{
                 ...state,
-                displayName     : actions.payload.name,
+                displayName     : actions.payload.displayName,
                 email           : actions.payload.email,
                 emailVerified   : actions.payload.emailVerified,
                 image           : actions.payload.image,
@@ -55,14 +55,15 @@ import initialState from './initialState'
                 loaded          : true
             }
         case UPDATE_USER_OK:
-            
+
+            let date = moment(actions.payload.birthDate , 'DD-MM-YYYY').isValid() ? actions.payload.birthDate : moment.unix(actions.payload.birthDate).format('DD-MM-YYYY')
             return{
                 ...state,
-                displayName     : actions.payload.name,
+                displayName     : actions.payload.displayName,
                 email           : actions.payload.email,
                 emailVerified   : actions.payload.emailVerified,
                 image           : actions.payload.image,
-                birthDate       : actions.payload.birthDate,
+                birthDate       : date,
                 error           : false,
                 loaded          : true
             }

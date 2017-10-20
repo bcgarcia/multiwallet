@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, FormFeedback, FormText, InputGroupAddon, InputGroup } from 'reactstrap'
+import {Tooltip ,Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, FormFeedback, FormText, InputGroupAddon, InputGroup } from 'reactstrap'
 import LoadingButton from '../../common/LoadingButton'
 import DatePicker from 'react-datepicker'
 // import moment from 'moment'
@@ -16,12 +16,15 @@ class UserData extends Component {
   handleSubmit(e){
     e.preventDefault()
     const formData = {
-        name        : this.nameInput,
-        email       : this.emailInput,
-        password    : this.passwordInput,
-        rpassword   : this.rpasswordInput,
-        birthDate   : this.props.selectedBirthdate
-    };
+        id          : this.props.user.id,
+        name        : this.nameInput.value,
+        email       : this.emailInput.value,
+        password    : null,
+        rpassword   : null,
+        birthDate   : this.props.selectedBirthdate._i
+    }
+    formData.password = this.passwordInput.value !== '' ? this.passwordInput.value : null
+    formData.rpassword = this.rpasswordInput !== undefined ? this.rpasswordInput.value : null
     this.props.onSubmitModal(formData)
   }
 
@@ -43,6 +46,7 @@ class UserData extends Component {
               </div>
               <div className="col-5">
                 <div className="form-group">
+                  {console.log(this.props.selectedBirthdate)}
                   <FormGroup color={this.props.formState.birthdate.state}>
                     <Label for="username">F.Nacimiento</Label>
                    <DatePicker
@@ -62,6 +66,7 @@ class UserData extends Component {
                     <Label for="username">Email</Label>
                     <InputGroup>
                       <Input  onChange={this.props.onChangeUsername} getRef={node => this.emailInput = node} defaultValue={this.props.user.email} type="text" id="email"  name="email" />
+                      {/*<InputGroupAddon><span className="fa fa-envelope"></span></InputGroupAddon>*/}
                       {this.props.sendingData && <InputGroupAddon><span className="fa fa-spinner fa-spin"></span></InputGroupAddon>}
                     </InputGroup>
                     {this.props.formState.email.error ? (<FormFeedback>{this.props.formState.email.errorMessage}</FormFeedback>) : (<div></div>)}
@@ -97,7 +102,7 @@ class UserData extends Component {
         </ModalBody>
         <ModalFooter>
           {
-            this.props.currentlySending
+            this.props.sendingData
             ? (<LoadingButton buttonStyle={'primary'} block={false} />)
             : (<Button type="submit" color="primary" > Update </Button>)
           }
