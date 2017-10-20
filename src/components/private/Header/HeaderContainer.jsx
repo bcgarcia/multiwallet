@@ -44,10 +44,11 @@ class HeaderContainer extends Component {
         return Object.assign(this.props.userform, stateChange);
     }
 
-    handleSubmitUserModal(formData){
+    async handleSubmitUserModal(formData){
         
         console.log('submit update user', formData)
-        this.props.userActions.update(formData)
+        await this.props.userActions.update(formData)
+        this.setState({modal: !this.state.modal});
     }
 
     toggleUserModal() {
@@ -66,10 +67,10 @@ class HeaderContainer extends Component {
     }
 
     handleChangeBirthDate(date){
-        // console.log('new dateeeee',moment(date._d).format('DD-MM-YYYY'))
-        //console.log('handlechange')
-        //console.log(date._d )
-        //console.log('valid date---->',moment(date._d, 'DD-MM-YYYY').isValid() )
+        console.log('new dateeeee',moment(date._d).format('DD-MM-YYYY'))
+        console.log('handlechange')
+        console.log(date._d )
+        console.log('valid date---->',moment(date._d, 'DD-MM-YYYY').isValid() )
         let form ={
             birthDate:{
                 value : '',
@@ -79,24 +80,18 @@ class HeaderContainer extends Component {
             }
         }
 
-        if(moment(date._d).isValid() ){
+        if( moment(date._d, 'DD-MM-YYYY').isValid() ){
             form.birthDate.state = 'success'
             form.birthDate.error = false
             form.birthDate.errorMessage = ''
-
-
             var updatedUserState = this.mergeUserDataWithCurrentState( { birthDate:moment(date._d).format('DD-MM-YYYY') } )
             var updatedFormState = this.mergeFormUserWithCurrentState( form )
-        
         }
         else{
             form.birthDate.state = 'error'
             form.birthDate.error = true
             form.birthDate.errorMessage = 'La fecha no es correcta'
         }
-
-        
-
         this.props.userActions.changeRegisterForm(updatedFormState)
         return this.props.userActions.updateUserOk(updatedUserState)
     }
@@ -146,7 +141,6 @@ class HeaderContainer extends Component {
                 error = true
                 errorMsg = "No cumple el formato válido para contraseña"
             }
-            
             form ={
                 password:{
                     value : inputValue,
@@ -194,6 +188,7 @@ class HeaderContainer extends Component {
     render() {
         return (
             <div>
+            {console.log('selectedDateeeee', this.props.user.birthDate )}
                <Header
                 onLauchModal={this.toggleUserModal}
                 toggle={this.handleToogleHeader} 
