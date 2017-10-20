@@ -1,3 +1,14 @@
 
-user:
+general:
+    ☐ valores de estado para los inputs (sucess,error,warning) pasarlos como metodo de array en vez de a machete
+    ☐ valores mensajes de error de los campos pasados completarlos como método en vez de a machete
   
+
+user:
+    ☐ registrar un usuario
+    ☐ eliminar un usuario
+
+grupo:
+    ☐ crear un grupo
+    ☐ buscar grupos
+    ☐ solicitar acceso a grupo
