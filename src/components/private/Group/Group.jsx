@@ -1,23 +1,31 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
+import { ButtonGroup ,Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap'
 import { browserHistory } from 'react-router'
 import Sidebar from '../Sidebar/Sidebar'
-import Breadcrumb from '../Breadcrumb/Breadcrumb'
+//import Breadcrumb from '../Breadcrumb/Breadcrumb'
 import GroupAdd from './GroupAdd'
 import GroupList from './GroupList'
-//import * as userActions from '../../../actions/userActions'
+import * as userActions from '../../../actions/userActions'
+import * as groupActions from '../../../actions/groupActions'
 
 class Group extends Component {
 
-    constructor(props) {
+  constructor(props) {
     super(props)
   }
-  //TODO: crear menu lateral derecho con tienes dudas. Reportar errores. proximos eventos, eventos pasados,eventos jugando..
+
+
   render() {
+
+    let renderize = null
+    if(this.props.renderNewGroup ){renderize = <GroupAdd />}
+    else if( this.props.renderMyListGroups ){renderize = <GroupList items={this.props.userGroupList} />}
+    else if( this.props.renderFindGroups ){ /*renderize = <GroupFind /> */}
+
     return (
       <div className="">
         <div className="">
@@ -25,22 +33,21 @@ class Group extends Component {
             <Sidebar itemActive={this.props.itemActive} />
             <div className="content">
                 <div className="row justify-content-between">
-                 <div className="col-md-3"><h3 className="text-muted">Group</h3></div>
+                <div className="col-md-3"><h3 className="text-muted">Group</h3></div>
                 <div className="col-md-2">
-                {console.log(this.props)}
-                {
-                    !this.props.renderNewGroup 
-                    ? (<Button onClick={this.props.onNewGroup} outline color="info">New</Button>)
-                    : (<Button onClick={ () => {browserHistory.goBack} } outline color="info">Go back</Button>)
-                }
+                
+                <ButtonGroup size="">
+                  {!this.props.renderNewGroup 
+                      ? (<Button onClick={() =>{ browserHistory.push('groups/new')} } outline color="info"> <i className="fa fa-plus"></i> New </Button>)
+                      : (<Button onClick={ () => {browserHistory.goBack() } } outline color="info"> <i className="fa fa-reply"></i>  back</Button>)
+                  }
+                  <Button outline color="info" ><i className="fa fa-plus"></i> Find </Button>
+                  {/*<Button outline color="info" > <i className="fa fa-info"></i> Help </Button>*/}
+                </ButtonGroup>
                 </div>
                 </div>
                 <div className="row">
-                {
-                    !this.props.renderNewGroup 
-                    ? (<GroupAdd />)
-                    : (<GroupList items={this.props.userGroupList} />)
-                }
+                { renderize }
                 </div>
             </div>
           </div>
@@ -50,13 +57,24 @@ class Group extends Component {
   }
 }
 
-function mapStateToProps( state  ) {
-      
+Group.defaultProps = {
+  userGroupList : []
+}
+
+function mapStateToProps( state ) {
+
     return {
       sidebar: state.sidebar,
-      userGroupList: state.userGroup.list
+      userGroupList: state.user.groups.list
     }
 }
 
 
-export default connect(mapStateToProps, null)(Group)
+function mapDispatchToProps(dispatch){
+  return {
+      userActions: bindActionCreators(userActions, dispatch),
+      groupActions: bindActionCreators(groupActions, dispatch)
+  }
+}
+
+export default connect( mapStateToProps , mapDispatchToProps )( Group )

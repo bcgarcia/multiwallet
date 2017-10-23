@@ -15,7 +15,10 @@ class VerifyUserEmailContainer extends Component{
 
 
     }
+    render(){
 
+        
+    }
 }
 
 function mapStateToProps(state){

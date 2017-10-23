@@ -14,7 +14,6 @@ class GroupContainer extends Component{
 
     constructor(props){
         super(props)
-        this.handleNewGroup = this.handleNewGroup.bind(this)
     }
 
     async componentDidMount(){
@@ -29,17 +28,14 @@ class GroupContainer extends Component{
     }
 
 
-    handleNewGroup(){
-        browserHistory.push('groups/new')
-    }
 
     render(){
         return(<div> 
             <HeaderContainer />
             <Group 
             renderNewGroup={this.props.newGroup}
-            renderListGroups={this.props.listGroup}
-            onNewGroup={this.handleNewGroup}
+            renderMyListGroups={this.props.listGroup}
+            renderFindGroups={this.props.findGroup}
             itemActive={'groups'}/>
         </div>)
     }
@@ -48,12 +44,14 @@ class GroupContainer extends Component{
 function mapStateToProps(state, ownProps){
     
     console.log(ownProps.params.hasOwnProperty('option') )
+    console.log('ownprops',ownProps.params )
     
     return{
-        user : state.user,
-        logged : state.app.loggedIn,
-        newGroup  : ownProps.params.hasOwnProperty('option') ? true : false , 
-        listGroup : !ownProps.params.hasOwnProperty('option') ? true : false
+        user      : state.user,
+        logged    : state.app.loggedIn,
+        newGroup  : ownProps.params.hasOwnProperty('option') && ownProps.params.option == 'new'  ? true : false , 
+        findGroup : ownProps.params.hasOwnProperty('option') && ownProps.params.option == 'find' ? true : false,
+        listGroup : !ownProps.params.hasOwnProperty('option')                                    ? true : false
     }
 }
 

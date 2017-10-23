@@ -75,6 +75,14 @@ const API = {
 
     group: {
 
+        async getLoggedUserGroups(){
+            
+            const response = await fetch(baseURL + '/user/my-groups' , {
+                method: 'get',
+                headers: new Headers( {'Authorization': 'bearer:'+TOKEN } ),
+            })
+            return await response.json()
+        }
     }
 
 }
