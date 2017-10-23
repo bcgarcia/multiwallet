@@ -67,10 +67,7 @@ class HeaderContainer extends Component {
     }
 
     handleChangeBirthDate(date){
-        console.log('new dateeeee',moment(date._d).format('DD-MM-YYYY'))
-        console.log('handlechange')
-        console.log(date._d )
-        console.log('valid date---->',moment(date._d, 'DD-MM-YYYY').isValid() )
+        
         let form ={
             birthDate:{
                 value : '',
@@ -188,7 +185,6 @@ class HeaderContainer extends Component {
     render() {
         return (
             <div>
-            {console.log('selectedDateeeee', this.props.user.birthDate )}
                <Header
                 onLauchModal={this.toggleUserModal}
                 toggle={this.handleToogleHeader} 

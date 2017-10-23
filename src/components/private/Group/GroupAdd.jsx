@@ -23,6 +23,9 @@ class GroupList extends Component{
           <div className="col-md-3">
               <GroupCard /*item={this.props}*/ />
           </div>
+          <div className="col-md-3">
+              <GroupCard /*item={this.props}*/ />
+          </div>
       </div>
           </div>)
   }

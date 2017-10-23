@@ -136,9 +136,49 @@ export function getUserByToken(){
     }
 
     // return {type: GET_USER , payload: token}
-
-
 }
+
+/**
+ * async function to log a registered user
+ * @param {*object} user 
+ */
+export function getMyGroups(){
+
+    return async ( dispatch ) =>{
+
+        dispatch( sendingRequest(true) )
+        try {
+            const responsePet = await API.group.getLoggedUserGroups()
+            const response = await responsePet
+            if( lodash.isEmpty(response) || response.status == 500 ){ // si la respuesta es vacía o el servidor devuelve un error 500...
+                dispatch(sendingRequest(false))
+                dispatch( getUserGroupsFail({ error: errorMessages.SERVER_NO_RESPONSE}) )
+                const notif = {title: 'error', message : errorMessages.SERVER_NO_RESPONSE, level : 'error'}
+                dispatch( addNotification(notif) )
+            }
+            else if( response.status == 400 ){ // si la respuiesta es un error 400 ..
+                dispatch(sendingRequest(false))
+                dispatch( getUserGroupsFail({ error: errorMessages.SERVER_NO_RESPONSE}) )
+                const notif = {title: 'error', message : response.message, level : 'error'}
+                dispatch( addNotification(notif) )
+                forwardTo('/login');
+            }
+            else if( response.status == 200 ){
+                dispatch( sendingRequest( false ) )
+                dispatch( getUserGroupsOk( { groups: response.groups} ) )
+            }
+
+
+        } catch (error) {
+            dispatch( getUserFail(error) )
+            dispatch( sendingRequest(false) )
+            const notif = {title: 'error', message : response.message, level : 'error'}
+                dispatch( addNotification(notif) )
+        }
+
+    }
+}
+
 
 /**
  * async function to log a registered user

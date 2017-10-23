@@ -76,18 +76,18 @@ const initialState = {
         uid             : '',
         error           : null,
         loaded          : false,
-    },
-    userGroups:{
-        list        : [],
-        loaded      : false,
-        groupActive : null,
-        error       : null
-    },
-    userEvents:{
-        list        : [],
-        loaded      : false,
-        groupActive : null,
-        error       : null
+        groups:{
+            list        : [],
+            loaded      : false,
+            groupActive : null,
+            error       : null
+        },
+        events:{
+            list        : [],
+            loaded      : false,
+            groupActive : null,
+            error       : null
+        },
     },
     groups:{
         list        : [],

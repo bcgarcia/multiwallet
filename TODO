@@ -2,7 +2,7 @@
 general:
     ☐ valores de estado para los inputs (sucess,error,warning) pasarlos como metodo de array en vez de a machete
     ☐ valores mensajes de error de los campos pasados completarlos como método en vez de a machete
-  
+    ☐ crear menu lateral derecho con tienes dudas. Reportar errores. proximos eventos, eventos pasados,eventos jugando..
 
 user:
     ☐ registrar un usuario
@@ -12,3 +12,6 @@ grupo:
     ☐ crear un grupo
     ☐ buscar grupos
     ☐ solicitar acceso a grupo
+
+notificaciones:
+    ☐ al hacer click en el desplegable ver estructura "github" está bastante bien
