@@ -22,7 +22,7 @@ const API = {
         },
 
         async login(data) {
-            //TODO:pasar a utils 
+            
             const searchParams = Object.keys(data).map((key) => {
                 return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
             }).join('&');
