@@ -5,8 +5,6 @@ import {bindActionCreators} from 'redux'
 import HeaderContainer from '../Header/HeaderContainer'
 import Group from './Group'
 import {browserHistory} from 'react-router'
-
-
 import * as groupActions from '../../../actions/groupActions'
 import * as appActions from '../../../actions/appActions'
 
@@ -14,20 +12,9 @@ class GroupItemContainer extends Component{
 
     constructor(props){
         super(props)
-        this.handleNewGroup = this.handleEditGroup.bind(this)
-    }
-
-    handleEditGroup(){
-
-        browserHistory.push('groups/new')
-
     }
 
     render(){
-
-        {console.log('proooops')}
-        {console.log(this.props)}
-        
         return(<div> 
             <HeaderContainer />
             <Group 

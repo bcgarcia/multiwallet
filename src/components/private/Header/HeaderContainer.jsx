@@ -20,7 +20,6 @@ class HeaderContainer extends Component {
         this.state                          = {modal: false};
         this.toggleUserModal                = this.toggleUserModal.bind(this)
         this.handleLauchModalError          = this.handleLauchModalError.bind(this)
-        this.handleLauchModalError          = this.handleLauchModalError.bind(this)
         this.handleLauchModalSuggest        = this.handleLauchModalSuggest.bind(this)
         this.handleLogout                   = this.handleLogout.bind(this)
         this.handleChangeBirthDate          = this.handleChangeBirthDate.bind(this)

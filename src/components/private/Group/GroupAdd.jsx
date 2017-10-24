@@ -1,33 +1,29 @@
-import React,{Component} from 'react'
-
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Form, FormGroup, Label, Input, InputGroup, FormFeedback, Button, InputGroupAddon,FormText  } from 'reactstrap'
+import LoadingButton from '../../common/LoadingButton'
 import GroupCard from './GroupCard'
-
 import './Group.css'
 
-class GroupList extends Component{
+class GroupList extends Component {
 
-  constructor(props){
-      super(props)
+  constructor(props) {
+    super(props)
   }
 
-  render(){
+  render() {
 
-      return(<div className="group-items-list">
-          <div className="row justify-content-center">
-          <div className="col-md-3">
-              <GroupCard /*item={this.props}*/ />
-          </div>
-          <div className="col-md-3">
-              <GroupCard /*item={this.props}*/ />
-          </div>
-          <div className="col-md-3">
-              <GroupCard /*item={this.props}*/ />
-          </div>
-          <div className="col-md-3">
-              <GroupCard /*item={this.props}*/ />
-          </div>
-      </div>
-          </div>)
+    return (<div className="col-md-12">
+      <Form >
+        
+        {/*
+      this.props.sendingData
+      ? (<LoadingButton buttonStyle={'primary'} block={true} />)
+      : (<Button type="submit" color="primary" block > Create </Button>)
+      */}
+      </Form>
+
+    </div>)
   }
 }
 

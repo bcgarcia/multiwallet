@@ -14,6 +14,10 @@ class GroupContainer extends Component{
 
     constructor(props){
         super(props)
+
+        this.state                          = {modal: false}
+        this.toggleNewGroupModal            = this.toggleNewGroupModal.bind(this)
+        this.handleSubmitNewGroup           = this.handleSubmitNewGroup.bind(this)
     }
 
     async componentDidMount(){
@@ -27,16 +31,25 @@ class GroupContainer extends Component{
     
     }
 
+    handleSubmitNewGroup(){
+
+    }
+
+    toggleNewGroupModal(){
+        this.setState( {modal: !this.state.modal} )        
+    }
 
 
     render(){
         return(<div> 
             <HeaderContainer />
             <Group 
-            renderNewGroup={this.props.newGroup}
-            renderMyListGroups={this.props.listGroup}
-            renderFindGroups={this.props.findGroup}
-            itemActive={'groups'}/>
+            itemActive={'groups'}
+            modal={this.modal}
+            onOpenModal={this.toggleNewGroupModal}
+            sendingData={this.props.app.currentlySending}
+            onSubmitModal={this.handleSubmitNewGroup} 
+            />
         </div>)
     }
 }
@@ -49,9 +62,7 @@ function mapStateToProps(state, ownProps){
     return{
         user      : state.user,
         logged    : state.app.loggedIn,
-        newGroup  : ownProps.params.hasOwnProperty('option') && ownProps.params.option == 'new'  ? true : false , 
-        findGroup : ownProps.params.hasOwnProperty('option') && ownProps.params.option == 'find' ? true : false,
-        listGroup : !ownProps.params.hasOwnProperty('option')                                    ? true : false
+        app       : state.app,
     }
 }
 
