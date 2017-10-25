@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
-import { Label,Form,FormGroup,Modal,Input,ModalBody,ModalHeader,ModalFooter,ButtonGroup, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap'
+import { ButtonGroup, Button } from 'reactstrap'
 import { browserHistory } from 'react-router'
 import Sidebar from '../Sidebar/Sidebar'
+import GroupAdd from './GroupAdd'
 import GroupList from './GroupList'
 import * as userActions from '../../../actions/userActions'
 import * as groupActions from '../../../actions/groupActions'
@@ -14,16 +15,10 @@ class Group extends Component {
 
   constructor(props) {
     super(props)
-
-    console.log('groooouuuuuup', this.props)
   }
 
   render() {
-    let renderize = null
-    if (this.props.renderNewGroup) { renderize = <GroupAdd /> }
    
-    else if (this.props.renderFindGroups) { /*renderize = <GroupFind /> */ }
-
     return (
       <div className="">
         <div className="">
@@ -44,31 +39,12 @@ class Group extends Component {
             </div>
           </div>
         </div>
-
-        <Modal size={"500"} isOpen={this.props.modal} toggle={this.props.onOpenModal} >
-          <Form onSubmit={this.onSubmitModal}>
-            <ModalHeader toggle={this.props.onOpenModal}> Create new group </ModalHeader>
-            <ModalBody>
-              <div className="row">
-              <div className="col-md-4">
-                <div className="form-group">
-                  <FormGroup>
-                    <Label for="name">Nombre</Label>
-                    <Input type="text" id="name" defaultValue={''} name="name" />
-                    {/*this.props.formState.name.error ? (<FormFeedback>{this.props.formState.name.errorMessage}</FormFeedback>) : (<div></div>)*/}
-                  </FormGroup>
-                </div>
-              </div>
-              </div>
-            </ModalBody>
-            <ModalFooter>
-              {this.props.sendingData
-                  ? (<LoadingButton buttonStyle={'primary'} block={false} />)
-                  : (<Button type="submit" color="primary" > submit action </Button>)}
-              <Button color="secondary" onClick={this.props.onOpenModal}>Cancel</Button>
-            </ModalFooter>
-          </Form>
-        </Modal>
+        <GroupAdd 
+        modal={this.props.modal} 
+        onToggle={this.props.onOpenModal}
+        onSubmitModal={this.props.onSubmitModal} 
+        sendingData={this.props.sendingData}
+        form={this.props.form} />
       </div>
     )
   }

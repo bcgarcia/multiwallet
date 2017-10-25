@@ -10,8 +10,7 @@ var  Validator = {
         else return true
     },
 
-    isSamePassword(pass , rpass){ return (pass == rpass) ? true : false }
-
+    isSamePassword(pass , rpass){ return (pass == rpass) ? true : false },
 }
 
 export default Validator

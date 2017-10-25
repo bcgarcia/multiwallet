@@ -4,7 +4,7 @@ general:
     ☐ valores mensajes de error de los campos pasados completarlos como método en vez de a machete
     ☐ crear menu lateral derecho con tienes dudas. Reportar errores. proximos eventos, eventos pasados,eventos jugando..
     ☐ ojear https://github.com/jprichardson/ip-location o https://github.com/bluesmoon/node-geoip para capturar automaticamente CP y direcciones
-    
+    ☐ usar librería validator 
 user:
     ☐ registrar un usuario
     ☐ eliminar un usuario
