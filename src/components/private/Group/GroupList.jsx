@@ -1,22 +1,17 @@
 import React from 'react'
-  
+import lodash from 'lodash'
 import GroupCard from './GroupCard'
-
+import NoGroup from '../Group/NoGroups'
 
 const GroupList = (items)=> (
-    <div className="group-items-list">
-    <div className="row justify-content-center">
-        <div className="col-md-3">
-            <GroupCard /*item={this.props}*/ />
+    <div className="col-md-12 group-items-list">
+        <div className="row justify-content-center">
+            {lodash.size() == 0
+            ? 
+            ( <div className="col-md-6"> <NoGroup /> </div> )
+            : 
+            (items.map( item =>{<div className="col-md-3"><GroupCard /*item={this.props}*/ /></div>}))}
         </div>
-        <div className="col-md-3">
-            <GroupCard /*item={this.props}*/ />
-        </div>
-        <div className="col-md-3">
-            <GroupCard /*item={this.props}*/ />
-        </div>
-    </div>
-    </div>
-)
+    </div>)
 
 export default GroupList

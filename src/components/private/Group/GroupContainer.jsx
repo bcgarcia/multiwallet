@@ -14,7 +14,63 @@ class GroupContainer extends Component{
 
     constructor(props){
         super(props)
+        this.state = {
+            modal: false,
+            groupForm :{
+                name:{
+                    status: '',
+                    value: '',
+                    helpText: '',
+                    errorMessage: '',
+                    error: false,
+                    validate: (value)=>{
+                        return value == '' ? true : false
+                    }
+                },
+                location:{
+                    status: '',
+                    value: '',
+                    helpText: '',
+                    errorMessage: '',
+                    error: false
+                },
+                locationCode:{
+                    status: '',
+                    value: '',
+                    helpText: '',
+                    errorMessage: '',
+                    error:false
+                },
+                description:{
+                    status: '',
+                    value: '',
+                    helpText: '',
+                    errorMessage: '',
+                    error:false
+                }
+            }
+        }
+
+        this.toggleNewGroupModal  = this.toggleNewGroupModal.bind(this)
+        this.handleSubmitNewGroup = this.handleSubmitNewGroup.bind(this)
     }
+
+    validateGroup(form){
+        
+
+
+        if( form.name.validate(form.name.value) ){
+            form.name.error = true
+            form.name.status = 'error'
+            form.name.errorMessage = 'This field is required!'
+
+            this.setState( {groupForm : form} )
+        }
+
+    }
+
+    toggleNewGroupModal(){ this.setState( {modal: !this.state.modal} ) }
+
 
     async componentDidMount(){
         if (!this.props.logged ) browserHistory.push('/login')
@@ -23,35 +79,47 @@ class GroupContainer extends Component{
 
     async componentWillMount(){
     
-        
-    
     }
 
+    handleSubmitNewGroup(event){
+        event.preventDefault()
+        console.log('ei vamos')
 
+        let form = {
+            name:{
+                status: '',
+                value: '',
+                helpText: '',
+                errorMessage: '',
+                error: false,
+                
+            }
+        }
+
+        this.validateGroup(form)
+    }
+
+    
 
     render(){
         return(<div> 
             <HeaderContainer />
             <Group 
-            renderNewGroup={this.props.newGroup}
-            renderMyListGroups={this.props.listGroup}
-            renderFindGroups={this.props.findGroup}
-            itemActive={'groups'}/>
+            itemActive={'groups'}
+            modal={this.state.modal}
+            onOpenModal={this.toggleNewGroupModal}
+            sendingData={this.props.app.currentlySending}
+            onSubmitModal={this.handleSubmitNewGroup} 
+            form={this.state.groupForm}/>
         </div>)
     }
 }
 
 function mapStateToProps(state, ownProps){
-    
-    console.log(ownProps.params.hasOwnProperty('option') )
-    console.log('ownprops',ownProps.params )
-    
     return{
         user      : state.user,
         logged    : state.app.loggedIn,
-        newGroup  : ownProps.params.hasOwnProperty('option') && ownProps.params.option == 'new'  ? true : false , 
-        findGroup : ownProps.params.hasOwnProperty('option') && ownProps.params.option == 'find' ? true : false,
-        listGroup : !ownProps.params.hasOwnProperty('option')                                    ? true : false
+        app       : state.app,
     }
 }
 
