@@ -14,60 +14,11 @@ class GroupContainer extends Component{
 
     constructor(props){
         super(props)
-        this.state = {
-            modal: false,
-            groupForm :{
-                name:{
-                    status: '',
-                    value: '',
-                    helpText: '',
-                    errorMessage: '',
-                    error: false,
-                    validate: (value)=>{
-                        return value == '' ? true : false
-                    }
-                },
-                location:{
-                    status: '',
-                    value: '',
-                    helpText: '',
-                    errorMessage: '',
-                    error: false
-                },
-                locationCode:{
-                    status: '',
-                    value: '',
-                    helpText: '',
-                    errorMessage: '',
-                    error:false
-                },
-                description:{
-                    status: '',
-                    value: '',
-                    helpText: '',
-                    errorMessage: '',
-                    error:false
-                }
-            }
-        }
-
+        this.state = {modal: false}
         this.toggleNewGroupModal  = this.toggleNewGroupModal.bind(this)
         this.handleSubmitNewGroup = this.handleSubmitNewGroup.bind(this)
     }
 
-    validateGroup(form){
-        
-
-
-        if( form.name.validate(form.name.value) ){
-            form.name.error = true
-            form.name.status = 'error'
-            form.name.errorMessage = 'This field is required!'
-
-            this.setState( {groupForm : form} )
-        }
-
-    }
 
     toggleNewGroupModal(){ this.setState( {modal: !this.state.modal} ) }
 
@@ -81,22 +32,13 @@ class GroupContainer extends Component{
     
     }
 
-    handleSubmitNewGroup(event){
-        event.preventDefault()
+    handleSubmitNewGroup(form){
+        form.preventDefault()
         console.log('ei vamos')
 
-        let form = {
-            name:{
-                status: '',
-                value: '',
-                helpText: '',
-                errorMessage: '',
-                error: false,
-                
-            }
-        }
+       
 
-        this.validateGroup(form)
+        
     }
 
     
@@ -109,8 +51,7 @@ class GroupContainer extends Component{
             modal={this.state.modal}
             onOpenModal={this.toggleNewGroupModal}
             sendingData={this.props.app.currentlySending}
-            onSubmitModal={this.handleSubmitNewGroup} 
-            form={this.state.groupForm}/>
+            onSubmitModal={this.handleSubmitNewGroup} />
         </div>)
     }
 }
