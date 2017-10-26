@@ -43,8 +43,7 @@ class Group extends Component {
         modal={this.props.modal} 
         onToggle={this.props.onOpenModal}
         onSubmitModal={this.props.onSubmitModal} 
-        sendingData={this.props.sendingData}
-        form={this.props.form} />
+        sendingData={this.props.sendingData} />
       </div>
     )
   }
