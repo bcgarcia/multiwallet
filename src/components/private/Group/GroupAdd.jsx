@@ -19,74 +19,103 @@ class GroupAdd extends Component {
       inputList : [ 'name' , 'location' , 'locationCode' , 'description' ], // list of inputs in the form
 
       groupForm: {
-        name: {
-          status: '',
-          value: '',
-          helpText: '',
-          errorMessage: '',
-          error: false,
-          validate: (val)=>{
-            return {
-              error: true,
-              errorMessage: "this field is required name",
-              status: 'error'
+          name: {
+            status: '',
+            value: '',
+            helpText: '',
+            errorMessage: '',
+            error: false,
+            validate: (val)=>{
+              if( val == "" ){
+                return {
+                  error: true,
+                  errorMessage: "field required",
+                  status: 'danger'
+                }
+              }
+              else{
+                return {
+                  error: false,
+                  errorMessage: "",
+                  status: 'success'
+                }
+              }
+              
             }
-          }
-        },
+          },
         
-        location: {
-          status: '',
-          value: '',
-          helpText: '',
-          errorMessage: '',
-          error: false,
-          validate: (val)=>{
+          location: {
+            status: '',
+            value: '',
+            helpText: '',
+            errorMessage: '',
+            error: false,
+            validate: (val)=>{
 
-            if(_.isEmpty(val)){
-              return {
-                error: true,
-                errorMessage: "this field is required locat",
-                status: 'error'
+              if( val == "" ){
+                return {
+                  error: true,
+                  errorMessage: "field required",
+                  status: 'danger'
+                }
+              }
+              else{
+                return {
+                  error: false,
+                  errorMessage: '',
+                  status: 'success',
+                }
               }
             }
-            else{
-              return {
-                error: false,
-                errorMessage: null,
-                status: ''
+          },
+          locationCode: {
+            status: '',
+            value: '',
+            helpText: '',
+            errorMessage: '',
+            error: false,
+            validate: (val)=>{
+              if( val == ''){
+                
+                return {
+                  error: true,
+                  errorMessage: "field required",
+                  status: 'danger',
+                }
+
+              }
+              else{
+                return {
+                  error: false,
+                  errorMessage: "",
+                  status: 'success',
+                }
+              }
+            }
+          },
+          description: {
+            status: '',
+            value: '',
+            helpText: '',
+            errorMessage: '',
+            error: false,
+            validate: (val)=>{
+              if( val == ''){
+                return {
+                  error: true,
+                  errorMessage: "field required",
+                  status: 'danger',
+                }
+              }
+              else{
+                return {
+                  error: false,
+                  errorMessage: "",
+                  status: 'success',
+                }
               }
             }
           }
-          
-        },
-        locationCode: {
-          status: '',
-          value: '',
-          helpText: '',
-          errorMessage: '',
-          error: false,
-          validate: (val)=>{
-            return {
-              error: true,
-              errorMessage: "this field is required code",
-              status: 'error'
-            }
-          }
-        },
-        description: {
-          status: '',
-          value: '',
-          helpText: '',
-          errorMessage: '',
-          error: false,
-          validate: (val)=>{
-            return {
-              error: true,
-              errorMessage: "this field is required desc",
-              status: 'error'
-            }
-          }
-        }
       }
     }
   }
@@ -98,41 +127,44 @@ class GroupAdd extends Component {
 
     event.preventDefault()
 
+    let fr = this.state.groupForm
+
     this.state.inputList.map((item, i) => {
+        console.log(event.target[item].value)
+        
+        // console.log('key and return validate',this.state.groupForm[item].validate(event.target[item].value))
 
+        let auxInput = {}
+
+        auxInput = this.state.groupForm[item].validate(event.target[item].value)
+        auxInput.value = event.target[item].value 
+        auxInput.validate = fr[item].validate
+        fr[item] = auxInput
       
-      console.log(event.target[item].value)
+        console.log('newstateInputform', auxInput )
+  
+        //fr = Object.assign( this.state.groupForm[item] , fr[item] );
+        
 
-      console.log('key and return validate',this.state.groupForm[item].validate(event.target[item].value))
+      // this.setState({
+      //   groupForm : newStateForm
+      // })
 
-      let newinputState = this.state.groupForm[item].validate(event.target[item].value)
-
-      console.log('returned', newinputState)
-
-      const newStateForm = Object.assign(this.state.groupForm , newinputState )
-
-       console.log('newstateform', newStateForm )
-       this.setState({
-         groupForm : newStateForm
-       })
 
     })
 
-    // let fr = this.state.groupForm
+    this.setState({
+      groupForm: fr
+    })
 
+
+    // let fr = this.state.groupForm
     // Object.keys(fr).map((key) => {
       // return encodeURIComponent(key) + '=' + encodeURIComponent(fr[key]);
-
       // console.log(key) 
-      
       // console.log('key and validate',this.state.groupForm[key].validate(event.target['name'].value))
-
   // })
     // console.log(this.input)
-
-  
-
-
     //this.props.onSubmitModal(form)
   }
 
@@ -140,6 +172,10 @@ class GroupAdd extends Component {
   render() {
 
     let form = this.state.groupForm
+
+    console.log('form rendeeeeer' , form )
+    {console.log('color' , form.name.status)}
+    {console.log('color' , form.name.error)}
 
     return (
       <Modal size={"500"} isOpen={this.props.modal} toggle={this.props.onToggle} >
@@ -149,16 +185,16 @@ class GroupAdd extends Component {
           <div className="row">
             <div className="col-md-12">
               <div className="form-group">
-                <FormGroup color={form.name.state}>
+                <FormGroup color={form.name.status} >
                   <Label for="name">Nombre</Label>
-                  <Input getRef={node => this.inputName = node} type="text" id="name" defaultValue={form.name.value} name="name" />
+                  <Input  getRef={node => this.inputName = node} type="text" id="name" defaultValue={form.name.value} name="name" />
                   {form.name.error ? (<FormFeedback>{form.name.errorMessage}</FormFeedback>) : (<div></div>)}
                 </FormGroup>
               </div>
             </div>
             <div className="col-md-4">
               <div className="form-group">
-                <FormGroup>
+                <FormGroup color={form.locationCode.status} >
                   <Label for="locationCode">Código Postal</Label>
                   <Input getRef={node => this.inputLocationCode = node} type="text" name="locationCode" id="locationCode" defaultValue={form.locationCode.value} />
                   {form.locationCode.error ? (<FormFeedback>{form.locationCode.errorMessage}</FormFeedback>) : (<div></div>)}
@@ -167,19 +203,19 @@ class GroupAdd extends Component {
             </div>
             <div className="col-md-8">
               <div className="form-group">
-                <FormGroup>
+                <FormGroup color={form.location.status} >
                   <Label for="name">Location</Label>
-                  <Input getRef={node => this.inputLocation = node} type="text" name="location" id="location" defaultValue={form.location.value} />
-                  {/*this.props.formState.name.error ? (<FormFeedback>{this.props.formState.name.errorMessage}</FormFeedback>) : (<div></div>)*/}
+                  <Input  getRef={node => this.inputLocation = node} type="text" name="location" id="location" defaultValue={form.location.value} />
+                  {form.location.error ? (<FormFeedback>{form.location.errorMessage}</FormFeedback>) : (<div></div>)}
                 </FormGroup>
               </div>
             </div>
             <div className="col-md-12">
               <div className="form-group">
-                <FormGroup>
+                <FormGroup color={form.description.status} >
                   <Label for="name">Descripción</Label>
                   <Input getRef={node => this.inputTextarea = node} type="textarea" name="description" id="description" defaultValue={form.description.value} />
-                  {/*this.props.formState.name.error ? (<FormFeedback>{this.props.formState.name.errorMessage}</FormFeedback>) : (<div></div>)*/}
+                  {form.description.error ? (<FormFeedback>{form.description.errorMessage}</FormFeedback>) : (<div></div>)}
                 </FormGroup>
               </div>
             </div>
