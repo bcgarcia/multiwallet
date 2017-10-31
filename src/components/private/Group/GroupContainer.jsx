@@ -32,16 +32,13 @@ class GroupContainer extends Component{
     
     }
 
-    handleSubmitNewGroup(form){
-        form.preventDefault()
-        console.log('ei vamos')
+    async handleSubmitNewGroup(form){
+        //form.preventDefault()
+        console.log('ei vamos',form)
 
-       
-
-        
+        await this.props.userActions.newGroup(form)
     }
 
-    
 
     render(){
         return(<div> 

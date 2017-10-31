@@ -4,8 +4,19 @@ import auth from '../utils/localStorage'
 const baseURL = "http://localhost:8088/api"
 const TOKEN = auth.userToken()
 
+/******************************
+ ******************************
+ --object to consume api rest--
+ ******************************
+ ******************************/
+
 const API = {
     user: {
+        
+        /**
+         * async function to consume api rest
+         * @param {*object} user 
+         */
         async get(id) {
             const response = await fetch(baseURL + '/user/' + id, {
                 method: 'get',
@@ -76,10 +87,25 @@ const API = {
     group: {
 
         async getLoggedUserGroups(){
-            
             const response = await fetch(baseURL + '/group/user-groups' , {
                 method: 'get',
                 headers: new Headers( {'Authorization': 'bearer:'+TOKEN } ),
+            })
+            return await response.json()
+        },
+
+        async newGroup(group){
+            const searchParams = Object.keys(group).map((key) => {
+                return encodeURIComponent(key) + '=' + encodeURIComponent(group[key]);
+            }).join('&');
+            const response = await fetch( baseURL + '/group/' , {
+                method : 'post',
+                headers : new Headers({
+                    'Authorization' : 'bearer:'+TOKEN ,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept' : 'application/json, application/xml, text/plain, text/html, *.*'
+                }),
+                body: searchParams
             })
             return await response.json()
         }

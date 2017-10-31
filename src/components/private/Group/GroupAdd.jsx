@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
 import { Form, FormGroup, Label, Input, InputGroup, FormFeedback, Button, InputGroupAddon, FormText, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import LoadingButton from '../../common/LoadingButton'
 import GroupCard from './GroupCard'
+import {errorFormElements} from '../../../utils/utils'
 import './Group.css'
 
 class GroupAdd extends Component {
-
 
   constructor(props) {
     super(props)
@@ -40,10 +39,8 @@ class GroupAdd extends Component {
                   status: 'success'
                 }
               }
-              
             }
           },
-        
           location: {
             status: '',
             value: '',
@@ -120,44 +117,28 @@ class GroupAdd extends Component {
     }
   }
 
+  componentWillMount() {
+    this.initialState = this.state
+}
+
   // validate(elementInput) {
   // }
 
   handleSubmit(event){
-
     event.preventDefault()
-
     let fr = this.state.groupForm
-
     this.state.inputList.map((item, i) => {
-        console.log(event.target[item].value)
-        
-        // console.log('key and return validate',this.state.groupForm[item].validate(event.target[item].value))
-
         let auxInput = {}
-
         auxInput = this.state.groupForm[item].validate(event.target[item].value)
         auxInput.value = event.target[item].value 
         auxInput.validate = fr[item].validate
         fr[item] = auxInput
-      
-        console.log('newstateInputform', auxInput )
-  
         //fr = Object.assign( this.state.groupForm[item] , fr[item] );
-        
-
       // this.setState({
       //   groupForm : newStateForm
       // })
-
-
     })
-
-    this.setState({
-      groupForm: fr
-    })
-
-
+    this.setState({groupForm: fr})
     // let fr = this.state.groupForm
     // Object.keys(fr).map((key) => {
       // return encodeURIComponent(key) + '=' + encodeURIComponent(fr[key]);
@@ -165,18 +146,23 @@ class GroupAdd extends Component {
       // console.log('key and validate',this.state.groupForm[key].validate(event.target['name'].value))
   // })
     // console.log(this.input)
-    //this.props.onSubmitModal(form)
+
+    if( !errorFormElements(fr) ){ // if no errors in some input --> submit the form
+      console.log('not error-->submiiiit',fr )
+      this.props.onSubmitModal({
+        'name'          : fr.name.value,
+        'location'      : fr.location.value,
+        'locationCode'  : fr.locationCode.value,
+        'description'   : fr.description.value,
+      })
+      this.setState(this.initialState)
+    }
   }
 
 
   render() {
 
     let form = this.state.groupForm
-
-    console.log('form rendeeeeer' , form )
-    {console.log('color' , form.name.status)}
-    {console.log('color' , form.name.error)}
-
     return (
       <Modal size={"500"} isOpen={this.props.modal} toggle={this.props.onToggle} >
       <Form onSubmit={this.handleSubmit}>

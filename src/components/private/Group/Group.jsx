@@ -35,7 +35,7 @@ class Group extends Component {
                   </ButtonGroup>
                 </div>
               </div>
-              <div className="row hh"> <GroupList items={this.props.userGroupList} /> </div>
+              <div className="row hh"> <GroupList items={this.props.userGroupList} onOpenModal={this.props.onOpenModal} /> </div>
             </div>
           </div>
         </div>

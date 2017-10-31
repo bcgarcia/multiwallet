@@ -1,6 +1,7 @@
 import { 
     REGISTER_USER_OK , LOGIN_USER_OK , FORGOT_PASSWORD_OK,GET_USER, GET_USER_OK,GET_USER_FAIL,
     REGISTER_USER_FAIL , LOGIN_USER_FAIL , FORGOT_PASSWORD_FAIL , UPDATE_USER_FAIL , UPDATE_USER_OK,
+    ADD_GROUP_OK , ADD_GROUP_FAIL,
     ADD_NOTIFICATION,CHANGE_CREDENTIALS_FORM,SENDING_REQUEST,SET_ERROR_MESSAGE,SET_AUTH,CHANGE_REGISTER_FORM,USER_ALREADY_REGISTERED
 } from '../constants/actions'
 
@@ -38,11 +39,7 @@ export function checkAvailableEmail(email){
         } 
         catch (error) {
             dispatch(sendingRequest(false))
-            dispatch(addNotification({
-                title: error.code,
-                message : error.message,
-                level : 'error'
-            }))
+            dispatch(addNotification({title: error.code,message : error.message,level : 'error'}))
         }
     }
 }
@@ -55,16 +52,12 @@ export function checkAvailableEmail(email){
 
 export function update(user){
 
-    console.log('update actions',user)
-
     return async (dispatch) =>{
         dispatch(sendingRequest(true))
         try {
             const responseData = await API.user.update(user)
             const response = await responseData
-            console.log('responseee action', response)
             if(response.status == 200 ){
-
                 dispatch( updateUserOk(response.user) )
                 dispatch( addNotification({title: 'Acción realizada', message : response.message, level : 'success'}) )
             }
@@ -72,16 +65,13 @@ export function update(user){
                 dispatch( updateUserFail({response}) )
                 dispatch( addNotification({title: 'Error en acción', message : error.message, level : 'error'}) )
             }
-            
             dispatch( sendingRequest(false) )
 
         } catch (error) {
-            console.log('error-->' , error )
             dispatch( updateUserFail(error) )
             dispatch( sendingRequest(false) )
             dispatch( addNotification({title: 'Error en acción', message : error.message, level : 'error'}) )
         }
-
     }
 }
 
@@ -139,7 +129,7 @@ export function getUserByToken(){
 }
 
 /**
- * async function to log a registered user
+ * async function to all groups of a user
  * @param {*object} user 
  */
 export function getMyGroups(){
@@ -176,6 +166,47 @@ export function getMyGroups(){
                 dispatch( addNotification(notif) )
         }
 
+    }
+}
+
+
+/**
+ * async function to add a new group
+ * @param {*object} user 
+ */
+export function newGroup(group){
+
+    return async (dispatch) =>{
+
+        dispatch( sendingRequest(true) ) // sending request
+        try {
+            const responsePet = await API.group.newGroup(group)
+            const response = await responsePet
+            console.log('reponseeeeee' , response)
+
+
+            if( response.status == 500 ){ // si la respuesta está vacia o devuelve un error 500...
+                dispatch(sendingRequest(false))
+                dispatch( newGroupFail({ error: errorMessages.SERVER_NO_RESPONSE}) )
+                dispatch( addNotification({title: 'error', message : errorMessages.SERVER_NO_RESPONSE, level : 'error'}) )
+            }
+            else if( response.status == 400 ){ 
+                dispatch(sendingRequest(false))
+                dispatch( newGroupFail({ error: errorMessages.SERVER_NO_RESPONSE}) )
+                dispatch( addNotification( { title: 'error', message : response.statusMessage, level : 'error'} ) )
+                forwardTo('/login')
+            }
+            else if( response.status == 200 ){
+                dispatch( sendingRequest(false) )
+                dispatch( newGroupOk( response.group ) )
+                dispatch( addNotification( { title: 'success', message: response.statusMessage , level: 'success' } ) )
+            }
+        } 
+        catch (error) {
+            dispatch( sendingRequest(false) )
+            dispatch( newGroupFail(error) )
+            dispatch( addNotification( { title: 'error', message: error.statusMessage , level: 'error' } ) )
+        }
     }
 }
 
@@ -219,7 +250,6 @@ export function loginUser( user ){
                     password:{value:'',state:null}
                 }));
                 dispatch(sendingRequest(false) )
-                //dispatch( loginUserOk(loggedUser) )
                 forwardTo('/dashboard');
                 return
             }
@@ -299,6 +329,20 @@ export function getUserFail(error){ return { type:GET_USER_FAIL ,payload: error 
 export function getUserOk(user){ return { type:GET_USER_OK ,payload: user }  }
 
 
+/**
+ * action throwed when a get user  create group success.
+ * 
+ * @param {object} group
+ */
+export function newGroupOk(group){ return { type:ADD_GROUP_OK ,payload: group }  }
+
+/**
+ * action throwed when a get user  create group fails.
+ * 
+ * @param {object} group
+ */
+export function newGroupFail(error){ return { type:ADD_GROUP_FAIL ,payload: error }  }
+
 
 /**
  * action throwed when a new user register fails.
@@ -316,23 +360,13 @@ export function registerUserOk(user){return{ type: REGISTER_USER_OK , payload : 
  * registered user logins to system
  * @param {object} user 
  */
-export function loginUserOk(user){
-    console.log('login user ok')
-    console.log(user)
-    return {
-        type:LOGIN_USER_OK , 
-        payload : user 
-    }
-}
+export function loginUserOk(user){ return { type:LOGIN_USER_OK , payload : user } }
 
 /**
  * registered user fails when login to system
  * @param {object} error 
  */
-export function loginUserFail(error){
-    
-    return { type:LOGIN_USER_FAIL , payload : error }
-}
+export function loginUserFail(error){ return { type:LOGIN_USER_FAIL , payload : error } }
 
 
 /**
