@@ -9,18 +9,36 @@ import lodash from 'lodash'
 
 import * as userActions from '../../../actions/userActions'
 import * as appActions from '../../../actions/appActions'
+import * as groupActions from '../../../actions/groupActions'
 
 class GroupContainer extends Component{
 
     constructor(props){
         super(props)
-        this.state = {modal: false}
+        this.state = {
+            modal           : false,
+            modalGroupFind  : false
+        }
         this.toggleNewGroupModal  = this.toggleNewGroupModal.bind(this)
         this.handleSubmitNewGroup = this.handleSubmitNewGroup.bind(this)
+        this.toggleFindGroupsModal = this.toggleFindGroupsModal.bind(this)
     }
 
-
-    toggleNewGroupModal(){ this.setState( {modal: !this.state.modal} ) }
+    toggleNewGroupModal(){ 
+        this.setState( {
+            modal: !this.state.modal,
+            modalGroupFind: false
+        } ) 
+    }
+    
+    toggleFindGroupsModal(){ 
+        console.log('modalll', this.state.modalGroupFind)
+        //await this.props.groupActions.getGroups({})
+        this.setState( {
+            modalGroupFind: !this.state.modalGroupFind,
+            modal: false,
+        } ) 
+    }
 
 
     async componentDidMount(){
@@ -28,14 +46,11 @@ class GroupContainer extends Component{
         if ( ! this.props.user.loaded ) await this.props.userActions.getUserByToken()
     }
 
-    async componentWillMount(){
+    // async componentWillMount(){
     
-    }
+    // }
 
     async handleSubmitNewGroup(form){
-        //form.preventDefault()
-        console.log('ei vamos',form)
-
         await this.props.userActions.newGroup(form)
     }
 
@@ -44,17 +59,20 @@ class GroupContainer extends Component{
         return(<div> 
             <HeaderContainer />
             <Group 
-            itemActive={'groups'}
-            modal={this.state.modal}
-            onOpenModal={this.toggleNewGroupModal}
-            sendingData={this.props.app.currentlySending}
-            onSubmitModal={this.handleSubmitNewGroup} />
+                itemActive={'groups'}
+                modal={this.state.modal}
+                modalFind={this.state.modalGroupFind}
+                onOpenModalFind={this.toggleFindGroupsModal}
+                onOpenModal={this.toggleNewGroupModal}
+                sendingData={this.props.app.currentlySending}
+                onSubmitModal={this.handleSubmitNewGroup} />
         </div>)
     }
 }
 
 function mapStateToProps(state, ownProps){
     return{
+        group     : state.group,
         user      : state.user,
         logged    : state.app.loggedIn,
         app       : state.app,
@@ -64,7 +82,8 @@ function mapStateToProps(state, ownProps){
 function mapDispatchToProps(dispatch){
     return {
         userActions:    bindActionCreators(userActions, dispatch),
-        appActions:     bindActionCreators(appActions, dispatch)
+        appActions:     bindActionCreators(appActions, dispatch),
+        groupActions:   bindActionCreators(groupActions , dispatch)
     }
 }
 

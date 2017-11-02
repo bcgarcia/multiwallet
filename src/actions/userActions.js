@@ -172,7 +172,7 @@ export function getMyGroups(){
 
 /**
  * async function to add a new group
- * @param {*object} user 
+ * @param {*object} group 
  */
 export function newGroup(group){
 
@@ -210,6 +210,23 @@ export function newGroup(group){
     }
 }
 
+export function getUserGroups(){
+
+    return async ( dispatch ) =>{
+
+        dispatch( () => {
+            dispatch( sendingRequest(true) )
+
+            try {
+                
+            } catch (error) {
+                dispatch( sendingRequest(false) )
+                // dispatch()
+            }
+
+        })
+    }
+}
 
 /**
  * async function to log a registered user

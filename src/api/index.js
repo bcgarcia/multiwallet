@@ -108,9 +108,19 @@ const API = {
                 body: searchParams
             })
             return await response.json()
+        },
+
+        async getUserGroups(){
+
+            const response = await fetch(baseURL + '/group/user-groups' ,{
+                method: 'get',
+                headers: new Headers({
+                    'Authorization' : 'bearer:'+TOKEN,
+                })
+            })
+            return await response.json()
         }
     }
-
 }
 
 export default API

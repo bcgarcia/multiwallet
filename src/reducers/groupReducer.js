@@ -1,32 +1,38 @@
 import moment from 'moment'
-// import {} from '../constants/actions'
+ import { GET_GROUPS_OK , GET_GROUPS_FAIL } from '../constants/actions'
 
 import initialState from './initialState'
 
 /**
  * reducer : function with a switch, receives a type and changes a piece of state 
  * but not modifies (it generates and returns a copy) 
+ * 
+ * initialstate :
+ *  list        : [],
+ *  loaded      : false,
+ *  groupActive : null,
+ *  error       : null
  */
 
  export default function groupReducer(state = initialState.groups , actions ){
 
     switch ( actions.type ) {
         
-        // case NEW_GROUP_FAIL:
+        case GET_GROUPS_OK:
             
-        //     return{
-        //         ...state,
-        //         error           : true,
-        //         loaded          : true
-        //     }
+            return{
+                ...state,
+                error           : true,
+                loaded          : true
+            }
         
-        // case REGISTER_USER_OK:
+        case GET_GROUPS_FAIL:
             
-        //     return{
-        //         ...state,
-        //         error: false,
-        //         loaded: true
-        //     }
+            return{
+                ...state,
+                error: false,
+                loaded: true
+            }
         
     
         default:

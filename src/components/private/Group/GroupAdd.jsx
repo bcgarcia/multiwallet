@@ -119,7 +119,7 @@ class GroupAdd extends Component {
 
   componentWillMount() {
     this.initialState = this.state
-}
+  }
 
   // validate(elementInput) {
   // }
