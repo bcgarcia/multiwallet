@@ -11,7 +11,7 @@ user:
     ✔ editar un usuario
 
 grupo:
-    ☐ crear un grupo
+    ✔ crear un grupo
     ☐ buscar grupos
     ☐ solicitar acceso a grupo
 

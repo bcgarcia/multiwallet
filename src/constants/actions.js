@@ -33,5 +33,9 @@ export const GET_USER_FAIL                      = 'GET_USER_FAIL'
 export const GET_USER_OK                        = 'GET_USER_OK'
 export const UPDATE_USER_FAIL                   = 'UPDATE_USER_FAIL'
 export const UPDATE_USER_OK                     = 'UPDATE_USER_OK'
+export const ADD_GROUP_OK                       = 'ADD_GROUP_OK'
+export const ADD_GROUP_FAIL                     = 'ADD_GROUP_FAIL'
+export const GET_GROUPS_FAIL                    = 'GET_GROUPS_FAIL'
+export const GET_GROUPS_OK                      = 'GET_GROUPS_OK'
 
  
