@@ -31,15 +31,14 @@ class GroupContainer extends Component{
         } ) 
     }
     
-    toggleFindGroupsModal(){ 
-        console.log('modalll', this.state.modalGroupFind)
-        //await this.props.groupActions.getGroups({})
+    async toggleFindGroupsModal(){ 
+
+        await this.props.groupActions.getGroups({})
         this.setState( {
             modalGroupFind: !this.state.modalGroupFind,
             modal: false,
-        } ) 
+        }) 
     }
-
 
     async componentDidMount(){
         if (!this.props.logged ) browserHistory.push('/login')

@@ -23,7 +23,8 @@ import initialState from './initialState'
             return{
                 ...state,
                 error           : true,
-                loaded          : true
+                loaded          : true,
+                list            : actions.groups
             }
         
         case GET_GROUPS_FAIL:
@@ -31,7 +32,8 @@ import initialState from './initialState'
             return{
                 ...state,
                 error: false,
-                loaded: true
+                loaded: true,
+                list : []
             }
         
     

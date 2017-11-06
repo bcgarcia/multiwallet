@@ -119,6 +119,19 @@ const API = {
                 })
             })
             return await response.json()
+        },
+
+        async getGroups(findOptions){
+
+            const response = await fetch(baseURL+'/group/find', {
+                method: 'post',
+                headers: new Headers({
+                    'Authorization' : 'bearer:'+TOKEN,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json, application/xml, text/plain, text/html, *.*'
+                })
+            })
+            return await response.json()
         }
     }
 }
