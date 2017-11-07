@@ -24,7 +24,7 @@ import initialState from './initialState'
                 ...state,
                 error           : true,
                 loaded          : true,
-                list            : actions.groups
+                list            : actions.payload
             }
         
         case GET_GROUPS_FAIL:

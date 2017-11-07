@@ -16,6 +16,8 @@ export function getGroups(findOptions){
             const responseD = await API.group.getGroups(findOptions)
             const response = await responseD
             
+            console.log('reponseeeee',response)
+
             if( response.status == 500 ){
                 dispatch(sendingRequest(false))
                 dispatch( getGroupsFail({ error: errorMessages.SERVER_NO_RESPONSE}) )
@@ -27,7 +29,7 @@ export function getGroups(findOptions){
             }
             else if( response.status == 200 ){
                 dispatch( sendingRequest(false) )
-                dispatch( newGroupOk( response.groups ) )
+                dispatch( getGroupsOk( response.groups ) )
             }
         } 
         catch (error) {

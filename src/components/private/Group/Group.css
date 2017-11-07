@@ -1,3 +1,7 @@
 .group-items-list{
     margin-top: 30px;
 }
+
+.modalMaxWidth800{max-width: 800px;}
+.modalMaxWidth700{max-width: 700px;}
+.modalMaxWidth600{max-width: 600px;}

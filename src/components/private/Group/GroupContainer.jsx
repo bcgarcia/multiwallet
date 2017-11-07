@@ -57,7 +57,8 @@ class GroupContainer extends Component{
     render(){
         return(<div> 
             <HeaderContainer />
-            <Group 
+            <Group
+                groups={this.props.groups} 
                 itemActive={'groups'}
                 modal={this.state.modal}
                 modalFind={this.state.modalGroupFind}
@@ -71,7 +72,7 @@ class GroupContainer extends Component{
 
 function mapStateToProps(state, ownProps){
     return{
-        group     : state.group,
+        groups    : state.groups,
         user      : state.user,
         logged    : state.app.loggedIn,
         app       : state.app,

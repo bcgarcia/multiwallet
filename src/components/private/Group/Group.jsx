@@ -30,8 +30,7 @@ class Group extends Component {
 
   render() {
    
-    console.log('modal find', this.props.modalFind)
-    console.log('modal function ', this.props.onOpenModalFind)
+    console.log('items' , this.props.groups)
 
     return (
       <div className="">
@@ -60,6 +59,7 @@ class Group extends Component {
         sendingData={this.props.sendingData} />
 
         <GroupFind
+        groups={this.props.groups}
         modal={this.props.modalFind}
         onToggle={this.props.onOpenModalFind}
         items = {this.props.groupsList} />

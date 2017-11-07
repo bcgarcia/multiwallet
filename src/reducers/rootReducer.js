@@ -6,10 +6,8 @@ import appReducer from './appReducer'
 import formCredentialsReducer from './formCredentialsReducer'
 import formRegisterReducer from './formRegisterReducer'
 import sidebarReducer from './sidebarReducer'
-
+import groupReducer from './groupReducer'
 //import {reducer as formReducer} from 'redux-form'
-
-
 
 const rootReducer = combineReducers({
      routing: routerReducer,
@@ -18,7 +16,8 @@ const rootReducer = combineReducers({
      app:appReducer,
      formCredentials : formCredentialsReducer,
      formRegister: formRegisterReducer,
-     sidebar : sidebarReducer
+     sidebar : sidebarReducer,
+     groups : groupReducer
 })
 
 export default rootReducer
