@@ -12,7 +12,7 @@ export function anyElementsEmpty(elements) {
   return false;
 }
 /**
- * Checks if any elements of a JSON object are empty
+ * Checks if input of form is in error
  * @param  {object} elements The object that should be checked
  * @return {boolean}         True if there are empty elements, false if there aren't
  */
